@@ -11,8 +11,11 @@ python_package_name: powercontext
 python_package_pin: git+https://github.com/oceanbase/powercontext.git@733e4bf6b378785e76274ff07632029c699ecb09
 python_requires: ">=3.11,<4.0"
 oracle_python: "3.11"
-oracle_dependency_lock: pinned-powermem-equivalent is the powercontext VCS version at python_commit
+oracle_dependency_lock_path: uv.lock
+oracle_dependency_lock_sha256: f8c76c987a77dbed2d245a87212914d2dd68beac7a77a366af858fcaa15df375
+oracle_dependency_lock_mode: export-python-source-at-python_commit-and-run-uv-sync-locked
 contract_sync_version: 0.1.0-phase0
+structured_digest_algorithm: canonical-json-sha256-v1
 
 openapi_path: contract/openapi/powercontext.yaml
 openapi_sha256: a97488e85ab3a9f1db3f1dce720ec74b07c626b1974cc860c67b91cabb22f7e3
@@ -27,14 +30,32 @@ schema_count: 177
 openapi_sha256_crlf_working_tree_note: 188b7cb2f1fff6607876cbda92bb87f0f7a381f231778e09d7025a76d3df9bda
 
 database_contract_version: unversioned-v0.0.2-anchor
-database_schema_digest: 7c57dfd19bc26c7dc037f4336886431b111d9f3d29d94b955c5c135b7926cab0
+database_schema_digest_algorithm: canonical-json-source-manifest-sha256-v1
+database_schema_source_selector: sqlalchemy-table-or-explicit-create-alter-ddl-plus-schema-orchestrator-v1
+database_schema_digest: 8f99bcce7b84f475ee25db730aba4f1ee2a91f09d5a7ef31e65a974f69d919d6
 database_schema_files:
-  - src/powercontext/builtin/persistence/tables.py
-  - src/powercontext/builtin/persistence/sqlite/memory_index.py
-  - src/powercontext/builtin/persistence/sqlite/experience_index.py
-  - src/powercontext/builtin/handoff_report/catalog_store.py
-  - src/powercontext/builtin/handoff_report/sqlite.py
-  - src/powercontext/builtin/handoff_report/workspace_store.py
+  - path: src/powercontext/builtin/handoff_report/catalog_store.py
+    sha256: 49089741e5cd4b15a9be6582fadafe4e722f874781c387180aceddef7ac13afa
+  - path: src/powercontext/builtin/handoff_report/sqlite.py
+    sha256: fd76713f8c4127f87e795e68b80c746d8a12e6e552b8e1e23f6238ccfa448ab2
+  - path: src/powercontext/builtin/handoff_report/workspace_store.py
+    sha256: 67681158e6ba706116eb495364ffb4ec08274c66ebc82ccc37bb3747e0a85578
+  - path: src/powercontext/builtin/persistence/experience_index.py
+    sha256: 9ac35b2f604bef62e86de60e03d578f64544a3ff792a38efd51fd2db6e7d9252
+  - path: src/powercontext/builtin/persistence/memory_schema.py
+    sha256: cb8d3b77f4f65917da48fc44c2f25cba7082e5ec365fa916f06f671aa5dd8adf
+  - path: src/powercontext/builtin/persistence/oceanbase/experience_index.py
+    sha256: 25441fb11dc5c0a22385680d855a9aac3d503ca53bb4d4a457435469ea6ee5ee
+  - path: src/powercontext/builtin/persistence/oceanbase/memory_index.py
+    sha256: 7bab0b424bfa264c9643fd0f1a2778196f4e8a1495bc14b8929b1c74cfa5bc99
+  - path: src/powercontext/builtin/persistence/schema.py
+    sha256: e9678dfc2e2c6f32255de364ca17310b369d48da60d1044518d835c21d791303
+  - path: src/powercontext/builtin/persistence/sqlite/experience_index.py
+    sha256: 5501cfed7fb92a9ee4e6922c49e240c54631a2b05c877ce0bc48c832c85a4d16
+  - path: src/powercontext/builtin/persistence/sqlite/memory_index.py
+    sha256: 815095544a3441261f80441fd92f580d8a0187ca7e43642c62a1d3d42f3083e4
+  - path: src/powercontext/builtin/persistence/tables.py
+    sha256: 03e5dd4caaca89c714745f80164c6daca1bad8b6c83c51a79f7d591dfab03c17
 conformance_contract_version: powercontext.conformance.v0-empty
 
 mcp_protocols:
@@ -64,7 +85,8 @@ mcp_operation_ids:
   - revise_artifact_candidate
   - revise_memory_entry
   - search_memory
-mcp_allowlist_digest: 0204622cfeb093d8c773087c99a0e7fccf2a73fb0180c4dbcc55fbd704dd5f36
+mcp_digest_scope: sorted-operation-ids-and-complete-annotations
+mcp_allowlist_digest: e4ad3cbe9537cac9819f562afebdb3c0b0e638c9f2d03af648f74d0976f6649f
 mcp_annotations:
   read_only_operation_ids:
     - continue_handoff
@@ -93,42 +115,43 @@ mcp_annotations:
     name: select_handoff_workstream
     registered_when: handoff-report-routes-present
     readOnlyHint: true
+    destructiveHint: false
+    idempotentHint: true
+    openWorldHint: false
   validate_output: false
 
-cli_command_tree_digest: 93ac5e0d97955d2d65be1185fbbfde091b46ef285dcb30b3254bd622bd11b404
+cli_command_tree_order: lexical
+cli_command_tree_digest: 2cf97b65726638cd2a0f28597e29acb5ce44f6524ba47927e4bd6e83fd68bb7e
 cli_command_tree:
   - powercontext --version
-  - powercontext live
-  - powercontext ready
-  - powercontext capabilities
-  - powercontext stats
-  - powercontext candidate list
-  - powercontext candidate show
   - powercontext candidate approve
+  - powercontext candidate list
   - powercontext candidate reject
   - powercontext candidate revise experience
   - powercontext candidate revise skill
+  - powercontext candidate show
+  - powercontext capabilities
+  - powercontext doctor
+  - powercontext doctor claude-code
+  - powercontext doctor codex
+  - powercontext doctor dsh
+  - powercontext doctor hermes
   - powercontext experience generate
-  - powercontext skill show
-  - powercontext skill generate
-  - powercontext skill export
-  - powercontext external-skill scan
+  - powercontext external-skill import
   - powercontext external-skill list
   - powercontext external-skill resolve
-  - powercontext external-skill import
+  - powercontext external-skill scan
+  - powercontext live
+  - powercontext ready
   - powercontext server run
-  - powercontext setup codex
   - powercontext setup claude-code
+  - powercontext setup codex
   - powercontext setup dsh
-  - powercontext setup openclaw
-  - powercontext setup pi
   - powercontext setup hermes
-  - powercontext doctor
-  - powercontext doctor codex
-  - powercontext doctor claude-code
-  - powercontext doctor dsh
-  - powercontext doctor pi
-  - powercontext doctor hermes
+  - powercontext skill export
+  - powercontext skill generate
+  - powercontext skill show
+  - powercontext stats
 
 default_configuration_digest: e90566eed982f85e98027a3ef95b08a46c26b403cbb85bdb796ac6adc54dab40
 default_configuration:
@@ -154,10 +177,43 @@ analyzer_prompt_policy:
   handoff_schema: powercontext.handoff.v1
   work_continuity_schema: powercontext.work-continuity.v1
   handoff_report_schema: powercontext.handoff-report.v1
+# analyzer_id is a governance label for Python Analyzer v1. The other IDs are
+# string literals in the pinned Python source.
+analyzer_prompt_policy_sources:
+  analyzer_id:
+    kind: governance-label
+    path: src/powercontext/builtin/artifacts/search.py
+    marker: Apply Analyzer v1
+  memory_extract_coding:
+    kind: python-literal
+    path: src/powercontext/builtin/artifacts/memory/prompts.py
+  memory_extract_conversation:
+    kind: python-literal
+    path: src/powercontext/builtin/artifacts/memory/prompts.py
+  memory_rerank:
+    kind: python-literal
+    path: src/powercontext/builtin/artifacts/memory/reranking.py
+  prepared_context_schema:
+    kind: python-literal
+    path: src/powercontext/builtin/runtime/models.py
+  memory_schema:
+    kind: python-literal
+    path: src/powercontext/builtin/artifacts/memory/models.py
+  handoff_schema:
+    kind: python-literal
+    path: src/powercontext/builtin/artifacts/handoff/models.py
+  work_continuity_schema:
+    kind: python-literal
+    path: src/powercontext/builtin/work/models.py
+  handoff_report_schema:
+    kind: python-literal
+    path: src/powercontext/builtin/handoff_report/report.py
 
 node_versions: [22, 24]
 node_runtime_baseline: 24
-node_client_verified: [22, 24]
+node_client_targets: [22, 24]
+node_client_verified: []
+node_verification_status: pending-phase1-ci
 node_eol_excluded: [20]
 profiles:
   - client
@@ -167,6 +223,7 @@ profiles:
   - full-product
 
 supported_matrix:
+  status: target-not-verified
   os: [linux, macos, windows]
   cpu: [x64, arm64]
   databases:

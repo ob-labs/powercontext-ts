@@ -26,10 +26,10 @@ The only Python → TypeScript channels are contract-sync and the oracle exporte
 | Package pin | `powercontext` at that commit |
 | API | 0.0.2, 52 operations, 177 schemas |
 | MCP allowlist | 22 operations |
-| Node | Client 22/24, Runtime 24; Node 20 is out |
+| Node targets | Client 22/24, Runtime 24; verification starts in Phase 1; Node 20 is out |
 | Database contract | `unversioned-v0.0.2-anchor` until ADR 0002 lands in Python |
 
-Verify the snapshot:
+Verify the complete Phase 0 baseline against the pinned Python source:
 
 ```text
 python tools/contract-sync/verify.py

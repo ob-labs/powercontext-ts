@@ -10,6 +10,7 @@ from __future__ import annotations
 import hashlib
 import json
 import re
+from collections.abc import Iterable, Mapping
 from pathlib import Path
 
 
@@ -26,16 +27,34 @@ def file_sha256(path: Path) -> str:
 
 
 def canonical_json_sha256(value: object) -> str:
-    encoded = json.dumps(value, ensure_ascii=True, separators=(",", ":"), sort_keys=True)
+    """Hash the repository's deterministic JSON encoding for governance data."""
+
+    encoded = json.dumps(
+        value, ensure_ascii=True, separators=(",", ":"), sort_keys=True
+    )
     return sha256_bytes(encoded.encode("utf-8"))
 
 
+def source_manifest_sha256(entries: Iterable[Mapping[str, str]]) -> str:
+    """Hash a path-sorted source manifest containing path and blob SHA-256 values."""
+
+    normalized = sorted(
+        ({"path": entry["path"], "sha256": entry["sha256"]} for entry in entries),
+        key=lambda entry: entry["path"],
+    )
+    return canonical_json_sha256(normalized)
+
+
 def count_operation_ids(openapi_text: str) -> list[str]:
-    return re.findall(r"^      operationId: ([A-Za-z0-9_]+)$", openapi_text, flags=re.MULTILINE)
+    return re.findall(
+        r"^      operationId: ([A-Za-z0-9_]+)$", openapi_text, flags=re.MULTILINE
+    )
 
 
 def count_schema_names(openapi_text: str) -> list[str]:
-    match = re.search(r"^  schemas:\n(.*)", openapi_text, flags=re.MULTILINE | re.DOTALL)
+    match = re.search(
+        r"^  schemas:\n(.*)", openapi_text, flags=re.MULTILINE | re.DOTALL
+    )
     if match is None:
         raise ValueError("components.schemas is missing")
     return re.findall(r"^    ([A-Za-z0-9_]+):$", match.group(1), flags=re.MULTILINE)

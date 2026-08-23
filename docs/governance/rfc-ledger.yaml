@@ -119,9 +119,3 @@ rfcs:
     status: implemented
     parity_source: false
     notes: Python evaluation/ only. Not a TypeScript port target.
-
-  - id: "1299"
-    title: local_server_availability_and_service_installation
-    status: accepted-not-implemented
-    parity_source: false
-    notes: server run plus doctor liveness/readiness are shipped. Native per-user service installation is not in pinned Python and is not an M4 hidden requirement.

@@ -1,0 +1,2 @@
+# Runtime dependency lock for the Phase 0 verification tools.
+PyYAML==6.0.3

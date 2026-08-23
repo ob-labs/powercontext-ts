@@ -20,5 +20,17 @@ From the repository root:
 python tools/contract-sync/verify.py
 ```
 
-The command hashes `openapi/powercontext.yaml` after LF normalization and
-compares it with `openapi_sha256` in `baseline.lock.yaml`.
+The command hashes `openapi/powercontext.yaml` after LF normalization, compares
+it with `openapi_sha256`, and verifies that its content is the OpenAPI blob at
+the exact pinned Python commit. It also validates every other Phase 0 digest and
+source manifest in `baseline.lock.yaml`.
+
+Structured governance values use canonical JSON (`ensure_ascii=true`, sorted
+object keys, no insignificant whitespace) followed by SHA-256. The database
+fingerprint is the same digest over a path-sorted array of `{path, sha256}`
+entries. Each entry hashes the corresponding git blob at `python_commit`. The
+source selector includes Python files under `builtin` containing SQLAlchemy
+`Table(...)` declarations or explicit `CREATE`/`ALTER` DDL, plus the persistence
+schema orchestrator; verification rejects missing or extra entries. Analyzer,
+prompt and schema IDs are checked against pinned Python literals, except
+`analyzer_id`, which is a governance label for Analyzer v1.

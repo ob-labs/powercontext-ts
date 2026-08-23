@@ -31,7 +31,6 @@
 - `evaluation/` 的 Web、Worker、容器调度和报告实现
 - Codex、Claude Code、DSH、Bub、Hermes 插件的实现语言
 - Draft RFC 中尚未落地的未来能力
-- RFC 1299 的操作系统服务安装层
 
 ## 评测平台策略
 
