@@ -1,0 +1,546 @@
+schema: powercontext.capability-manifest.v1
+baseline_commit: 733e4bf6b378785e76274ff07632029c699ecb09
+api_version: 0.0.2
+status: phase-0-frozen
+full_parity: docs/governance/full-parity.md
+
+owners:
+  protocol-owner:
+    role: Protocol, generated types, official Client
+    milestone_focus: [M1, M4]
+  runtime-owner:
+    role: Core, persistence, domain services
+    milestone_focus: [M2, M3, M4]
+  product-owner:
+    role: HTTP Server, MCP, CLI, Dashboard, host acceptance
+    milestone_focus: [M2, M4]
+  conformance-owner:
+    role: Fixtures, oracle, parity reports
+    milestone_focus: [M1, M2, M3, M4]
+  python-owner:
+    role: Python reference coordination and cross-repo PRs
+    milestone_focus: [P5, P11, P12]
+
+unimplemented_defaults:
+  http: Do not register the route in the current profile. Accidental hits return ErrorResponse capability_unavailable; never 200 empty success.
+  capabilities: Keep the matching Capabilities field false. Readiness may be ready or degraded; it must not advertise the missing feature.
+  mcp: Omit the tool until the runtime milestone is done and the operation stays in the frozen 22-id allowlist.
+  cli: Omit the command from the shipped CLI profile until the product milestone.
+  persistence: Do not write a shared Python database. Experimental self-created databases must not be called parity.
+
+profiles:
+  client:
+    first_milestone: M1
+    target_level: C1
+    meaning: Official typed HTTP Client talks to any compliant Server.
+  sqlite-fts:
+    first_milestone: M2
+    target_level: C3
+    meaning: Local deterministic Runtime with Memory FTS and subset HTTP.
+  sqlite-vector:
+    first_milestone: M4
+    target_level: C4
+    meaning: sqlite-fts plus embedding, Vec1, hybrid and rerank.
+  oceanbase-hybrid:
+    first_milestone: M4
+    target_level: C4
+    meaning: OceanBase FTS, vector, HNSW and identity collation.
+  full-product:
+    first_milestone: M4
+    target_level: C5
+    meaning: Full HTTP, MCP, CLI, Dashboard, hosts, ops and release evidence.
+
+operations:
+  - id: get_liveness
+    tag: health
+    owner: product-owner
+    targets:
+      client: { milestone: M1, level: C1 }
+      runtime: { milestone: M2, level: C4, profiles: [sqlite-fts, sqlite-vector, oceanbase-hybrid, full-product] }
+  - id: get_readiness
+    tag: health
+    owner: product-owner
+    targets:
+      client: { milestone: M1, level: C1 }
+      runtime: { milestone: M2, level: C4, profiles: [sqlite-fts, sqlite-vector, oceanbase-hybrid, full-product] }
+  - id: get_capabilities
+    tag: capabilities
+    owner: product-owner
+    targets:
+      client: { milestone: M1, level: C1 }
+      runtime: { milestone: M2, level: C4, profiles: [sqlite-fts, sqlite-vector, oceanbase-hybrid, full-product] }
+  - id: capture_content_source
+    tag: sources
+    owner: runtime-owner
+    targets:
+      client: { milestone: M1, level: C1 }
+      runtime: { milestone: M2, level: C3, profiles: [sqlite-fts, sqlite-vector, oceanbase-hybrid, full-product] }
+  - id: prepare_context
+    tag: context
+    owner: runtime-owner
+    targets:
+      client: { milestone: M1, level: C1 }
+      runtime: { milestone: M2, level: C3, profiles: [sqlite-fts, sqlite-vector, oceanbase-hybrid, full-product] }
+  - id: create_work_contract
+    tag: work
+    owner: runtime-owner
+    targets:
+      client: { milestone: M1, level: C1 }
+      runtime: { milestone: M3, level: C3, profiles: [sqlite-fts, sqlite-vector, oceanbase-hybrid, full-product] }
+  - id: handoff_current_work
+    tag: work
+    owner: runtime-owner
+    targets:
+      client: { milestone: M1, level: C1 }
+      runtime: { milestone: M3, level: C3, profiles: [sqlite-fts, sqlite-vector, oceanbase-hybrid, full-product] }
+  - id: acknowledge_handoff
+    tag: work
+    owner: runtime-owner
+    targets:
+      client: { milestone: M1, level: C1 }
+      runtime: { milestone: M3, level: C3, profiles: [sqlite-fts, sqlite-vector, oceanbase-hybrid, full-product] }
+  - id: record_task_outcome
+    tag: work
+    owner: runtime-owner
+    targets:
+      client: { milestone: M1, level: C1 }
+      runtime: { milestone: M3, level: C3, profiles: [sqlite-fts, sqlite-vector, oceanbase-hybrid, full-product] }
+  - id: activate_handoff
+    tag: handoff
+    owner: runtime-owner
+    targets:
+      client: { milestone: M1, level: C1 }
+      runtime: { milestone: M3, level: C3, profiles: [sqlite-fts, sqlite-vector, oceanbase-hybrid, full-product] }
+  - id: prepare_handoff
+    tag: handoff
+    owner: runtime-owner
+    targets:
+      client: { milestone: M1, level: C1 }
+      runtime: { milestone: M3, level: C3, profiles: [sqlite-fts, sqlite-vector, oceanbase-hybrid, full-product] }
+  - id: finalize_handoff
+    tag: handoff
+    owner: runtime-owner
+    targets:
+      client: { milestone: M1, level: C1 }
+      runtime: { milestone: M3, level: C3, profiles: [sqlite-fts, sqlite-vector, oceanbase-hybrid, full-product] }
+  - id: commit_handoff
+    tag: handoff
+    owner: runtime-owner
+    targets:
+      client: { milestone: M1, level: C1 }
+      runtime: { milestone: M3, level: C3, profiles: [sqlite-fts, sqlite-vector, oceanbase-hybrid, full-product] }
+  - id: continue_handoff
+    tag: handoff
+    owner: runtime-owner
+    targets:
+      client: { milestone: M1, level: C1 }
+      runtime: { milestone: M3, level: C3, profiles: [sqlite-fts, sqlite-vector, oceanbase-hybrid, full-product] }
+  - id: flush_memory
+    tag: memory
+    owner: runtime-owner
+    notes: Explicit remember is M2. Extraction flush needs inference and is M4.
+    unimplemented_before_m4: Capabilities.memory_extraction stays false; flush returns unavailable or a no-work result matching Python when extraction is not configured.
+    targets:
+      client: { milestone: M1, level: C1 }
+      explicit_runtime: { milestone: M2, level: C3, profiles: [sqlite-fts] }
+      extraction_runtime: { milestone: M4, level: C4, profiles: [sqlite-vector, oceanbase-hybrid, full-product] }
+  - id: remember_memory
+    tag: memory
+    owner: runtime-owner
+    targets:
+      client: { milestone: M1, level: C1 }
+      runtime: { milestone: M2, level: C3, profiles: [sqlite-fts, sqlite-vector, oceanbase-hybrid, full-product] }
+  - id: search_memory
+    tag: memory
+    owner: runtime-owner
+    notes: FTS contract is M2. Vector, hybrid, RRF and rerank are M4.
+    targets:
+      client: { milestone: M1, level: C1 }
+      fts: { milestone: M2, level: C3, profiles: [sqlite-fts] }
+      vector: { milestone: M4, level: C4, profiles: [sqlite-vector, oceanbase-hybrid, full-product] }
+  - id: list_memory_entries
+    tag: memory
+    owner: runtime-owner
+    targets:
+      client: { milestone: M1, level: C1 }
+      runtime: { milestone: M2, level: C3, profiles: [sqlite-fts, sqlite-vector, oceanbase-hybrid, full-product] }
+  - id: get_memory_entry
+    tag: memory
+    owner: runtime-owner
+    targets:
+      client: { milestone: M1, level: C1 }
+      runtime: { milestone: M2, level: C3, profiles: [sqlite-fts, sqlite-vector, oceanbase-hybrid, full-product] }
+  - id: revise_memory_entry
+    tag: memory
+    owner: runtime-owner
+    targets:
+      client: { milestone: M1, level: C1 }
+      runtime: { milestone: M2, level: C3, profiles: [sqlite-fts, sqlite-vector, oceanbase-hybrid, full-product] }
+  - id: retire_memory_entry
+    tag: memory
+    owner: runtime-owner
+    targets:
+      client: { milestone: M1, level: C1 }
+      runtime: { milestone: M2, level: C3, profiles: [sqlite-fts, sqlite-vector, oceanbase-hybrid, full-product] }
+  - id: list_memory_changes
+    tag: memory
+    owner: runtime-owner
+    targets:
+      client: { milestone: M1, level: C1 }
+      runtime: { milestone: M2, level: C3, profiles: [sqlite-fts, sqlite-vector, oceanbase-hybrid, full-product] }
+  - id: propose_experience
+    tag: experience
+    owner: runtime-owner
+    targets:
+      client: { milestone: M1, level: C1 }
+      runtime: { milestone: M3, level: C3, profiles: [sqlite-fts, sqlite-vector, oceanbase-hybrid, full-product] }
+  - id: generate_experience
+    tag: experience
+    owner: runtime-owner
+    notes: Deterministic fake generator is M3. Real inference adapter is M4.
+    targets:
+      client: { milestone: M1, level: C1 }
+      contract: { milestone: M3, level: C2, profiles: [sqlite-fts] }
+      inference: { milestone: M4, level: C4, profiles: [sqlite-vector, oceanbase-hybrid, full-product] }
+  - id: get_experience
+    tag: experience
+    owner: runtime-owner
+    targets:
+      client: { milestone: M1, level: C1 }
+      runtime: { milestone: M3, level: C3, profiles: [sqlite-fts, sqlite-vector, oceanbase-hybrid, full-product] }
+  - id: propose_skill
+    tag: skill
+    owner: runtime-owner
+    targets:
+      client: { milestone: M1, level: C1 }
+      runtime: { milestone: M3, level: C3, profiles: [sqlite-fts, sqlite-vector, oceanbase-hybrid, full-product] }
+  - id: generate_skill
+    tag: skill
+    owner: runtime-owner
+    notes: Deterministic fake generator is M3. Real inference adapter is M4.
+    targets:
+      client: { milestone: M1, level: C1 }
+      contract: { milestone: M3, level: C2, profiles: [sqlite-fts] }
+      inference: { milestone: M4, level: C4, profiles: [sqlite-vector, oceanbase-hybrid, full-product] }
+  - id: get_skill
+    tag: skill
+    owner: runtime-owner
+    targets:
+      client: { milestone: M1, level: C1 }
+      runtime: { milestone: M3, level: C3, profiles: [sqlite-fts, sqlite-vector, oceanbase-hybrid, full-product] }
+  - id: scan_external_skills
+    tag: skill
+    owner: runtime-owner
+    targets:
+      client: { milestone: M1, level: C1 }
+      runtime: { milestone: M3, level: C3, profiles: [sqlite-fts, sqlite-vector, oceanbase-hybrid, full-product] }
+  - id: list_external_skills
+    tag: skill
+    owner: runtime-owner
+    targets:
+      client: { milestone: M1, level: C1 }
+      runtime: { milestone: M3, level: C3, profiles: [sqlite-fts, sqlite-vector, oceanbase-hybrid, full-product] }
+  - id: resolve_external_skill
+    tag: skill
+    owner: runtime-owner
+    targets:
+      client: { milestone: M1, level: C1 }
+      runtime: { milestone: M3, level: C3, profiles: [sqlite-fts, sqlite-vector, oceanbase-hybrid, full-product] }
+  - id: import_external_skill
+    tag: skill
+    owner: runtime-owner
+    targets:
+      client: { milestone: M1, level: C1 }
+      runtime: { milestone: M3, level: C3, profiles: [sqlite-fts, sqlite-vector, oceanbase-hybrid, full-product] }
+  - id: list_artifact_candidates
+    tag: review
+    owner: runtime-owner
+    targets:
+      client: { milestone: M1, level: C1 }
+      runtime: { milestone: M3, level: C3, profiles: [sqlite-fts, sqlite-vector, oceanbase-hybrid, full-product] }
+  - id: get_artifact_candidate
+    tag: review
+    owner: runtime-owner
+    targets:
+      client: { milestone: M1, level: C1 }
+      runtime: { milestone: M3, level: C3, profiles: [sqlite-fts, sqlite-vector, oceanbase-hybrid, full-product] }
+  - id: approve_artifact_candidate
+    tag: review
+    owner: runtime-owner
+    targets:
+      client: { milestone: M1, level: C1 }
+      runtime: { milestone: M3, level: C3, profiles: [sqlite-fts, sqlite-vector, oceanbase-hybrid, full-product] }
+  - id: reject_artifact_candidate
+    tag: review
+    owner: runtime-owner
+    targets:
+      client: { milestone: M1, level: C1 }
+      runtime: { milestone: M3, level: C3, profiles: [sqlite-fts, sqlite-vector, oceanbase-hybrid, full-product] }
+  - id: revise_artifact_candidate
+    tag: review
+    owner: runtime-owner
+    targets:
+      client: { milestone: M1, level: C1 }
+      runtime: { milestone: M3, level: C3, profiles: [sqlite-fts, sqlite-vector, oceanbase-hybrid, full-product] }
+  - id: get_stats
+    tag: stats
+    owner: runtime-owner
+    targets:
+      client: { milestone: M1, level: C1 }
+      runtime: { milestone: M3, level: C3, profiles: [sqlite-fts, sqlite-vector, oceanbase-hybrid, full-product] }
+  - id: create_handoff_report_project
+    tag: handoff-reports
+    owner: runtime-owner
+    targets:
+      client: { milestone: M1, level: C1 }
+      runtime: { milestone: M3, level: C3, profiles: [sqlite-fts, sqlite-vector, oceanbase-hybrid, full-product] }
+  - id: list_handoff_report_projects
+    tag: handoff-reports
+    owner: runtime-owner
+    targets:
+      client: { milestone: M1, level: C1 }
+      runtime: { milestone: M3, level: C3, profiles: [sqlite-fts, sqlite-vector, oceanbase-hybrid, full-product] }
+  - id: get_handoff_report_project
+    tag: handoff-reports
+    owner: runtime-owner
+    targets:
+      client: { milestone: M1, level: C1 }
+      runtime: { milestone: M3, level: C3, profiles: [sqlite-fts, sqlite-vector, oceanbase-hybrid, full-product] }
+  - id: update_handoff_report_project
+    tag: handoff-reports
+    owner: runtime-owner
+    targets:
+      client: { milestone: M1, level: C1 }
+      runtime: { milestone: M3, level: C3, profiles: [sqlite-fts, sqlite-vector, oceanbase-hybrid, full-product] }
+  - id: register_handoff_report_workstream
+    tag: handoff-reports
+    owner: runtime-owner
+    targets:
+      client: { milestone: M1, level: C1 }
+      runtime: { milestone: M3, level: C3, profiles: [sqlite-fts, sqlite-vector, oceanbase-hybrid, full-product] }
+  - id: list_handoff_report_workstreams
+    tag: handoff-reports
+    owner: runtime-owner
+    targets:
+      client: { milestone: M1, level: C1 }
+      runtime: { milestone: M3, level: C3, profiles: [sqlite-fts, sqlite-vector, oceanbase-hybrid, full-product] }
+  - id: update_handoff_report_workstream
+    tag: handoff-reports
+    owner: runtime-owner
+    targets:
+      client: { milestone: M1, level: C1 }
+      runtime: { milestone: M3, level: C3, profiles: [sqlite-fts, sqlite-vector, oceanbase-hybrid, full-product] }
+  - id: get_handoff_report
+    tag: handoff-reports
+    owner: runtime-owner
+    targets:
+      client: { milestone: M1, level: C1 }
+      runtime: { milestone: M3, level: C3, profiles: [sqlite-fts, sqlite-vector, oceanbase-hybrid, full-product] }
+  - id: record_handoff_report_activity
+    tag: handoff-reports
+    owner: runtime-owner
+    targets:
+      client: { milestone: M1, level: C1 }
+      runtime: { milestone: M3, level: C3, profiles: [sqlite-fts, sqlite-vector, oceanbase-hybrid, full-product] }
+  - id: list_handoff_report_activities
+    tag: handoff-reports
+    owner: runtime-owner
+    targets:
+      client: { milestone: M1, level: C1 }
+      runtime: { milestone: M3, level: C3, profiles: [sqlite-fts, sqlite-vector, oceanbase-hybrid, full-product] }
+  - id: purge_handoff_report_activities
+    tag: handoff-reports
+    owner: runtime-owner
+    targets:
+      client: { milestone: M1, level: C1 }
+      runtime: { milestone: M3, level: C3, profiles: [sqlite-fts, sqlite-vector, oceanbase-hybrid, full-product] }
+  - id: get_handoff_report_workspace
+    tag: handoff-reports
+    owner: runtime-owner
+    targets:
+      client: { milestone: M1, level: C1 }
+      runtime: { milestone: M3, level: C3, profiles: [sqlite-fts, sqlite-vector, oceanbase-hybrid, full-product] }
+  - id: attach_handoff_report_workspace
+    tag: handoff-reports
+    owner: runtime-owner
+    targets:
+      client: { milestone: M1, level: C1 }
+      runtime: { milestone: M3, level: C3, profiles: [sqlite-fts, sqlite-vector, oceanbase-hybrid, full-product] }
+  - id: detach_handoff_report_workspace
+    tag: handoff-reports
+    owner: runtime-owner
+    targets:
+      client: { milestone: M1, level: C1 }
+      runtime: { milestone: M3, level: C3, profiles: [sqlite-fts, sqlite-vector, oceanbase-hybrid, full-product] }
+
+domain_capabilities:
+  - id: canonical-jcs
+    owner: runtime-owner
+    target_milestone: M2
+    target_level: C2
+    profiles: [client, sqlite-fts, sqlite-vector, oceanbase-hybrid, full-product]
+  - id: canonical-nfc-sort-hash
+    owner: runtime-owner
+    target_milestone: M2
+    target_level: C2
+    profiles: [sqlite-fts, sqlite-vector, oceanbase-hybrid, full-product]
+  - id: utf8-byte-budget
+    owner: runtime-owner
+    target_milestone: M2
+    target_level: C2
+    profiles: [sqlite-fts, sqlite-vector, oceanbase-hybrid, full-product]
+  - id: source-journal
+    owner: runtime-owner
+    target_milestone: M2
+    target_level: C3
+    profiles: [sqlite-fts, sqlite-vector, oceanbase-hybrid, full-product]
+  - id: artifact-revision-cas
+    owner: runtime-owner
+    target_milestone: M2
+    target_level: C3
+    profiles: [sqlite-fts, sqlite-vector, oceanbase-hybrid, full-product]
+  - id: schema-version-authority
+    owner: python-owner
+    target_milestone: M2
+    target_level: C3
+    profiles: [sqlite-fts, sqlite-vector, oceanbase-hybrid, full-product]
+    notes: Python PR is a Phase 5 hard dependency.
+  - id: exclusive-writer
+    owner: runtime-owner
+    target_milestone: M2
+    target_level: C3
+    profiles: [sqlite-fts, sqlite-vector, oceanbase-hybrid, full-product]
+  - id: memory-authoritative-state
+    owner: runtime-owner
+    target_milestone: M2
+    target_level: C3
+    profiles: [sqlite-fts, sqlite-vector, oceanbase-hybrid, full-product]
+  - id: memory-analyzer-v1
+    owner: runtime-owner
+    target_milestone: M2
+    target_level: C3
+    profiles: [sqlite-fts, sqlite-vector, oceanbase-hybrid, full-product]
+    identity: powercontext.analyzer.v1
+  - id: memory-fts-projection
+    owner: runtime-owner
+    target_milestone: M2
+    target_level: C3
+    profiles: [sqlite-fts, sqlite-vector, oceanbase-hybrid, full-product]
+  - id: prepared-context
+    owner: runtime-owner
+    target_milestone: M2
+    target_level: C3
+    profiles: [sqlite-fts, sqlite-vector, oceanbase-hybrid, full-product]
+  - id: runtime-locks
+    owner: runtime-owner
+    target_milestone: M2
+    target_level: C4
+    profiles: [sqlite-fts, sqlite-vector, oceanbase-hybrid, full-product]
+  - id: runtime-lifecycle
+    owner: product-owner
+    target_milestone: M2
+    target_level: C4
+    profiles: [sqlite-fts, sqlite-vector, oceanbase-hybrid, full-product]
+  - id: candidate-review-state-machine
+    owner: runtime-owner
+    target_milestone: M3
+    target_level: C3
+    profiles: [sqlite-fts, sqlite-vector, oceanbase-hybrid, full-product]
+  - id: experience-family
+    owner: runtime-owner
+    target_milestone: M3
+    target_level: C3
+    profiles: [sqlite-fts, sqlite-vector, oceanbase-hybrid, full-product]
+  - id: managed-skill-family
+    owner: runtime-owner
+    target_milestone: M3
+    target_level: C3
+    profiles: [sqlite-fts, sqlite-vector, oceanbase-hybrid, full-product]
+  - id: external-skill-scan
+    owner: runtime-owner
+    target_milestone: M3
+    target_level: C3
+    profiles: [sqlite-fts, sqlite-vector, oceanbase-hybrid, full-product]
+  - id: handoff-state-machine
+    owner: runtime-owner
+    target_milestone: M3
+    target_level: C3
+    profiles: [sqlite-fts, sqlite-vector, oceanbase-hybrid, full-product]
+  - id: work-continuity-projection
+    owner: runtime-owner
+    target_milestone: M3
+    target_level: C3
+    profiles: [sqlite-fts, sqlite-vector, oceanbase-hybrid, full-product]
+  - id: handoff-report-render
+    owner: runtime-owner
+    target_milestone: M3
+    target_level: C3
+    profiles: [sqlite-fts, sqlite-vector, oceanbase-hybrid, full-product]
+  - id: scheduler-cursors
+    owner: runtime-owner
+    target_milestone: M3
+    target_level: C3
+    profiles: [sqlite-fts, sqlite-vector, oceanbase-hybrid, full-product]
+  - id: statistics-aggregation
+    owner: runtime-owner
+    target_milestone: M3
+    target_level: C3
+    profiles: [sqlite-fts, sqlite-vector, oceanbase-hybrid, full-product]
+  - id: inference-ports
+    owner: runtime-owner
+    target_milestone: M4
+    target_level: C4
+    profiles: [sqlite-vector, oceanbase-hybrid, full-product]
+    unimplemented_behavior: Capabilities generation flags stay false; generate / flush-extract / rerank return unavailable.
+  - id: memory-vector-projection
+    owner: runtime-owner
+    target_milestone: M4
+    target_level: C4
+    profiles: [sqlite-vector, oceanbase-hybrid, full-product]
+    unimplemented_behavior: search_modes omits vector; explicit vector/hybrid requests fail unavailable.
+  - id: memory-hybrid-rrf
+    owner: runtime-owner
+    target_milestone: M4
+    target_level: C4
+    profiles: [sqlite-vector, oceanbase-hybrid, full-product]
+  - id: memory-rerank
+    owner: runtime-owner
+    target_milestone: M4
+    target_level: C4
+    profiles: [sqlite-vector, oceanbase-hybrid, full-product]
+    default: disabled
+  - id: oceanbase-identity-collation
+    owner: runtime-owner
+    target_milestone: M4
+    target_level: C4
+    profiles: [oceanbase-hybrid, full-product]
+    unimplemented_behavior: oceanbase-hybrid profile is not advertised; SQLite path stays available.
+  - id: mcp-allowlist
+    owner: product-owner
+    target_milestone: M4
+    target_level: C4
+    profiles: [full-product]
+    unimplemented_behavior: MCP endpoint is absent from subset profiles unless explicitly enabled for a later spike.
+  - id: dashboard
+    owner: product-owner
+    target_milestone: M4
+    target_level: C4
+    profiles: [full-product]
+    default: enabled
+  - id: observability
+    owner: product-owner
+    target_milestone: M4
+    target_level: C4
+    profiles: [full-product]
+  - id: cli-command-tree
+    owner: product-owner
+    target_milestone: M4
+    target_level: C4
+    profiles: [full-product]
+    notes: M2 ships only server run. Host setup/doctor completeness is M4.
+  - id: host-integrations
+    owner: product-owner
+    target_milestone: M4
+    target_level: C4
+    profiles: [full-product]
+    notes: Plugins stay in the Python repository. This repo only black-box accepts Codex, Claude Code, DSH, Bub and Hermes against the TS Server.

@@ -1,0 +1,127 @@
+schema: powercontext.rfc-ledger.v1
+baseline_commit: 733e4bf6b378785e76274ff07632029c699ecb09
+source: ../powercontext/docs/en/rfcs
+rule: Draft RFC is not a parity source and must not become a hidden M4 requirement.
+statuses:
+  implemented: Accepted design whose shipped Python behavior is the current oracle.
+  accepted-not-implemented: Merged design that is not yet observable in pinned Python.
+  draft: RFC header still says Draft. Only already-shipped Python behavior may be aligned.
+  superseded: Template or replaced document. Ignore for parity.
+
+rfcs:
+  - id: "0000"
+    title: example
+    status: superseded
+    parity_source: false
+    notes: Process template, not a product RFC.
+
+  - id: "0001"
+    title: product_definition_and_vision
+    status: implemented
+    parity_source: true
+    scope: Product definition. Not a wire contract.
+
+  - id: "0002"
+    title: core_sdk_product_model
+    status: implemented
+    parity_source: true
+    notes: Trigger later became a public Core contract beyond the original RFC text. Align to current Python, not the older omission.
+
+  - id: "0011"
+    title: remote_access_architecture
+    status: implemented
+    parity_source: true
+    notes: Illustrative names in the RFC are not the wire contract. OpenAPI is.
+
+  - id: "0014"
+    title: memory_layer_design
+    status: implemented
+    parity_source: true
+
+  - id: "0016"
+    title: pydantic_ai_inference_integration
+    status: implemented
+    parity_source: true
+    notes: Python uses Pydantic AI. TypeScript uses an AI SDK adapter behind the same ports. Library choice is not a parity object.
+
+  - id: "0019"
+    title: local_source_memory_runtime
+    status: implemented
+    parity_source: true
+
+  - id: "0020"
+    title: runtime_backed_memory_remote_access
+    status: implemented
+    parity_source: true
+
+  - id: "0028"
+    title: runtime_context_pack
+    status: implemented
+    parity_source: true
+    notes: Shipped Memory-backed PreparedContext is in scope. Generic multi-source Context Pack future work stays out of M4.
+
+  - id: "0046"
+    title: observability_foundations
+    status: implemented
+    parity_source: true
+
+  - id: "0048"
+    title: handoff_artifact
+    status: draft
+    parity_source: false
+    python_observable: true
+    notes: Core Handoff is shipped. Draft extras, including a read-only evidence checker, are not TypeScript obligations.
+
+  - id: "0050"
+    title: artifact_candidate_review_inbox
+    status: implemented
+    parity_source: true
+
+  - id: "0051"
+    title: experience_skill_artifact_families
+    status: implemented
+    parity_source: true
+    notes: Pending items inside the RFC body are not automatically M4 work. Follow shipped Python.
+
+  - id: "0072"
+    title: scoped_statistics_and_usage
+    status: implemented
+    parity_source: true
+
+  - id: "0080"
+    title: memory_search_reranking
+    status: implemented
+    parity_source: true
+    notes: Optional and disabled by default. TypeScript must keep the same default.
+
+  - id: "0081"
+    title: end_to_end_evaluation_architecture
+    status: implemented
+    parity_source: false
+    notes: Lives in Python evaluation/. TypeScript reuses it through a SUT profile, and does not port the platform.
+
+  - id: "0082"
+    title: handoff_report
+    status: draft
+    parity_source: false
+    python_observable: true
+    notes: Shipped Report behavior is the oracle. Historical period-end selection and automatic activity adapters remain Python gaps, not TypeScript inventions.
+
+  - id: "1223"
+    title: human_agent_work_continuity
+    status: draft
+    parity_source: false
+    python_observable: true
+    notes: Four HTTP operations and the deterministic projection are shipped. Draft-only future clauses stay out of M4.
+
+  - id: "1229"
+    title: unified_workloads_and_long_horizon_memory_evaluation
+    status: implemented
+    parity_source: false
+    notes: Python evaluation/ only. Not a TypeScript port target.
+
+  - id: "1299"
+    title: local_server_availability_and_service_installation
+    status: accepted-not-implemented
+    parity_source: false
+    notes: server run plus doctor liveness/readiness are shipped. Native per-user service installation is not in pinned Python and is not an M4 hidden requirement.

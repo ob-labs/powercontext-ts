@@ -1,0 +1,17 @@
+node_modules/
+dist/
+build/
+coverage/
+.turbo/
+.pnpm-store/
+*.log
+.DS_Store
+Thumbs.db
+.venv/
+.python-version
+__pycache__/
+*.pyc
+.idea/
+.vscode/
+*.tsbuildinfo
+.cache/

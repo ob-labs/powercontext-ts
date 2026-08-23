@@ -1,0 +1,12 @@
+* text=auto eol=lf
+
+contract/** linguist-generated=false
+contract/openapi/powercontext.yaml text eol=lf
+contract/*.yaml text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+*.md text eol=lf
+*.json text eol=lf
+*.mjs text eol=lf
+*.ts text eol=lf
+*.tsx text eol=lf
