@@ -14,22 +14,22 @@ jobs:
     name: quality
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
         with:
           version: 10.33.2
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: 24
           cache: pnpm
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: '3.11'
-      - uses: astral-sh/setup-uv@v6
+      - uses: astral-sh/setup-uv@v10
       - run: python -m pip install -r tools/contract-sync/requirements.lock.txt
       - run: pnpm install --frozen-lockfile
       - name: Checkout Python pin
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           repository: oceanbase/powercontext
           ref: 733e4bf6b378785e76274ff07632029c699ecb09
@@ -53,29 +53,31 @@ jobs:
     name: client-matrix
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         node: [22, 24]
     steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
         with:
           version: 10.33.2
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: ${{ matrix.node }}
           cache: pnpm
-      - run: pnpm install --frozen-lockfile
+      - name: Install Client test toolchain without Runtime native builds
+        run: pnpm install --frozen-lockfile --config.engine-strict=false --ignore-scripts
       - run: pnpm test:client
 
   runtime-matrix:
     name: runtime-matrix
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
         with:
           version: 10.33.2
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: 24
           cache: pnpm
@@ -85,25 +87,26 @@ jobs:
   smoke:
     name: smoke
     strategy:
+      fail-fast: false
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
+        os: [ubuntu-latest, macos-latest, windows-2022]
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
         with:
           version: 10.33.2
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: 24
           cache: pnpm
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: '3.11'
       - run: python -m pip install -r tools/contract-sync/requirements.lock.txt
       - run: pnpm install --frozen-lockfile
       - name: Checkout Python pin
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           repository: oceanbase/powercontext
           ref: 733e4bf6b378785e76274ff07632029c699ecb09
@@ -119,18 +122,19 @@ jobs:
   oracle-smoke:
     name: oracle-smoke
     strategy:
+      fail-fast: false
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
+        os: [ubuntu-latest, macos-latest, windows-2022]
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
         with:
           python-version: '3.11'
-      - uses: astral-sh/setup-uv@v6
+      - uses: astral-sh/setup-uv@v10
       - run: python -m pip install -r tools/contract-sync/requirements.lock.txt
       - name: Checkout Python pin
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           repository: oceanbase/powercontext
           ref: 733e4bf6b378785e76274ff07632029c699ecb09

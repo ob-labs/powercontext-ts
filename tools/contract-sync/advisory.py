@@ -26,7 +26,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from digests import count_operation_ids, count_schema_names, normalize_lf, sha256_bytes
-from lockfile import ROOT, read_lock
+from lockfile import read_lock
 
 
 class AdvisoryError(ValueError):
@@ -56,31 +56,66 @@ def show_local_ref(repo: Path, ref: str, path: str) -> bytes:
     )
 
 
-def resolve_main_openapi(lock: dict[str, object], python_repo: Path | None) -> tuple[bytes, str]:
+def remote_head(repo_url: str) -> tuple[str, str]:
+    output = subprocess.check_output(
+        ["git", "ls-remote", "--symref", repo_url, "HEAD"],
+        text=True,
+        stderr=subprocess.STDOUT,
+    )
+    branch = ""
+    commit = ""
+    for line in output.splitlines():
+        if line.startswith("ref: refs/heads/") and line.endswith("\tHEAD"):
+            branch = line.removeprefix("ref: refs/heads/").removesuffix("\tHEAD")
+        elif line.endswith("\tHEAD"):
+            commit = line.split("\t", 1)[0]
+    if not branch or not commit:
+        raise AdvisoryError("could not resolve the Python repository default branch")
+    return branch, commit
+
+
+def local_default_refs(repo: Path) -> list[str]:
+    refs: list[str] = []
+    try:
+        symbolic = subprocess.check_output(
+            ["git", "-C", str(repo), "symbolic-ref", "refs/remotes/origin/HEAD"],
+            text=True,
+            stderr=subprocess.STDOUT,
+        ).strip()
+        refs.append(symbolic.removeprefix("refs/remotes/"))
+    except subprocess.CalledProcessError:
+        pass
+    return [*refs, "origin/main", "origin/master", "main", "master"]
+
+
+def resolve_main_openapi(
+    lock: dict[str, object], python_repo: Path | None
+) -> tuple[bytes, str]:
     if python_repo is not None and python_repo.exists():
-        try:
-            payload = show_local_ref(python_repo, "origin/main", "openapi/powercontext.yaml")
-            commit = subprocess.check_output(
-                ["git", "-C", str(python_repo), "rev-parse", "origin/main"],
-                text=True,
-            ).strip()
-            return normalize_lf(payload), commit
-        except subprocess.CalledProcessError:
-            payload = show_local_ref(python_repo, "main", "openapi/powercontext.yaml")
-            commit = subprocess.check_output(
-                ["git", "-C", str(python_repo), "rev-parse", "main"],
-                text=True,
-            ).strip()
-            return normalize_lf(payload), commit
+        for ref in local_default_refs(python_repo):
+            try:
+                payload = show_local_ref(python_repo, ref, "openapi/powercontext.yaml")
+                commit = subprocess.check_output(
+                    ["git", "-C", str(python_repo), "rev-parse", ref],
+                    text=True,
+                ).strip()
+                return normalize_lf(payload), commit
+            except subprocess.CalledProcessError:
+                continue
+        raise AdvisoryError("could not resolve a local Python default branch")
+    repo_url = _require_string(lock.get("python_repo"), "python_repo")
+    branch, commit = remote_head(repo_url)
     url = github_raw_url(
-        _require_string(lock.get("python_repo"), "python_repo"),
-        "main",
+        repo_url,
+        branch,
         "openapi/powercontext.yaml",
     )
-    return normalize_lf(fetch_bytes(url)), "main"
+    return normalize_lf(fetch_bytes(url)), commit
 
 
-def build_report(lock: dict[str, object], payload: bytes, observed_ref: str) -> dict[str, object]:
+def build_report(
+    lock: dict[str, object], payload: bytes, observed_ref: str
+) -> dict[str, object]:
     text = payload.decode("utf-8")
     digest = sha256_bytes(payload)
     baseline = str(lock.get("openapi_sha256"))
@@ -103,21 +138,37 @@ def _arguments() -> argparse.Namespace:
     return parser.parse_args()
 
 
+def write_report(report: dict[str, object], output: Path | None) -> str:
+    encoded = json.dumps(report, indent=2, sort_keys=True)
+    if output is not None:
+        output.parent.mkdir(parents=True, exist_ok=True)
+        output.write_text(encoded + "\n", encoding="utf-8")
+    return encoded
+
+
 def main() -> None:
     arguments = _arguments()
     lock = read_lock()
     try:
         payload, observed_ref = resolve_main_openapi(lock, arguments.python_repo)
         report = build_report(lock, payload, observed_ref)
-    except (OSError, AdvisoryError, subprocess.CalledProcessError, UnicodeError) as error:
+    except (
+        OSError,
+        AdvisoryError,
+        subprocess.CalledProcessError,
+        UnicodeError,
+    ) as error:
+        report = {
+            "status": "observation-error",
+            "baseline_python_commit": lock.get("python_commit"),
+            "error": str(error),
+            "advisory": True,
+        }
+        print(write_report(report, arguments.output))
         print(f"contract advisory failed: {error}", file=sys.stderr)
         raise SystemExit(1) from error
 
-    encoded = json.dumps(report, indent=2, sort_keys=True)
-    if arguments.output is not None:
-        arguments.output.parent.mkdir(parents=True, exist_ok=True)
-        arguments.output.write_text(encoded + "\n", encoding="utf-8")
-    print(encoded)
+    print(write_report(report, arguments.output))
     if report["status"] == "drifted":
         raise SystemExit(10)
 
