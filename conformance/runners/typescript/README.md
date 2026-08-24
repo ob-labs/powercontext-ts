@@ -1,4 +1,9 @@
-# TypeScript runner entry
+# TypeScript conformance runner
 
-Phase 2 will point this directory at `packages/conformance-runner`.
-The runner consumes root `conformance/` assets and does not own fixtures.
+This directory is the documented entry for the TypeScript runner. The
+implementation lives in `packages/conformance-runner` and must read assets from
+the repository-root `conformance/` directory. It does not own fixture truth.
+
+```text
+pnpm conformance
+```

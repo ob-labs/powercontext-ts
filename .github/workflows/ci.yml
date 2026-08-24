@@ -42,6 +42,8 @@ jobs:
       - run: pnpm test
       - run: pnpm license:check
       - run: pnpm generate:check
+      - run: python conformance/runners/python/run.py --export-check
+      - run: pnpm conformance
       - run: pnpm deps:licenses
       - run: pnpm deps:audit
       - run: python tools/contract-sync/sync.py --check --python-repo .python-pin
@@ -141,3 +143,4 @@ jobs:
           path: .python-pin
       - run: python conformance/runners/python/bootstrap.py --python-repo .python-pin
       - run: python conformance/runners/python/run.py --check
+      - run: python conformance/runners/python/run.py --export-check

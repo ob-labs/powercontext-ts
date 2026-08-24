@@ -20,7 +20,7 @@ export const PACKAGE_ROLE = 'cli' as const
 export const PACKAGE_PROFILE = 'sqlite-fts' as const
 
 export function renderHelp(): string {
-  return 'powercontext Phase 1 skeleton. Server, review and setup commands arrive later.\n'
+  return 'powercontext CLI is not implemented yet. Server, review and setup commands will ship with the Runtime profile.\n'
 }
 
 export function main(argv: readonly string[] = []): number {

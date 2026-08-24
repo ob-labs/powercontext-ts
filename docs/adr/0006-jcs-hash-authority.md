@@ -30,6 +30,6 @@ canonical bytes。普通 `JSON.stringify` 不满足 RFC 8785，也不包含项�
 
 ## Consequences
 
-- Phase 1 spike D 必须先通过官方 JCS vectors。
-- Phase 4 才能把 canonical primitives 标为 C2。
+- 官方 JCS vectors 的证据见 `docs/develop/investigations/jcs.md`。
+- canonical primitives 达到 C2 属于 Runtime 工作，不在 Client C1 范围内。
 - 任何“为了方便改用 JSON.stringify”的补丁都直接否决。

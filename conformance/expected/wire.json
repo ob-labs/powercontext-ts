@@ -1,0 +1,4656 @@
+{
+  "contractVersion": 1,
+  "fixtureReference": "../fixtures/wire.json",
+  "results": {
+    "acknowledge_handoff.error.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "acknowledge_handoff.error.valid.401": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "acknowledge_handoff.error.valid.404": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "acknowledge_handoff.error.valid.409": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "acknowledge_handoff.error.valid.422": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "acknowledge_handoff.error.valid.500": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "acknowledge_handoff.error.valid.503": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "acknowledge_handoff.request.invalid.enum": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "acknowledge_handoff.request.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "acknowledge_handoff.request.invalid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "acknowledge_handoff.request.invalid.missing": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "acknowledge_handoff.request.invalid.null": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "acknowledge_handoff.request.valid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "acknowledge_handoff.request.valid.minimal": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "acknowledge_handoff.success.valid.json": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "activate_handoff.error.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "activate_handoff.error.valid.401": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "activate_handoff.error.valid.404": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "activate_handoff.error.valid.422": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "activate_handoff.error.valid.500": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "activate_handoff.error.valid.503": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "activate_handoff.request.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "activate_handoff.request.invalid.integer-above-max.max_bytes": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "activate_handoff.request.invalid.integer-below-min.max_bytes": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "activate_handoff.request.invalid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "activate_handoff.request.invalid.missing": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "activate_handoff.request.invalid.null": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "activate_handoff.request.invalid.unsafe-integer.max_bytes": {
+      "engine": "typescript-overlay",
+      "pythonValid": false,
+      "valid": false
+    },
+    "activate_handoff.request.valid.integer-max.max_bytes": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "activate_handoff.request.valid.integer-min.max_bytes": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "activate_handoff.request.valid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "activate_handoff.request.valid.minimal": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "activate_handoff.success.valid.json": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "approve_artifact_candidate.error.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "approve_artifact_candidate.error.valid.401": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "approve_artifact_candidate.error.valid.404": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "approve_artifact_candidate.error.valid.409": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "approve_artifact_candidate.error.valid.422": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "approve_artifact_candidate.error.valid.500": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "approve_artifact_candidate.error.valid.503": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "approve_artifact_candidate.request.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "approve_artifact_candidate.request.invalid.integer-below-min.expected_version": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "approve_artifact_candidate.request.invalid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "approve_artifact_candidate.request.invalid.missing": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "approve_artifact_candidate.request.invalid.null": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "approve_artifact_candidate.request.invalid.unsafe-integer.expected_version": {
+      "engine": "typescript-overlay",
+      "pythonValid": true,
+      "valid": false
+    },
+    "approve_artifact_candidate.request.valid.integer-min.expected_version": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "approve_artifact_candidate.request.valid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "approve_artifact_candidate.request.valid.minimal": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "approve_artifact_candidate.request.valid.safe-integer-max.expected_version": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "approve_artifact_candidate.success.valid.json": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "attach_handoff_report_workspace.error.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "attach_handoff_report_workspace.error.valid.401": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "attach_handoff_report_workspace.error.valid.404": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "attach_handoff_report_workspace.error.valid.409": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "attach_handoff_report_workspace.error.valid.422": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "attach_handoff_report_workspace.error.valid.500": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "attach_handoff_report_workspace.request.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "attach_handoff_report_workspace.request.invalid.integer-below-min.expected_version": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "attach_handoff_report_workspace.request.invalid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "attach_handoff_report_workspace.request.invalid.missing": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "attach_handoff_report_workspace.request.invalid.null": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "attach_handoff_report_workspace.request.invalid.unsafe-integer.expected_version": {
+      "engine": "typescript-overlay",
+      "pythonValid": true,
+      "valid": false
+    },
+    "attach_handoff_report_workspace.request.valid.integer-min.expected_version": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "attach_handoff_report_workspace.request.valid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "attach_handoff_report_workspace.request.valid.minimal": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "attach_handoff_report_workspace.request.valid.safe-integer-max.expected_version": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "attach_handoff_report_workspace.success.valid.json": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "capture_content_source.error.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "capture_content_source.error.valid.401": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "capture_content_source.error.valid.409": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "capture_content_source.error.valid.422": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "capture_content_source.error.valid.500": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "capture_content_source.error.valid.503": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "capture_content_source.request.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "capture_content_source.request.invalid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "capture_content_source.request.invalid.missing": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "capture_content_source.request.invalid.null": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "capture_content_source.request.valid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "capture_content_source.request.valid.minimal": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "capture_content_source.success.valid.json": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "commit_handoff.error.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "commit_handoff.error.valid.401": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "commit_handoff.error.valid.404": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "commit_handoff.error.valid.409": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "commit_handoff.error.valid.422": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "commit_handoff.error.valid.500": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "commit_handoff.error.valid.503": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "commit_handoff.request.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "commit_handoff.request.invalid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "commit_handoff.request.invalid.missing": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "commit_handoff.request.invalid.null": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "commit_handoff.request.valid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "commit_handoff.request.valid.minimal": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "commit_handoff.success.valid.json": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.CandidateFamily.enum.root.invalid": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "component.CandidateFamily.enum.root.valid.0": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.CandidateFamily.enum.root.valid.1": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.CandidateStatus.enum.root.invalid": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "component.CandidateStatus.enum.root.valid.0": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.CandidateStatus.enum.root.valid.1": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.CandidateStatus.enum.root.valid.2": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.CaptureStatus.enum.root.invalid": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "component.CaptureStatus.enum.root.valid.0": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.CurrentWorkHandoff.enum.schema.invalid": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "component.CurrentWorkHandoff.enum.schema.valid.0": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.CurrentWorkHandoff.enum.trust.invalid": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "component.CurrentWorkHandoff.enum.trust.valid.0": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.EntryChangeOperation.enum.root.invalid": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "component.EntryChangeOperation.enum.root.valid.0": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.EntryChangeOperation.enum.root.valid.1": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.EntryChangeOperation.enum.root.valid.2": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.EntryChangeOperation.enum.root.valid.3": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.ExternalSkillImportMode.enum.root.invalid": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "component.ExternalSkillImportMode.enum.root.valid.0": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.ExternalSkillImportMode.enum.root.valid.1": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.ExternalSkillInstallationScope.enum.root.invalid": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "component.ExternalSkillInstallationScope.enum.root.valid.0": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.ExternalSkillInstallationScope.enum.root.valid.1": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.ExternalSkillInstallationScope.enum.root.valid.2": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.ExternalSkillRegistration.enum.agent_kind.invalid": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "component.ExternalSkillRegistration.enum.agent_kind.valid.0": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.ExternalSkillRegistration.enum.provider.invalid": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "component.ExternalSkillRegistration.enum.provider.valid.0": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.ExternalSkillResolutionStatus.enum.root.invalid": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "component.ExternalSkillResolutionStatus.enum.root.valid.0": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.ExternalSkillResolutionStatus.enum.root.valid.1": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.FlushStatus.enum.root.invalid": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "component.FlushStatus.enum.root.valid.0": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.FlushStatus.enum.root.valid.1": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.GeneratedCandidateStatus.enum.root.invalid": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "component.GeneratedCandidateStatus.enum.root.valid.0": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.GeneratedCandidateStatus.enum.root.valid.1": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.HandoffAcknowledgementSelection.enum.root.invalid": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "component.HandoffAcknowledgementSelection.enum.root.valid.0": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.HandoffAcknowledgementSelection.enum.root.valid.1": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.HandoffActivationStatus.enum.root.invalid": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "component.HandoffActivationStatus.enum.root.valid.0": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.HandoffActivationStatus.enum.root.valid.1": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.HandoffArtifactCitation.enum.kind.invalid": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "component.HandoffArtifactCitation.enum.kind.valid.0": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.HandoffCitation.invalid.kind": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "component.HandoffCitation.valid.artifact": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.HandoffCitation.valid.memory": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.HandoffCitation.valid.source": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.HandoffClaim.enum.root.invalid": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "component.HandoffClaim.enum.root.valid.0": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.HandoffClaim.enum.root.valid.1": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.HandoffDisposition.enum.root.invalid": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "component.HandoffDisposition.enum.root.valid.0": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.HandoffDisposition.enum.root.valid.1": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.HandoffDisposition.enum.root.valid.2": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.HandoffEvidenceStatus.enum.root.invalid": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "component.HandoffEvidenceStatus.enum.root.valid.0": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.HandoffEvidenceStatus.enum.root.valid.1": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.HandoffMemoryCitation.enum.kind.invalid": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "component.HandoffMemoryCitation.enum.kind.valid.0": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.HandoffReceiptStatus.enum.root.invalid": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "component.HandoffReceiptStatus.enum.root.valid.0": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.HandoffReceiptStatus.enum.root.valid.1": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.HandoffReceiptStatus.enum.root.valid.2": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.HandoffReportActivity.enum.schema.invalid": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "component.HandoffReportActivity.enum.schema.valid.0": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.HandoffReportActivity.enum.trust.invalid": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "component.HandoffReportActivity.enum.trust.valid.0": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.HandoffReportExternalReference.enum.kind.invalid": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "component.HandoffReportExternalReference.enum.kind.valid.0": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.HandoffReportExternalReference.enum.kind.valid.1": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.HandoffReportExternalReference.enum.kind.valid.2": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.HandoffReportExternalReference.enum.kind.valid.3": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.HandoffReportExternalReference.enum.kind.valid.4": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.HandoffReportExternalReference.enum.kind.valid.5": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.HandoffReportExternalReference.enum.kind.valid.6": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.HandoffReportExternalReference.enum.kind.valid.7": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.HandoffReportRepositoryRef.enum.provider.invalid": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "component.HandoffReportRepositoryRef.enum.provider.valid.0": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.HandoffReportRepositoryRef.enum.provider.valid.1": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.HandoffReportRepositoryRef.enum.provider.valid.2": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.HandoffReportRepositoryRef.enum.provider.valid.3": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.HandoffReportWorkspaceBinding.enum.schema.invalid": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "component.HandoffReportWorkspaceBinding.enum.schema.valid.0": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.HandoffReportWorkspaceBinding.enum.state.invalid": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "component.HandoffReportWorkspaceBinding.enum.state.valid.0": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.HandoffReportWorkspaceBinding.enum.state.valid.1": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.HandoffResolution.enum.trust.invalid": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "component.HandoffResolution.enum.trust.valid.0": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.HandoffResolutionStatus.enum.root.invalid": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "component.HandoffResolutionStatus.enum.root.valid.0": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.HandoffResolutionStatus.enum.root.valid.1": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.HandoffSchema.enum.root.invalid": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "component.HandoffSchema.enum.root.valid.0": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.HandoffSelection.enum.root.invalid": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "component.HandoffSelection.enum.root.valid.0": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.HandoffSelection.enum.root.valid.1": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.HandoffSelection.enum.root.valid.2": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.HandoffSourceCitation.enum.kind.invalid": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "component.HandoffSourceCitation.enum.kind.valid.0": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.LiveStateCheckStatus.enum.root.invalid": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "component.LiveStateCheckStatus.enum.root.valid.0": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.LiveStateCheckStatus.enum.root.valid.1": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.LiveStateCheckStatus.enum.root.valid.2": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.MemoryEntryState.enum.root.invalid": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "component.MemoryEntryState.enum.root.valid.0": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.MemoryEntryState.enum.root.valid.1": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.MemoryMatchedBy.enum.root.invalid": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "component.MemoryMatchedBy.enum.root.valid.0": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.MemoryMatchedBy.enum.root.valid.1": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.MemorySearchMode.enum.root.invalid": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "component.MemorySearchMode.enum.root.valid.0": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.MemorySearchMode.enum.root.valid.1": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.MemorySearchMode.enum.root.valid.2": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.MemorySearchMode.enum.root.valid.3": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.MemoryUsedSearchMode.enum.root.invalid": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "component.MemoryUsedSearchMode.enum.root.valid.0": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.MemoryUsedSearchMode.enum.root.valid.1": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.MemoryUsedSearchMode.enum.root.valid.2": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.PreparedContextSchema.enum.root.invalid": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "component.PreparedContextSchema.enum.root.valid.0": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.PreparedContextStatus.enum.root.invalid": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "component.PreparedContextStatus.enum.root.valid.0": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.PreparedContextStatus.enum.root.valid.1": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.PreparedHandoffSchema.enum.root.invalid": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "component.PreparedHandoffSchema.enum.root.valid.0": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.ProjectDescriptor.enum.schema.invalid": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "component.ProjectDescriptor.enum.schema.valid.0": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.ReadinessStatus.enum.root.invalid": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "component.ReadinessStatus.enum.root.valid.0": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.ReadinessStatus.enum.root.valid.1": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.ReadinessStatus.enum.root.valid.2": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.ReceiverReadinessCheckStatus.enum.root.invalid": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "component.ReceiverReadinessCheckStatus.enum.root.valid.0": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.ReceiverReadinessCheckStatus.enum.root.valid.1": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.ReceiverReadinessCheckStatus.enum.root.valid.2": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.ReportActivitySource.enum.root.invalid": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "component.ReportActivitySource.enum.root.valid.0": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.ReportActivitySource.enum.root.valid.1": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.ReportActivitySource.enum.root.valid.2": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.ReportActivitySource.enum.root.valid.3": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.ReportActivitySource.enum.root.valid.4": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.ReportCatalogState.enum.root.invalid": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "component.ReportCatalogState.enum.root.valid.0": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.ReportCatalogState.enum.root.valid.1": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.ReportFormat.enum.root.invalid": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "component.ReportFormat.enum.root.valid.0": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.ReportFormat.enum.root.valid.1": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.ReportLocale.enum.root.invalid": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "component.ReportLocale.enum.root.valid.0": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.ReportLocale.enum.root.valid.1": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.ReportTimeBasis.enum.root.invalid": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "component.ReportTimeBasis.enum.root.valid.0": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.ReportTimeBasis.enum.root.valid.1": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.ReportTimeBasis.enum.root.valid.2": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.ReportTimeBasis.enum.root.valid.3": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.ReportTimeBasis.enum.root.valid.4": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.ResolvedUsagePeriod.enum.timezone.invalid": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "component.ResolvedUsagePeriod.enum.timezone.valid.0": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.SkillGenerationOrigin.enum.root.invalid": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "component.SkillGenerationOrigin.enum.root.valid.0": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.SkillGenerationOrigin.enum.root.valid.1": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.SkillGenerationOrigin.enum.root.valid.2": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.StatsPeriod.enum.root.invalid": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "component.StatsPeriod.enum.root.valid.0": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.StatsPeriod.enum.root.valid.1": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.StatsPeriod.enum.root.valid.2": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.TaskCheckStatus.enum.root.invalid": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "component.TaskCheckStatus.enum.root.valid.0": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.TaskCheckStatus.enum.root.valid.1": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.TaskCheckStatus.enum.root.valid.2": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.TaskCheckStatus.enum.root.valid.3": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.TaskCheckStatus.enum.root.valid.4": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.TaskCheckStatus.enum.root.valid.5": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.TaskCheckStatus.enum.root.valid.6": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.TaskOutcome.enum.schema.invalid": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "component.TaskOutcome.enum.schema.valid.0": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.TaskOutcome.enum.trust.invalid": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "component.TaskOutcome.enum.trust.valid.0": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.TaskOutcomeStatus.enum.root.invalid": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "component.TaskOutcomeStatus.enum.root.valid.0": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.TaskOutcomeStatus.enum.root.valid.1": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.TaskOutcomeStatus.enum.root.valid.2": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.TaskOutcomeStatus.enum.root.valid.3": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.TaskOutcomeStatus.enum.root.valid.4": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.TaskOutcomeStatus.enum.root.valid.5": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.WorkClaimBasis.enum.root.invalid": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "component.WorkClaimBasis.enum.root.valid.0": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.WorkClaimBasis.enum.root.valid.1": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.WorkContract.enum.schema.invalid": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "component.WorkContract.enum.schema.valid.0": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.WorkContract.enum.trust.invalid": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "component.WorkContract.enum.trust.valid.0": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.WorkSourceKind.enum.root.invalid": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "component.WorkSourceKind.enum.root.valid.0": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.WorkSourceKind.enum.root.valid.1": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.WorkSourceKind.enum.root.valid.2": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.WorkSourceKind.enum.root.valid.3": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.WorkstreamDescriptor.enum.schema.invalid": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "component.WorkstreamDescriptor.enum.schema.valid.0": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.WorkstreamKind.enum.root.invalid": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "component.WorkstreamKind.enum.root.valid.0": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.WorkstreamKind.enum.root.valid.1": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.WorkstreamKind.enum.root.valid.2": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.WorkstreamKind.enum.root.valid.3": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.WorkstreamKind.enum.root.valid.4": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "component.WorkstreamKind.enum.root.valid.5": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "continue_handoff.error.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "continue_handoff.error.valid.401": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "continue_handoff.error.valid.404": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "continue_handoff.error.valid.422": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "continue_handoff.error.valid.500": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "continue_handoff.error.valid.503": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "continue_handoff.request.invalid.enum": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "continue_handoff.request.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "continue_handoff.request.invalid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "continue_handoff.request.invalid.missing": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "continue_handoff.request.invalid.null": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "continue_handoff.request.valid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "continue_handoff.request.valid.minimal": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "continue_handoff.success.valid.json": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "create_handoff_report_project.error.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "create_handoff_report_project.error.valid.401": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "create_handoff_report_project.error.valid.409": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "create_handoff_report_project.error.valid.422": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "create_handoff_report_project.error.valid.500": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "create_handoff_report_project.request.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "create_handoff_report_project.request.invalid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "create_handoff_report_project.request.invalid.missing": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "create_handoff_report_project.request.invalid.null": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "create_handoff_report_project.request.valid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "create_handoff_report_project.request.valid.minimal": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "create_handoff_report_project.success.valid.json": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "create_work_contract.error.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "create_work_contract.error.valid.401": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "create_work_contract.error.valid.404": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "create_work_contract.error.valid.409": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "create_work_contract.error.valid.422": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "create_work_contract.error.valid.500": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "create_work_contract.error.valid.503": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "create_work_contract.request.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "create_work_contract.request.invalid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "create_work_contract.request.invalid.missing": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "create_work_contract.request.invalid.null": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "create_work_contract.request.valid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "create_work_contract.request.valid.minimal": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "create_work_contract.success.valid.json": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "detach_handoff_report_workspace.error.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "detach_handoff_report_workspace.error.valid.401": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "detach_handoff_report_workspace.error.valid.404": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "detach_handoff_report_workspace.error.valid.409": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "detach_handoff_report_workspace.error.valid.422": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "detach_handoff_report_workspace.error.valid.500": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "detach_handoff_report_workspace.request.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "detach_handoff_report_workspace.request.invalid.integer-below-min.expected_version": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "detach_handoff_report_workspace.request.invalid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "detach_handoff_report_workspace.request.invalid.missing": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "detach_handoff_report_workspace.request.invalid.null": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "detach_handoff_report_workspace.request.invalid.unsafe-integer.expected_version": {
+      "engine": "typescript-overlay",
+      "pythonValid": true,
+      "valid": false
+    },
+    "detach_handoff_report_workspace.request.valid.integer-min.expected_version": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "detach_handoff_report_workspace.request.valid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "detach_handoff_report_workspace.request.valid.minimal": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "detach_handoff_report_workspace.request.valid.safe-integer-max.expected_version": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "detach_handoff_report_workspace.success.valid.json": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "finalize_handoff.error.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "finalize_handoff.error.valid.401": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "finalize_handoff.error.valid.404": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "finalize_handoff.error.valid.422": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "finalize_handoff.error.valid.500": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "finalize_handoff.error.valid.503": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "finalize_handoff.request.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "finalize_handoff.request.invalid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "finalize_handoff.request.invalid.missing": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "finalize_handoff.request.invalid.null": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "finalize_handoff.request.valid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "finalize_handoff.request.valid.minimal": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "finalize_handoff.success.valid.json": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "flush_memory.error.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "flush_memory.error.valid.401": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "flush_memory.error.valid.422": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "flush_memory.error.valid.500": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "flush_memory.error.valid.503": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "flush_memory.request.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "flush_memory.request.invalid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "flush_memory.request.invalid.missing": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "flush_memory.request.invalid.null": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "flush_memory.request.valid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "flush_memory.request.valid.minimal": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "flush_memory.success.valid.json": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "generate_experience.error.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "generate_experience.error.valid.401": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "generate_experience.error.valid.409": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "generate_experience.error.valid.422": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "generate_experience.error.valid.500": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "generate_experience.error.valid.503": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "generate_experience.request.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "generate_experience.request.invalid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "generate_experience.request.invalid.missing": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "generate_experience.request.invalid.null": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "generate_experience.request.valid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "generate_experience.request.valid.minimal": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "generate_experience.success.valid.json": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "generate_skill.error.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "generate_skill.error.valid.401": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "generate_skill.error.valid.409": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "generate_skill.error.valid.422": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "generate_skill.error.valid.500": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "generate_skill.error.valid.503": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "generate_skill.request.invalid.enum": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "generate_skill.request.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "generate_skill.request.invalid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "generate_skill.request.invalid.missing": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "generate_skill.request.invalid.null": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "generate_skill.request.valid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "generate_skill.request.valid.minimal": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "generate_skill.success.valid.json": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "get_artifact_candidate.error.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "get_artifact_candidate.error.valid.401": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "get_artifact_candidate.error.valid.404": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "get_artifact_candidate.error.valid.422": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "get_artifact_candidate.error.valid.500": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "get_artifact_candidate.error.valid.503": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "get_artifact_candidate.request.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "get_artifact_candidate.request.invalid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "get_artifact_candidate.request.invalid.missing": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "get_artifact_candidate.request.invalid.null": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "get_artifact_candidate.request.valid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "get_artifact_candidate.request.valid.minimal": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "get_artifact_candidate.success.valid.json": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "get_capabilities.error.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "get_capabilities.error.valid.401": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "get_capabilities.request.invalid.extra": {
+      "engine": "pydantic",
+      "valid": false
+    },
+    "get_capabilities.request.valid.empty": {
+      "engine": "pydantic",
+      "valid": true
+    },
+    "get_capabilities.success.valid.json": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "get_experience.error.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "get_experience.error.valid.401": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "get_experience.error.valid.404": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "get_experience.error.valid.422": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "get_experience.error.valid.500": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "get_experience.error.valid.503": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "get_experience.request.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "get_experience.request.invalid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "get_experience.request.invalid.missing": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "get_experience.request.invalid.null": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "get_experience.request.valid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "get_experience.request.valid.minimal": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "get_experience.success.valid.json": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "get_handoff_report.error.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "get_handoff_report.error.valid.401": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "get_handoff_report.error.valid.404": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "get_handoff_report.error.valid.413": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "get_handoff_report.error.valid.422": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "get_handoff_report.error.valid.500": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "get_handoff_report.error.valid.503": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "get_handoff_report.request.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "get_handoff_report.request.invalid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "get_handoff_report.request.invalid.missing": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "get_handoff_report.request.invalid.null": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "get_handoff_report.request.valid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "get_handoff_report.request.valid.minimal": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "get_handoff_report.success.invalid.text": {
+      "engine": "pydantic",
+      "valid": false
+    },
+    "get_handoff_report.success.valid.json": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "get_handoff_report.success.valid.text": {
+      "engine": "pydantic",
+      "valid": true
+    },
+    "get_handoff_report_project.error.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "get_handoff_report_project.error.valid.401": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "get_handoff_report_project.error.valid.404": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "get_handoff_report_project.error.valid.422": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "get_handoff_report_project.error.valid.500": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "get_handoff_report_project.request.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "get_handoff_report_project.request.invalid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "get_handoff_report_project.request.invalid.missing": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "get_handoff_report_project.request.invalid.null": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "get_handoff_report_project.request.valid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "get_handoff_report_project.request.valid.minimal": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "get_handoff_report_project.success.valid.json": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "get_handoff_report_workspace.error.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "get_handoff_report_workspace.error.valid.401": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "get_handoff_report_workspace.error.valid.404": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "get_handoff_report_workspace.error.valid.422": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "get_handoff_report_workspace.error.valid.500": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "get_handoff_report_workspace.request.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "get_handoff_report_workspace.request.invalid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "get_handoff_report_workspace.request.invalid.missing": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "get_handoff_report_workspace.request.invalid.null": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "get_handoff_report_workspace.request.valid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "get_handoff_report_workspace.request.valid.minimal": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "get_handoff_report_workspace.success.valid.json": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "get_liveness.request.invalid.extra": {
+      "engine": "pydantic",
+      "valid": false
+    },
+    "get_liveness.request.valid.empty": {
+      "engine": "pydantic",
+      "valid": true
+    },
+    "get_liveness.success.valid.json": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "get_memory_entry.error.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "get_memory_entry.error.valid.401": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "get_memory_entry.error.valid.404": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "get_memory_entry.error.valid.422": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "get_memory_entry.error.valid.500": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "get_memory_entry.error.valid.503": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "get_memory_entry.request.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "get_memory_entry.request.invalid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "get_memory_entry.request.invalid.missing": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "get_memory_entry.request.invalid.null": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "get_memory_entry.request.valid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "get_memory_entry.request.valid.minimal": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "get_memory_entry.success.valid.json": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "get_readiness.error.valid.503": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "get_readiness.request.invalid.extra": {
+      "engine": "pydantic",
+      "valid": false
+    },
+    "get_readiness.request.valid.empty": {
+      "engine": "pydantic",
+      "valid": true
+    },
+    "get_readiness.success.valid.json": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "get_skill.error.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "get_skill.error.valid.401": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "get_skill.error.valid.404": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "get_skill.error.valid.422": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "get_skill.error.valid.500": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "get_skill.error.valid.503": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "get_skill.request.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "get_skill.request.invalid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "get_skill.request.invalid.missing": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "get_skill.request.invalid.null": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "get_skill.request.valid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "get_skill.request.valid.minimal": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "get_skill.success.valid.json": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "get_stats.error.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "get_stats.error.valid.401": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "get_stats.error.valid.422": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "get_stats.error.valid.500": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "get_stats.error.valid.503": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "get_stats.request.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "get_stats.request.invalid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "get_stats.request.invalid.missing": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "get_stats.request.invalid.null": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "get_stats.request.valid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "get_stats.request.valid.minimal": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "get_stats.success.valid.json": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "handoff_current_work.error.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "handoff_current_work.error.valid.401": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "handoff_current_work.error.valid.404": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "handoff_current_work.error.valid.409": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "handoff_current_work.error.valid.422": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "handoff_current_work.error.valid.500": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "handoff_current_work.error.valid.503": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "handoff_current_work.request.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "handoff_current_work.request.invalid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "handoff_current_work.request.invalid.missing": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "handoff_current_work.request.invalid.null": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "handoff_current_work.request.valid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "handoff_current_work.request.valid.minimal": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "handoff_current_work.success.valid.json": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "import_external_skill.error.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "import_external_skill.error.valid.401": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "import_external_skill.error.valid.404": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "import_external_skill.error.valid.409": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "import_external_skill.error.valid.422": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "import_external_skill.error.valid.500": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "import_external_skill.error.valid.503": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "import_external_skill.request.invalid.enum": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "import_external_skill.request.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "import_external_skill.request.invalid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "import_external_skill.request.invalid.missing": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "import_external_skill.request.invalid.null": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "import_external_skill.request.valid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "import_external_skill.request.valid.minimal": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "import_external_skill.success.valid.json": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "list_artifact_candidates.error.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "list_artifact_candidates.error.valid.401": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "list_artifact_candidates.error.valid.422": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "list_artifact_candidates.error.valid.500": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "list_artifact_candidates.error.valid.503": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "list_artifact_candidates.request.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "list_artifact_candidates.request.invalid.integer-above-max.limit": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "list_artifact_candidates.request.invalid.integer-below-min.limit": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "list_artifact_candidates.request.invalid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "list_artifact_candidates.request.invalid.missing": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "list_artifact_candidates.request.invalid.null": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "list_artifact_candidates.request.invalid.unsafe-integer.limit": {
+      "engine": "typescript-overlay",
+      "pythonValid": false,
+      "valid": false
+    },
+    "list_artifact_candidates.request.valid.integer-max.limit": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "list_artifact_candidates.request.valid.integer-min.limit": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "list_artifact_candidates.request.valid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "list_artifact_candidates.request.valid.minimal": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "list_artifact_candidates.success.valid.json": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "list_external_skills.error.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "list_external_skills.error.valid.401": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "list_external_skills.error.valid.422": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "list_external_skills.error.valid.500": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "list_external_skills.error.valid.503": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "list_external_skills.request.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "list_external_skills.request.invalid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "list_external_skills.request.invalid.missing": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "list_external_skills.request.invalid.null": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "list_external_skills.request.valid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "list_external_skills.request.valid.minimal": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "list_external_skills.success.valid.json": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "list_handoff_report_activities.error.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "list_handoff_report_activities.error.valid.401": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "list_handoff_report_activities.error.valid.404": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "list_handoff_report_activities.error.valid.422": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "list_handoff_report_activities.error.valid.500": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "list_handoff_report_activities.request.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "list_handoff_report_activities.request.invalid.integer-below-min.after_cursor": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "list_handoff_report_activities.request.invalid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "list_handoff_report_activities.request.invalid.missing": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "list_handoff_report_activities.request.invalid.null": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "list_handoff_report_activities.request.invalid.unsafe-integer.after_cursor": {
+      "engine": "typescript-overlay",
+      "pythonValid": true,
+      "valid": false
+    },
+    "list_handoff_report_activities.request.valid.integer-min.after_cursor": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "list_handoff_report_activities.request.valid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "list_handoff_report_activities.request.valid.minimal": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "list_handoff_report_activities.request.valid.safe-integer-max.after_cursor": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "list_handoff_report_activities.success.valid.json": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "list_handoff_report_projects.error.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "list_handoff_report_projects.error.valid.401": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "list_handoff_report_projects.error.valid.422": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "list_handoff_report_projects.error.valid.500": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "list_handoff_report_projects.request.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "list_handoff_report_projects.request.invalid.integer-above-max.limit": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "list_handoff_report_projects.request.invalid.integer-below-min.limit": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "list_handoff_report_projects.request.invalid.unsafe-integer.limit": {
+      "engine": "typescript-overlay",
+      "pythonValid": false,
+      "valid": false
+    },
+    "list_handoff_report_projects.request.valid.integer-max.limit": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "list_handoff_report_projects.request.valid.integer-min.limit": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "list_handoff_report_projects.request.valid.minimal": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "list_handoff_report_projects.success.valid.json": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "list_handoff_report_workstreams.error.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "list_handoff_report_workstreams.error.valid.401": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "list_handoff_report_workstreams.error.valid.404": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "list_handoff_report_workstreams.error.valid.422": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "list_handoff_report_workstreams.error.valid.500": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "list_handoff_report_workstreams.request.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "list_handoff_report_workstreams.request.invalid.integer-above-max.limit": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "list_handoff_report_workstreams.request.invalid.integer-below-min.limit": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "list_handoff_report_workstreams.request.invalid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "list_handoff_report_workstreams.request.invalid.missing": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "list_handoff_report_workstreams.request.invalid.null": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "list_handoff_report_workstreams.request.invalid.unsafe-integer.limit": {
+      "engine": "typescript-overlay",
+      "pythonValid": false,
+      "valid": false
+    },
+    "list_handoff_report_workstreams.request.valid.integer-max.limit": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "list_handoff_report_workstreams.request.valid.integer-min.limit": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "list_handoff_report_workstreams.request.valid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "list_handoff_report_workstreams.request.valid.minimal": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "list_handoff_report_workstreams.success.valid.json": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "list_memory_changes.error.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "list_memory_changes.error.valid.401": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "list_memory_changes.error.valid.404": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "list_memory_changes.error.valid.422": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "list_memory_changes.error.valid.500": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "list_memory_changes.error.valid.503": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "list_memory_changes.request.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "list_memory_changes.request.invalid.integer-below-min.since_revision": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "list_memory_changes.request.invalid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "list_memory_changes.request.invalid.missing": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "list_memory_changes.request.invalid.null": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "list_memory_changes.request.invalid.unsafe-integer.since_revision": {
+      "engine": "typescript-overlay",
+      "pythonValid": true,
+      "valid": false
+    },
+    "list_memory_changes.request.valid.integer-min.since_revision": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "list_memory_changes.request.valid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "list_memory_changes.request.valid.minimal": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "list_memory_changes.request.valid.safe-integer-max.since_revision": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "list_memory_changes.success.valid.json": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "list_memory_entries.error.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "list_memory_entries.error.valid.401": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "list_memory_entries.error.valid.404": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "list_memory_entries.error.valid.422": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "list_memory_entries.error.valid.500": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "list_memory_entries.error.valid.503": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "list_memory_entries.request.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "list_memory_entries.request.invalid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "list_memory_entries.request.invalid.missing": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "list_memory_entries.request.invalid.null": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "list_memory_entries.request.valid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "list_memory_entries.request.valid.minimal": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "list_memory_entries.success.valid.json": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "prepare_context.error.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "prepare_context.error.valid.401": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "prepare_context.error.valid.422": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "prepare_context.error.valid.500": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "prepare_context.error.valid.503": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "prepare_context.request.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "prepare_context.request.invalid.integer-above-max.max_bytes": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "prepare_context.request.invalid.integer-below-min.max_bytes": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "prepare_context.request.invalid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "prepare_context.request.invalid.missing": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "prepare_context.request.invalid.null": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "prepare_context.request.invalid.unsafe-integer.max_bytes": {
+      "engine": "typescript-overlay",
+      "pythonValid": false,
+      "valid": false
+    },
+    "prepare_context.request.valid.integer-max.max_bytes": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "prepare_context.request.valid.integer-min.max_bytes": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "prepare_context.request.valid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "prepare_context.request.valid.minimal": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "prepare_context.success.valid.json": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "prepare_handoff.error.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "prepare_handoff.error.valid.401": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "prepare_handoff.error.valid.404": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "prepare_handoff.error.valid.422": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "prepare_handoff.error.valid.500": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "prepare_handoff.error.valid.503": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "prepare_handoff.request.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "prepare_handoff.request.invalid.integer-above-max.max_bytes": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "prepare_handoff.request.invalid.integer-below-min.max_bytes": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "prepare_handoff.request.invalid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "prepare_handoff.request.invalid.missing": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "prepare_handoff.request.invalid.null": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "prepare_handoff.request.invalid.unsafe-integer.max_bytes": {
+      "engine": "typescript-overlay",
+      "pythonValid": false,
+      "valid": false
+    },
+    "prepare_handoff.request.valid.integer-max.max_bytes": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "prepare_handoff.request.valid.integer-min.max_bytes": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "prepare_handoff.request.valid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "prepare_handoff.request.valid.minimal": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "prepare_handoff.success.valid.json": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "propose_experience.error.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "propose_experience.error.valid.401": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "propose_experience.error.valid.409": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "propose_experience.error.valid.422": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "propose_experience.error.valid.500": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "propose_experience.error.valid.503": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "propose_experience.request.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "propose_experience.request.invalid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "propose_experience.request.invalid.missing": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "propose_experience.request.invalid.null": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "propose_experience.request.valid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "propose_experience.request.valid.minimal": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "propose_experience.success.valid.json": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "propose_skill.error.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "propose_skill.error.valid.401": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "propose_skill.error.valid.409": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "propose_skill.error.valid.422": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "propose_skill.error.valid.500": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "propose_skill.error.valid.503": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "propose_skill.request.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "propose_skill.request.invalid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "propose_skill.request.invalid.missing": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "propose_skill.request.invalid.null": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "propose_skill.request.valid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "propose_skill.request.valid.minimal": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "propose_skill.success.valid.json": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "purge_handoff_report_activities.error.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "purge_handoff_report_activities.error.valid.401": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "purge_handoff_report_activities.error.valid.404": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "purge_handoff_report_activities.error.valid.422": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "purge_handoff_report_activities.error.valid.500": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "purge_handoff_report_activities.request.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "purge_handoff_report_activities.request.invalid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "purge_handoff_report_activities.request.invalid.missing": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "purge_handoff_report_activities.request.invalid.null": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "purge_handoff_report_activities.request.valid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "purge_handoff_report_activities.request.valid.minimal": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "purge_handoff_report_activities.success.valid.json": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "record_handoff_report_activity.error.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "record_handoff_report_activity.error.valid.401": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "record_handoff_report_activity.error.valid.404": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "record_handoff_report_activity.error.valid.409": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "record_handoff_report_activity.error.valid.422": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "record_handoff_report_activity.error.valid.500": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "record_handoff_report_activity.request.invalid.enum": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "record_handoff_report_activity.request.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "record_handoff_report_activity.request.invalid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "record_handoff_report_activity.request.invalid.missing": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "record_handoff_report_activity.request.invalid.null": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "record_handoff_report_activity.request.valid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "record_handoff_report_activity.request.valid.minimal": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "record_handoff_report_activity.success.valid.json": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "record_task_outcome.error.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "record_task_outcome.error.valid.401": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "record_task_outcome.error.valid.404": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "record_task_outcome.error.valid.409": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "record_task_outcome.error.valid.422": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "record_task_outcome.error.valid.500": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "record_task_outcome.error.valid.503": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "record_task_outcome.request.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "record_task_outcome.request.invalid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "record_task_outcome.request.invalid.missing": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "record_task_outcome.request.invalid.null": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "record_task_outcome.request.valid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "record_task_outcome.request.valid.minimal": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "record_task_outcome.success.valid.json": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "register_handoff_report_workstream.error.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "register_handoff_report_workstream.error.valid.401": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "register_handoff_report_workstream.error.valid.404": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "register_handoff_report_workstream.error.valid.409": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "register_handoff_report_workstream.error.valid.422": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "register_handoff_report_workstream.error.valid.500": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "register_handoff_report_workstream.request.invalid.enum": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "register_handoff_report_workstream.request.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "register_handoff_report_workstream.request.invalid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "register_handoff_report_workstream.request.invalid.missing": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "register_handoff_report_workstream.request.invalid.null": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "register_handoff_report_workstream.request.valid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "register_handoff_report_workstream.request.valid.minimal": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "register_handoff_report_workstream.success.valid.json": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "reject_artifact_candidate.error.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "reject_artifact_candidate.error.valid.401": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "reject_artifact_candidate.error.valid.404": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "reject_artifact_candidate.error.valid.409": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "reject_artifact_candidate.error.valid.422": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "reject_artifact_candidate.error.valid.500": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "reject_artifact_candidate.error.valid.503": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "reject_artifact_candidate.request.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "reject_artifact_candidate.request.invalid.integer-below-min.expected_version": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "reject_artifact_candidate.request.invalid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "reject_artifact_candidate.request.invalid.missing": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "reject_artifact_candidate.request.invalid.null": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "reject_artifact_candidate.request.invalid.unsafe-integer.expected_version": {
+      "engine": "typescript-overlay",
+      "pythonValid": true,
+      "valid": false
+    },
+    "reject_artifact_candidate.request.valid.integer-min.expected_version": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "reject_artifact_candidate.request.valid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "reject_artifact_candidate.request.valid.minimal": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "reject_artifact_candidate.request.valid.safe-integer-max.expected_version": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "reject_artifact_candidate.success.valid.json": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "remember_memory.error.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "remember_memory.error.valid.401": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "remember_memory.error.valid.409": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "remember_memory.error.valid.422": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "remember_memory.error.valid.500": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "remember_memory.error.valid.503": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "remember_memory.request.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "remember_memory.request.invalid.integer-below-min.expected_revision": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "remember_memory.request.invalid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "remember_memory.request.invalid.missing": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "remember_memory.request.invalid.null": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "remember_memory.request.invalid.unsafe-integer.expected_revision": {
+      "engine": "typescript-overlay",
+      "pythonValid": true,
+      "valid": false
+    },
+    "remember_memory.request.valid.integer-min.expected_revision": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "remember_memory.request.valid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "remember_memory.request.valid.minimal": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "remember_memory.request.valid.safe-integer-max.expected_revision": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "remember_memory.success.valid.json": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "resolve_external_skill.error.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "resolve_external_skill.error.valid.401": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "resolve_external_skill.error.valid.404": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "resolve_external_skill.error.valid.422": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "resolve_external_skill.error.valid.500": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "resolve_external_skill.error.valid.503": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "resolve_external_skill.request.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "resolve_external_skill.request.invalid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "resolve_external_skill.request.invalid.missing": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "resolve_external_skill.request.invalid.null": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "resolve_external_skill.request.valid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "resolve_external_skill.request.valid.minimal": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "resolve_external_skill.success.valid.json": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "retire_memory_entry.error.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "retire_memory_entry.error.valid.401": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "retire_memory_entry.error.valid.404": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "retire_memory_entry.error.valid.409": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "retire_memory_entry.error.valid.422": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "retire_memory_entry.error.valid.500": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "retire_memory_entry.error.valid.503": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "retire_memory_entry.request.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "retire_memory_entry.request.invalid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "retire_memory_entry.request.invalid.missing": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "retire_memory_entry.request.invalid.null": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "retire_memory_entry.request.valid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "retire_memory_entry.request.valid.minimal": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "retire_memory_entry.success.valid.json": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "revise_artifact_candidate.error.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "revise_artifact_candidate.error.valid.401": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "revise_artifact_candidate.error.valid.404": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "revise_artifact_candidate.error.valid.409": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "revise_artifact_candidate.error.valid.422": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "revise_artifact_candidate.error.valid.500": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "revise_artifact_candidate.error.valid.503": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "revise_artifact_candidate.request.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "revise_artifact_candidate.request.invalid.integer-below-min.expected_version": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "revise_artifact_candidate.request.invalid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "revise_artifact_candidate.request.invalid.missing": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "revise_artifact_candidate.request.invalid.null": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "revise_artifact_candidate.request.invalid.unsafe-integer.expected_version": {
+      "engine": "typescript-overlay",
+      "pythonValid": true,
+      "valid": false
+    },
+    "revise_artifact_candidate.request.valid.integer-min.expected_version": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "revise_artifact_candidate.request.valid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "revise_artifact_candidate.request.valid.minimal": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "revise_artifact_candidate.request.valid.safe-integer-max.expected_version": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "revise_artifact_candidate.success.valid.json": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "revise_memory_entry.error.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "revise_memory_entry.error.valid.401": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "revise_memory_entry.error.valid.404": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "revise_memory_entry.error.valid.409": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "revise_memory_entry.error.valid.422": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "revise_memory_entry.error.valid.500": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "revise_memory_entry.error.valid.503": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "revise_memory_entry.request.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "revise_memory_entry.request.invalid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "revise_memory_entry.request.invalid.missing": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "revise_memory_entry.request.invalid.null": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "revise_memory_entry.request.valid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "revise_memory_entry.request.valid.minimal": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "revise_memory_entry.success.valid.json": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "scan_external_skills.error.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "scan_external_skills.error.valid.401": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "scan_external_skills.error.valid.422": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "scan_external_skills.error.valid.500": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "scan_external_skills.error.valid.503": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "scan_external_skills.request.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "scan_external_skills.request.invalid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "scan_external_skills.request.invalid.missing": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "scan_external_skills.request.invalid.null": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "scan_external_skills.request.valid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "scan_external_skills.request.valid.minimal": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "scan_external_skills.success.valid.json": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "search_memory.error.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "search_memory.error.valid.401": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "search_memory.error.valid.409": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "search_memory.error.valid.422": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "search_memory.error.valid.500": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "search_memory.error.valid.503": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "search_memory.request.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "search_memory.request.invalid.integer-above-max.limit": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "search_memory.request.invalid.integer-below-min.limit": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "search_memory.request.invalid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "search_memory.request.invalid.missing": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "search_memory.request.invalid.null": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "search_memory.request.invalid.unsafe-integer.limit": {
+      "engine": "typescript-overlay",
+      "pythonValid": false,
+      "valid": false
+    },
+    "search_memory.request.valid.integer-max.limit": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "search_memory.request.valid.integer-min.limit": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "search_memory.request.valid.max-length": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "search_memory.request.valid.minimal": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "search_memory.success.valid.json": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "update_handoff_report_project.error.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "update_handoff_report_project.error.valid.401": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "update_handoff_report_project.error.valid.404": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "update_handoff_report_project.error.valid.409": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "update_handoff_report_project.error.valid.422": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "update_handoff_report_project.error.valid.500": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "update_handoff_report_project.request.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "update_handoff_report_project.request.invalid.integer-below-min.expected_version": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "update_handoff_report_project.request.invalid.missing": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "update_handoff_report_project.request.invalid.null": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "update_handoff_report_project.request.invalid.unsafe-integer.expected_version": {
+      "engine": "typescript-overlay",
+      "pythonValid": true,
+      "valid": false
+    },
+    "update_handoff_report_project.request.valid.integer-min.expected_version": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "update_handoff_report_project.request.valid.minimal": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "update_handoff_report_project.request.valid.safe-integer-max.expected_version": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "update_handoff_report_project.success.valid.json": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "update_handoff_report_workstream.error.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "update_handoff_report_workstream.error.valid.401": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "update_handoff_report_workstream.error.valid.404": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "update_handoff_report_workstream.error.valid.409": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "update_handoff_report_workstream.error.valid.422": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "update_handoff_report_workstream.error.valid.500": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "update_handoff_report_workstream.request.invalid.extra": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "update_handoff_report_workstream.request.invalid.integer-below-min.expected_version": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "update_handoff_report_workstream.request.invalid.missing": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "update_handoff_report_workstream.request.invalid.null": {
+      "engine": "pydantic",
+      "pythonValid": false,
+      "valid": false
+    },
+    "update_handoff_report_workstream.request.invalid.unsafe-integer.expected_version": {
+      "engine": "typescript-overlay",
+      "pythonValid": true,
+      "valid": false
+    },
+    "update_handoff_report_workstream.request.valid.integer-min.expected_version": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "update_handoff_report_workstream.request.valid.minimal": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "update_handoff_report_workstream.request.valid.safe-integer-max.expected_version": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    },
+    "update_handoff_report_workstream.success.valid.json": {
+      "engine": "pydantic",
+      "pythonValid": true,
+      "valid": true
+    }
+  },
+  "schema": "powercontext.conformance.expected.v1",
+  "sourceReference": "../provenance.json",
+  "suite": "wire"
+}

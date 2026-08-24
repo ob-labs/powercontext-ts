@@ -1,6 +1,6 @@
 # contract-sync
 
-Phase 1 ships pull, verify, advisory and idempotence checks.
+Pull, verify, advise, and prove that repeating a pin is a zero diff.
 
 ## Bootstrap
 
@@ -26,9 +26,9 @@ python tools/contract-sync/sync.py --from-git-url
 ```
 
 The puller reads `python_commit` from the lock, copies
-`openapi/powercontext.yaml` as LF bytes, and surgically updates
-`openapi_sha256`, `openapi_bytes`, `operation_count` and `schema_count`.
-Repeating the same pin must be a zero diff.
+`openapi/powercontext.yaml` as LF bytes, and updates `openapi_sha256`,
+`openapi_bytes`, `operation_count`, and `schema_count`. Repeating the same pin
+must be a zero diff.
 
 ## Advisory
 
@@ -37,4 +37,4 @@ python tools/contract-sync/advisory.py
 ```
 
 Compares Python `main` with the frozen snapshot. Exit `10` means drift. Nightly
-CI opens a compatibility-review issue and does not fail ordinary PRs.
+CI opens a compatibility-review issue and does not fail ordinary pull requests.

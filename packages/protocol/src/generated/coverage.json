@@ -1,5 +1,6 @@
 {
-  "generatorVersion": "0.1.0-phase1",
+  "notice": "DO NOT EDIT",
+  "generatorVersion": "0.2.0-phase2",
   "conversion": "oas3-to-json-schema.v1",
   "overlay": "integer-safe-range.v1",
   "sourceDigest": "a97488e85ab3a9f1db3f1dce720ec74b07c626b1974cc860c67b91cabb22f7e3",
@@ -237,5 +238,15 @@
     "WorkstreamDescriptor",
     "WorkstreamKind",
     "WorkstreamPage"
-  ]
+  ],
+  "requestContracts": 49,
+  "successMedia": 53,
+  "successNamedSchemas": 52,
+  "errorMedia": 245,
+  "errorNamedSchemas": 245,
+  "contentKinds": {
+    "json": 297,
+    "text": 1,
+    "bytes": 0
+  }
 }

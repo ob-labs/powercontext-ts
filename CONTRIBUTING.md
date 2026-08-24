@@ -1,13 +1,22 @@
 # Contributing to powercontext-ts
 
 TypeScript PowerContext is a second implementation, not a fork of the Python
-source tree. Read the Phase 0 and Phase 1 documents before writing code:
+source tree. Read these before writing code:
 
-- `contract/baseline.lock.yaml`
-- `docs/governance/capability-manifest.yaml`
-- `docs/governance/full-parity.md`
-- `docs/adr/`
-- `docs/phase-1/README.md`
+- [Documentation index](docs/index.md)
+- [Roadmap](docs/roadmap.md)
+- [Compatibility policy](docs/policies/compatibility.md)
+- [Capability manifest](docs/policies/capability-manifest.yaml)
+- [ADRs](docs/adr/README.md)
+- [Contract-sync cadence](docs/policies/contract-sync.md)
+
+Sibling checkout for local oracle and contract-sync work:
+
+```text
+<workspace>/
+  powercontext/       # Python reference
+  powercontext-ts/    # this repository
+```
 
 ## Hard rules
 
@@ -20,19 +29,19 @@ source tree. Read the Phase 0 and Phase 1 documents before writing code:
    byte-identical.
 3. **Do not hand-edit `packages/protocol/src/generated`.** Run `pnpm generate`.
    `pnpm generate:check` must stay green.
-4. **Do not silently follow Python `main`.** Baseline bumps are dedicated PRs
-   with compatibility review and matching fixtures. See
-   `docs/governance/contract-sync-cadence.md`.
+4. **Do not silently follow Python `main`.** Baseline bumps are dedicated pull
+   requests with compatibility review and matching fixtures.
 5. **Do not write a shared Python database** until ADR 0001 and ADR 0002 are
    implemented in both languages.
-6. **Do not treat Draft RFC text as a requirement.** The RFC ledger is the
-   status source. Shipped Python behavior wins over draft extras.
+6. **Do not treat Draft RFC text as a requirement.** The
+   [RFC ledger](docs/policies/rfc-ledger.yaml) is the status source. Shipped
+   Python behavior wins over draft extras.
 
 ## Pull requests
 
-PR CI runs format, lint, typecheck, build, unit tests, license headers,
-generated-drift, contract-drift, pack smoke and the pinned Python oracle
-bootstrap. Name the profile and C0–C5 target in the description.
+Name the profile and C0–C5 target in the description. Cross-language behavior
+changes need a compatibility decision. Python-side work goes to the Python
+repository as its own pull request.
 
 ```text
 pnpm install --frozen-lockfile
@@ -42,12 +51,11 @@ pnpm typecheck
 pnpm build
 pnpm test
 pnpm generate:check
+python conformance/runners/python/run.py --export-check
+pnpm conformance
 python tools/contract-sync/verify.py
 pnpm pack:smoke
 ```
-
-Cross-language behavior changes need a compatibility decision. Python-side work
-goes to the Python repository as its own PR.
 
 ## Package boundary
 

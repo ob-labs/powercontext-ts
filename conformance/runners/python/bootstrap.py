@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Create the isolated oracle environment from the Phase 0 lock pin."""
+"""Create the isolated oracle environment from the baseline lock pin."""
 
 from __future__ import annotations
 

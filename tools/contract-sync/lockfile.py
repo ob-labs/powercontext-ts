@@ -3,7 +3,7 @@
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 
-"""Typed baseline-lock loading for contract and governance verification."""
+"""Typed baseline-lock loading for contract and policy verification."""
 
 from __future__ import annotations
 

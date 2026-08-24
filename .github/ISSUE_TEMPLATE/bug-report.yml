@@ -1,0 +1,62 @@
+name: Bug Report
+description: Report a reproducible problem in powercontext-ts
+title: 'bug: '
+labels: ['bug']
+body:
+  - type: markdown
+    attributes:
+      value: Provide enough detail for maintainers to reproduce the issue.
+
+  - type: dropdown
+    id: profile
+    attributes:
+      label: Profile
+      options:
+        - client
+        - sqlite-fts
+        - sqlite-vector
+        - oceanbase-hybrid
+        - full-product
+        - tooling / docs
+    validations:
+      required: true
+
+  - type: textarea
+    id: describe-bug
+    attributes:
+      label: Describe the bug
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps-to-reproduce
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. ...
+        2. ...
+        3. ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual-behavior
+    attributes:
+      label: Actual behavior
+      description: Include logs, stack traces, or validator output.
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      placeholder: |
+        - Node version:
+        - OS:
+        - Commit:

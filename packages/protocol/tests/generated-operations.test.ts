@@ -15,11 +15,31 @@
  */
 
 import { describe, expect, it } from 'vitest'
+import type {
+  OpenApiComponents,
+  OpenApiOperations,
+  OpenApiPaths,
+  components,
+  operations,
+  paths,
+} from '../src/index.js'
 import {
   GENERATED_MANIFEST,
   listOperationIds,
   validateWireValue,
 } from '../src/index.js'
+
+type Assert<T extends true> = T
+type IsEquivalent<Left, Right> =
+  (<Value>() => Value extends Left ? 1 : 2) extends <Value>() => Value extends Right
+    ? 1
+    : 2
+    ? true
+    : false
+
+type _PublicPathsAlias = Assert<IsEquivalent<paths, OpenApiPaths>>
+type _PublicComponentsAlias = Assert<IsEquivalent<components, OpenApiComponents>>
+type _PublicOperationsAlias = Assert<IsEquivalent<operations, OpenApiOperations>>
 
 describe('generated protocol artifacts', () => {
   it('covers the frozen 52 operations', () => {

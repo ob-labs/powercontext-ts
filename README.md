@@ -1,21 +1,20 @@
 # powercontext-ts
 
 TypeScript implementation of [PowerContext](https://github.com/oceanbase/powercontext).
-This repository is the sibling of the Python reference, not a subdirectory of it.
+This repository is a sibling of the Python reference, not a subdirectory of it.
 
-Phase 0 froze the product boundary. Phase 1 lands the publishable workspace,
-CI quality gates, contract-sync puller, oracle harness and the six risk spikes.
+Python remains the reference implementation and semantic oracle. TypeScript
+aligns through the pinned OpenAPI snapshot and the repository-root conformance
+kit.
 
-## Sibling layout
+## Status
 
-```text
-<workspace>/
-  powercontext/       # Python reference
-  powercontext-ts/    # this repository
-```
+The `client` profile has Protocol types, 52 operation contracts, runtime
+validators, and C1 wire / canonical fixtures. The official HTTP Client
+transport, Runtime, Server, MCP, and CLI are not shipped.
 
-The two repositories do not share OpenAPI files, fixtures, release tags or CI.
-The only Python → TypeScript channels are contract-sync and the oracle exporter.
+See [Current status](docs/user/README.md) and the
+[compatibility policy](docs/policies/compatibility.md).
 
 ## Workspace commands
 
@@ -32,15 +31,31 @@ pnpm pack:smoke
 pnpm license:check
 python tools/contract-sync/verify.py
 python tools/contract-sync/sync.py
+python conformance/runners/python/run.py --export
+python conformance/runners/python/run.py --export-check
+pnpm conformance
 ```
 
-Client packages (`@powercontext/protocol`, `@powercontext/client`) install without
-native addons. Runtime work starts in later phases.
+`@powercontext/protocol` and `@powercontext/client` install without native
+addons.
+
+## Repository layout
+
+```text
+packages/       publishable and private workspace packages
+contract/       pinned OpenAPI snapshot and baseline lock
+conformance/    language-independent fixtures; not an npm package
+tools/          protocol generator, contract-sync, license and pack smoke
+docs/           policies, ADRs, and contributor notes
+```
 
 ## Documents
 
-- [Phase 1 exit review](docs/phase-1/README.md)
-- [Baseline lock](contract/baseline.lock.yaml)
-- [Capability manifest](docs/governance/capability-manifest.yaml)
-- [ADRs](docs/adr/README.md)
+- [Documentation index](docs/index.md)
+- [Roadmap](docs/roadmap.md)
 - [Contributing](CONTRIBUTING.md)
+- [Changelog](CHANGELOG.md)
+- [Security](SECURITY.md)
+- [ADRs](docs/adr/README.md)
+- [Compatibility policy](docs/policies/compatibility.md)
+- [Baseline lock](contract/baseline.lock.yaml)

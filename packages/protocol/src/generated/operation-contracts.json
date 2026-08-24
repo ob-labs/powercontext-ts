@@ -1,0 +1,2419 @@
+{
+  "notice": "DO NOT EDIT",
+  "generatorVersion": "0.2.0-phase2",
+  "sourceDigest": "a97488e85ab3a9f1db3f1dce720ec74b07c626b1974cc860c67b91cabb22f7e3",
+  "operationCount": 52,
+  "contracts": [
+    {
+      "operationId": "get_liveness",
+      "request": {
+        "location": null,
+        "contentType": null,
+        "schemaName": null
+      },
+      "success": [
+        {
+          "status": 200,
+          "contentType": "application/json",
+          "schemaName": "HealthResponse",
+          "kind": "json"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "operationId": "get_readiness",
+      "request": {
+        "location": null,
+        "contentType": null,
+        "schemaName": null
+      },
+      "success": [
+        {
+          "status": 200,
+          "contentType": "application/json",
+          "schemaName": "ReadinessResponse",
+          "kind": "json"
+        }
+      ],
+      "errors": [
+        {
+          "status": 503,
+          "contentType": "application/json",
+          "schemaName": "ReadinessResponse",
+          "kind": "json"
+        }
+      ]
+    },
+    {
+      "operationId": "get_capabilities",
+      "request": {
+        "location": null,
+        "contentType": null,
+        "schemaName": null
+      },
+      "success": [
+        {
+          "status": 200,
+          "contentType": "application/json",
+          "schemaName": "Capabilities",
+          "kind": "json"
+        }
+      ],
+      "errors": [
+        {
+          "status": 401,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        }
+      ]
+    },
+    {
+      "operationId": "capture_content_source",
+      "request": {
+        "location": "body",
+        "contentType": "application/json",
+        "schemaName": "CaptureContentSourceRequest"
+      },
+      "success": [
+        {
+          "status": 202,
+          "contentType": "application/json",
+          "schemaName": "CaptureContentSourceResponse",
+          "kind": "json"
+        }
+      ],
+      "errors": [
+        {
+          "status": 401,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 409,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 422,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 500,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 503,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        }
+      ]
+    },
+    {
+      "operationId": "prepare_context",
+      "request": {
+        "location": "body",
+        "contentType": "application/json",
+        "schemaName": "PrepareContextRequest"
+      },
+      "success": [
+        {
+          "status": 200,
+          "contentType": "application/json",
+          "schemaName": "PreparedContext",
+          "kind": "json"
+        }
+      ],
+      "errors": [
+        {
+          "status": 401,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 422,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 500,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 503,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        }
+      ]
+    },
+    {
+      "operationId": "create_work_contract",
+      "request": {
+        "location": "body",
+        "contentType": "application/json",
+        "schemaName": "CreateWorkContractRequest"
+      },
+      "success": [
+        {
+          "status": 202,
+          "contentType": "application/json",
+          "schemaName": "WorkSourceReceipt",
+          "kind": "json"
+        }
+      ],
+      "errors": [
+        {
+          "status": 401,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 404,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 409,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 422,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 500,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 503,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        }
+      ]
+    },
+    {
+      "operationId": "handoff_current_work",
+      "request": {
+        "location": "body",
+        "contentType": "application/json",
+        "schemaName": "HandoffCurrentWorkRequest"
+      },
+      "success": [
+        {
+          "status": 200,
+          "contentType": "application/json",
+          "schemaName": "PreparedWorkHandoff",
+          "kind": "json"
+        }
+      ],
+      "errors": [
+        {
+          "status": 401,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 404,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 409,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 422,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 500,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 503,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        }
+      ]
+    },
+    {
+      "operationId": "acknowledge_handoff",
+      "request": {
+        "location": "body",
+        "contentType": "application/json",
+        "schemaName": "AcknowledgeHandoffRequest"
+      },
+      "success": [
+        {
+          "status": 200,
+          "contentType": "application/json",
+          "schemaName": "HandoffAcknowledgement",
+          "kind": "json"
+        }
+      ],
+      "errors": [
+        {
+          "status": 401,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 404,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 409,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 422,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 500,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 503,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        }
+      ]
+    },
+    {
+      "operationId": "record_task_outcome",
+      "request": {
+        "location": "body",
+        "contentType": "application/json",
+        "schemaName": "RecordTaskOutcomeRequest"
+      },
+      "success": [
+        {
+          "status": 202,
+          "contentType": "application/json",
+          "schemaName": "WorkSourceReceipt",
+          "kind": "json"
+        }
+      ],
+      "errors": [
+        {
+          "status": 401,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 404,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 409,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 422,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 500,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 503,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        }
+      ]
+    },
+    {
+      "operationId": "activate_handoff",
+      "request": {
+        "location": "body",
+        "contentType": "application/json",
+        "schemaName": "ActivateHandoffRequest"
+      },
+      "success": [
+        {
+          "status": 200,
+          "contentType": "application/json",
+          "schemaName": "HandoffActivation",
+          "kind": "json"
+        }
+      ],
+      "errors": [
+        {
+          "status": 401,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 404,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 422,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 500,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 503,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        }
+      ]
+    },
+    {
+      "operationId": "prepare_handoff",
+      "request": {
+        "location": "body",
+        "contentType": "application/json",
+        "schemaName": "PrepareHandoffRequest"
+      },
+      "success": [
+        {
+          "status": 200,
+          "contentType": "application/json",
+          "schemaName": "HandoffDraft",
+          "kind": "json"
+        }
+      ],
+      "errors": [
+        {
+          "status": 401,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 404,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 422,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 500,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 503,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        }
+      ]
+    },
+    {
+      "operationId": "finalize_handoff",
+      "request": {
+        "location": "body",
+        "contentType": "application/json",
+        "schemaName": "FinalizeHandoffRequest"
+      },
+      "success": [
+        {
+          "status": 200,
+          "contentType": "application/json",
+          "schemaName": "PreparedHandoff",
+          "kind": "json"
+        }
+      ],
+      "errors": [
+        {
+          "status": 401,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 404,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 422,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 500,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 503,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        }
+      ]
+    },
+    {
+      "operationId": "commit_handoff",
+      "request": {
+        "location": "body",
+        "contentType": "application/json",
+        "schemaName": "CommitHandoffRequest"
+      },
+      "success": [
+        {
+          "status": 200,
+          "contentType": "application/json",
+          "schemaName": "CommittedHandoff",
+          "kind": "json"
+        }
+      ],
+      "errors": [
+        {
+          "status": 401,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 404,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 409,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 422,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 500,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 503,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        }
+      ]
+    },
+    {
+      "operationId": "continue_handoff",
+      "request": {
+        "location": "body",
+        "contentType": "application/json",
+        "schemaName": "ContinueHandoffRequest"
+      },
+      "success": [
+        {
+          "status": 200,
+          "contentType": "application/json",
+          "schemaName": "HandoffResolution",
+          "kind": "json"
+        }
+      ],
+      "errors": [
+        {
+          "status": 401,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 404,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 422,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 500,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 503,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        }
+      ]
+    },
+    {
+      "operationId": "flush_memory",
+      "request": {
+        "location": "body",
+        "contentType": "application/json",
+        "schemaName": "FlushMemoryRequest"
+      },
+      "success": [
+        {
+          "status": 200,
+          "contentType": "application/json",
+          "schemaName": "FlushMemoryResponse",
+          "kind": "json"
+        }
+      ],
+      "errors": [
+        {
+          "status": 401,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 422,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 500,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 503,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        }
+      ]
+    },
+    {
+      "operationId": "remember_memory",
+      "request": {
+        "location": "body",
+        "contentType": "application/json",
+        "schemaName": "RememberMemoryRequest"
+      },
+      "success": [
+        {
+          "status": 200,
+          "contentType": "application/json",
+          "schemaName": "MemoryMutationResponse",
+          "kind": "json"
+        }
+      ],
+      "errors": [
+        {
+          "status": 401,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 409,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 422,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 500,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 503,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        }
+      ]
+    },
+    {
+      "operationId": "search_memory",
+      "request": {
+        "location": "body",
+        "contentType": "application/json",
+        "schemaName": "SearchMemoryRequest"
+      },
+      "success": [
+        {
+          "status": 200,
+          "contentType": "application/json",
+          "schemaName": "SearchMemoryResponse",
+          "kind": "json"
+        }
+      ],
+      "errors": [
+        {
+          "status": 401,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 409,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 422,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 500,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 503,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        }
+      ]
+    },
+    {
+      "operationId": "list_memory_entries",
+      "request": {
+        "location": "body",
+        "contentType": "application/json",
+        "schemaName": "ListMemoryEntriesRequest"
+      },
+      "success": [
+        {
+          "status": 200,
+          "contentType": "application/json",
+          "schemaName": "ListMemoryEntriesResponse",
+          "kind": "json"
+        }
+      ],
+      "errors": [
+        {
+          "status": 401,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 404,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 422,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 500,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 503,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        }
+      ]
+    },
+    {
+      "operationId": "get_memory_entry",
+      "request": {
+        "location": "body",
+        "contentType": "application/json",
+        "schemaName": "GetMemoryEntryRequest"
+      },
+      "success": [
+        {
+          "status": 200,
+          "contentType": "application/json",
+          "schemaName": "MemoryEntry",
+          "kind": "json"
+        }
+      ],
+      "errors": [
+        {
+          "status": 401,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 404,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 422,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 500,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 503,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        }
+      ]
+    },
+    {
+      "operationId": "revise_memory_entry",
+      "request": {
+        "location": "body",
+        "contentType": "application/json",
+        "schemaName": "ReviseMemoryEntryRequest"
+      },
+      "success": [
+        {
+          "status": 200,
+          "contentType": "application/json",
+          "schemaName": "MemoryMutationResponse",
+          "kind": "json"
+        }
+      ],
+      "errors": [
+        {
+          "status": 401,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 404,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 409,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 422,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 500,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 503,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        }
+      ]
+    },
+    {
+      "operationId": "retire_memory_entry",
+      "request": {
+        "location": "body",
+        "contentType": "application/json",
+        "schemaName": "RetireMemoryEntryRequest"
+      },
+      "success": [
+        {
+          "status": 200,
+          "contentType": "application/json",
+          "schemaName": "MemoryMutationResponse",
+          "kind": "json"
+        }
+      ],
+      "errors": [
+        {
+          "status": 401,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 404,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 409,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 422,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 500,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 503,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        }
+      ]
+    },
+    {
+      "operationId": "list_memory_changes",
+      "request": {
+        "location": "body",
+        "contentType": "application/json",
+        "schemaName": "ListMemoryChangesRequest"
+      },
+      "success": [
+        {
+          "status": 200,
+          "contentType": "application/json",
+          "schemaName": "ListMemoryChangesResponse",
+          "kind": "json"
+        }
+      ],
+      "errors": [
+        {
+          "status": 401,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 404,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 422,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 500,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 503,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        }
+      ]
+    },
+    {
+      "operationId": "propose_experience",
+      "request": {
+        "location": "body",
+        "contentType": "application/json",
+        "schemaName": "ProposeExperienceRequest"
+      },
+      "success": [
+        {
+          "status": 201,
+          "contentType": "application/json",
+          "schemaName": "ArtifactCandidate",
+          "kind": "json"
+        }
+      ],
+      "errors": [
+        {
+          "status": 401,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 409,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 422,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 500,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 503,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        }
+      ]
+    },
+    {
+      "operationId": "generate_experience",
+      "request": {
+        "location": "body",
+        "contentType": "application/json",
+        "schemaName": "GenerateExperienceRequest"
+      },
+      "success": [
+        {
+          "status": 200,
+          "contentType": "application/json",
+          "schemaName": "GeneratedCandidateResponse",
+          "kind": "json"
+        }
+      ],
+      "errors": [
+        {
+          "status": 401,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 409,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 422,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 500,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 503,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        }
+      ]
+    },
+    {
+      "operationId": "get_experience",
+      "request": {
+        "location": "body",
+        "contentType": "application/json",
+        "schemaName": "GetExperienceRequest"
+      },
+      "success": [
+        {
+          "status": 200,
+          "contentType": "application/json",
+          "schemaName": "ExperienceArtifact",
+          "kind": "json"
+        }
+      ],
+      "errors": [
+        {
+          "status": 401,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 404,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 422,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 500,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 503,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        }
+      ]
+    },
+    {
+      "operationId": "propose_skill",
+      "request": {
+        "location": "body",
+        "contentType": "application/json",
+        "schemaName": "ProposeSkillRequest"
+      },
+      "success": [
+        {
+          "status": 201,
+          "contentType": "application/json",
+          "schemaName": "ArtifactCandidate",
+          "kind": "json"
+        }
+      ],
+      "errors": [
+        {
+          "status": 401,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 409,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 422,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 500,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 503,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        }
+      ]
+    },
+    {
+      "operationId": "generate_skill",
+      "request": {
+        "location": "body",
+        "contentType": "application/json",
+        "schemaName": "GenerateSkillRequest"
+      },
+      "success": [
+        {
+          "status": 200,
+          "contentType": "application/json",
+          "schemaName": "GeneratedCandidateResponse",
+          "kind": "json"
+        }
+      ],
+      "errors": [
+        {
+          "status": 401,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 409,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 422,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 500,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 503,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        }
+      ]
+    },
+    {
+      "operationId": "get_skill",
+      "request": {
+        "location": "body",
+        "contentType": "application/json",
+        "schemaName": "GetSkillRequest"
+      },
+      "success": [
+        {
+          "status": 200,
+          "contentType": "application/json",
+          "schemaName": "SkillArtifact",
+          "kind": "json"
+        }
+      ],
+      "errors": [
+        {
+          "status": 401,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 404,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 422,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 500,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 503,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        }
+      ]
+    },
+    {
+      "operationId": "scan_external_skills",
+      "request": {
+        "location": "body",
+        "contentType": "application/json",
+        "schemaName": "ScanExternalSkillsRequest"
+      },
+      "success": [
+        {
+          "status": 200,
+          "contentType": "application/json",
+          "schemaName": "ScanExternalSkillsResponse",
+          "kind": "json"
+        }
+      ],
+      "errors": [
+        {
+          "status": 401,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 422,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 500,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 503,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        }
+      ]
+    },
+    {
+      "operationId": "list_external_skills",
+      "request": {
+        "location": "body",
+        "contentType": "application/json",
+        "schemaName": "ListExternalSkillsRequest"
+      },
+      "success": [
+        {
+          "status": 200,
+          "contentType": "application/json",
+          "schemaName": "ListExternalSkillsResponse",
+          "kind": "json"
+        }
+      ],
+      "errors": [
+        {
+          "status": 401,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 422,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 500,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 503,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        }
+      ]
+    },
+    {
+      "operationId": "resolve_external_skill",
+      "request": {
+        "location": "body",
+        "contentType": "application/json",
+        "schemaName": "ResolveExternalSkillRequest"
+      },
+      "success": [
+        {
+          "status": 200,
+          "contentType": "application/json",
+          "schemaName": "ExternalSkillResolution",
+          "kind": "json"
+        }
+      ],
+      "errors": [
+        {
+          "status": 401,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 404,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 422,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 500,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 503,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        }
+      ]
+    },
+    {
+      "operationId": "import_external_skill",
+      "request": {
+        "location": "body",
+        "contentType": "application/json",
+        "schemaName": "ImportExternalSkillRequest"
+      },
+      "success": [
+        {
+          "status": 200,
+          "contentType": "application/json",
+          "schemaName": "GeneratedCandidateResponse",
+          "kind": "json"
+        }
+      ],
+      "errors": [
+        {
+          "status": 401,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 404,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 409,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 422,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 500,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 503,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        }
+      ]
+    },
+    {
+      "operationId": "list_artifact_candidates",
+      "request": {
+        "location": "body",
+        "contentType": "application/json",
+        "schemaName": "ListArtifactCandidatesRequest"
+      },
+      "success": [
+        {
+          "status": 200,
+          "contentType": "application/json",
+          "schemaName": "ArtifactCandidatePage",
+          "kind": "json"
+        }
+      ],
+      "errors": [
+        {
+          "status": 401,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 422,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 500,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 503,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        }
+      ]
+    },
+    {
+      "operationId": "get_artifact_candidate",
+      "request": {
+        "location": "body",
+        "contentType": "application/json",
+        "schemaName": "GetArtifactCandidateRequest"
+      },
+      "success": [
+        {
+          "status": 200,
+          "contentType": "application/json",
+          "schemaName": "ArtifactCandidate",
+          "kind": "json"
+        }
+      ],
+      "errors": [
+        {
+          "status": 401,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 404,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 422,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 500,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 503,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        }
+      ]
+    },
+    {
+      "operationId": "approve_artifact_candidate",
+      "request": {
+        "location": "body",
+        "contentType": "application/json",
+        "schemaName": "ApproveArtifactCandidateRequest"
+      },
+      "success": [
+        {
+          "status": 200,
+          "contentType": "application/json",
+          "schemaName": "ArtifactCandidate",
+          "kind": "json"
+        }
+      ],
+      "errors": [
+        {
+          "status": 401,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 404,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 409,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 422,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 500,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 503,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        }
+      ]
+    },
+    {
+      "operationId": "reject_artifact_candidate",
+      "request": {
+        "location": "body",
+        "contentType": "application/json",
+        "schemaName": "RejectArtifactCandidateRequest"
+      },
+      "success": [
+        {
+          "status": 200,
+          "contentType": "application/json",
+          "schemaName": "ArtifactCandidate",
+          "kind": "json"
+        }
+      ],
+      "errors": [
+        {
+          "status": 401,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 404,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 409,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 422,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 500,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 503,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        }
+      ]
+    },
+    {
+      "operationId": "revise_artifact_candidate",
+      "request": {
+        "location": "body",
+        "contentType": "application/json",
+        "schemaName": "ReviseArtifactCandidateRequest"
+      },
+      "success": [
+        {
+          "status": 200,
+          "contentType": "application/json",
+          "schemaName": "ArtifactCandidate",
+          "kind": "json"
+        }
+      ],
+      "errors": [
+        {
+          "status": 401,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 404,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 409,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 422,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 500,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 503,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        }
+      ]
+    },
+    {
+      "operationId": "get_stats",
+      "request": {
+        "location": "query",
+        "contentType": null,
+        "schemaName": "GetStatsRequest"
+      },
+      "success": [
+        {
+          "status": 200,
+          "contentType": "application/json",
+          "schemaName": "ScopedStats",
+          "kind": "json"
+        }
+      ],
+      "errors": [
+        {
+          "status": 401,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 422,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 500,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 503,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        }
+      ]
+    },
+    {
+      "operationId": "create_handoff_report_project",
+      "request": {
+        "location": "body",
+        "contentType": "application/json",
+        "schemaName": "CreateHandoffReportProjectRequest"
+      },
+      "success": [
+        {
+          "status": 201,
+          "contentType": "application/json",
+          "schemaName": "ProjectDescriptor",
+          "kind": "json"
+        }
+      ],
+      "errors": [
+        {
+          "status": 401,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 409,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 422,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 500,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        }
+      ]
+    },
+    {
+      "operationId": "list_handoff_report_projects",
+      "request": {
+        "location": "body",
+        "contentType": "application/json",
+        "schemaName": "ListHandoffReportProjectsRequest"
+      },
+      "success": [
+        {
+          "status": 200,
+          "contentType": "application/json",
+          "schemaName": "ProjectPage",
+          "kind": "json"
+        }
+      ],
+      "errors": [
+        {
+          "status": 401,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 422,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 500,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        }
+      ]
+    },
+    {
+      "operationId": "get_handoff_report_project",
+      "request": {
+        "location": "body",
+        "contentType": "application/json",
+        "schemaName": "GetHandoffReportProjectRequest"
+      },
+      "success": [
+        {
+          "status": 200,
+          "contentType": "application/json",
+          "schemaName": "ProjectDescriptor",
+          "kind": "json"
+        }
+      ],
+      "errors": [
+        {
+          "status": 401,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 404,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 422,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 500,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        }
+      ]
+    },
+    {
+      "operationId": "update_handoff_report_project",
+      "request": {
+        "location": "body",
+        "contentType": "application/json",
+        "schemaName": "UpdateHandoffReportProjectRequest"
+      },
+      "success": [
+        {
+          "status": 200,
+          "contentType": "application/json",
+          "schemaName": "ProjectDescriptor",
+          "kind": "json"
+        }
+      ],
+      "errors": [
+        {
+          "status": 401,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 404,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 409,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 422,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 500,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        }
+      ]
+    },
+    {
+      "operationId": "register_handoff_report_workstream",
+      "request": {
+        "location": "body",
+        "contentType": "application/json",
+        "schemaName": "RegisterHandoffReportWorkstreamRequest"
+      },
+      "success": [
+        {
+          "status": 201,
+          "contentType": "application/json",
+          "schemaName": "WorkstreamDescriptor",
+          "kind": "json"
+        }
+      ],
+      "errors": [
+        {
+          "status": 401,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 404,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 409,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 422,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 500,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        }
+      ]
+    },
+    {
+      "operationId": "list_handoff_report_workstreams",
+      "request": {
+        "location": "body",
+        "contentType": "application/json",
+        "schemaName": "ListHandoffReportWorkstreamsRequest"
+      },
+      "success": [
+        {
+          "status": 200,
+          "contentType": "application/json",
+          "schemaName": "WorkstreamPage",
+          "kind": "json"
+        }
+      ],
+      "errors": [
+        {
+          "status": 401,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 404,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 422,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 500,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        }
+      ]
+    },
+    {
+      "operationId": "update_handoff_report_workstream",
+      "request": {
+        "location": "body",
+        "contentType": "application/json",
+        "schemaName": "UpdateHandoffReportWorkstreamRequest"
+      },
+      "success": [
+        {
+          "status": 200,
+          "contentType": "application/json",
+          "schemaName": "WorkstreamDescriptor",
+          "kind": "json"
+        }
+      ],
+      "errors": [
+        {
+          "status": 401,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 404,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 409,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 422,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 500,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        }
+      ]
+    },
+    {
+      "operationId": "get_handoff_report",
+      "request": {
+        "location": "body",
+        "contentType": "application/json",
+        "schemaName": "GetHandoffReportRequest"
+      },
+      "success": [
+        {
+          "status": 200,
+          "contentType": "application/json",
+          "schemaName": "HandoffReportResponse",
+          "kind": "json"
+        },
+        {
+          "status": 200,
+          "contentType": "text/markdown",
+          "schemaName": null,
+          "kind": "text"
+        }
+      ],
+      "errors": [
+        {
+          "status": 401,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 404,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 413,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 422,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 500,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 503,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        }
+      ]
+    },
+    {
+      "operationId": "record_handoff_report_activity",
+      "request": {
+        "location": "body",
+        "contentType": "application/json",
+        "schemaName": "RecordHandoffReportActivityRequest"
+      },
+      "success": [
+        {
+          "status": 201,
+          "contentType": "application/json",
+          "schemaName": "StoredHandoffReportActivity",
+          "kind": "json"
+        }
+      ],
+      "errors": [
+        {
+          "status": 401,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 404,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 409,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 422,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 500,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        }
+      ]
+    },
+    {
+      "operationId": "list_handoff_report_activities",
+      "request": {
+        "location": "body",
+        "contentType": "application/json",
+        "schemaName": "ListHandoffReportActivitiesRequest"
+      },
+      "success": [
+        {
+          "status": 200,
+          "contentType": "application/json",
+          "schemaName": "HandoffReportActivityPage",
+          "kind": "json"
+        }
+      ],
+      "errors": [
+        {
+          "status": 401,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 404,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 422,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 500,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        }
+      ]
+    },
+    {
+      "operationId": "purge_handoff_report_activities",
+      "request": {
+        "location": "body",
+        "contentType": "application/json",
+        "schemaName": "PurgeHandoffReportActivitiesRequest"
+      },
+      "success": [
+        {
+          "status": 200,
+          "contentType": "application/json",
+          "schemaName": "PurgeHandoffReportActivitiesResponse",
+          "kind": "json"
+        }
+      ],
+      "errors": [
+        {
+          "status": 401,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 404,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 422,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 500,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        }
+      ]
+    },
+    {
+      "operationId": "get_handoff_report_workspace",
+      "request": {
+        "location": "body",
+        "contentType": "application/json",
+        "schemaName": "GetHandoffReportWorkspaceRequest"
+      },
+      "success": [
+        {
+          "status": 200,
+          "contentType": "application/json",
+          "schemaName": "HandoffReportWorkspaceBinding",
+          "kind": "json"
+        }
+      ],
+      "errors": [
+        {
+          "status": 401,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 404,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 422,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 500,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        }
+      ]
+    },
+    {
+      "operationId": "attach_handoff_report_workspace",
+      "request": {
+        "location": "body",
+        "contentType": "application/json",
+        "schemaName": "AttachHandoffReportWorkspaceRequest"
+      },
+      "success": [
+        {
+          "status": 200,
+          "contentType": "application/json",
+          "schemaName": "HandoffReportWorkspaceBinding",
+          "kind": "json"
+        }
+      ],
+      "errors": [
+        {
+          "status": 401,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 404,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 409,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 422,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 500,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        }
+      ]
+    },
+    {
+      "operationId": "detach_handoff_report_workspace",
+      "request": {
+        "location": "body",
+        "contentType": "application/json",
+        "schemaName": "DetachHandoffReportWorkspaceRequest"
+      },
+      "success": [
+        {
+          "status": 200,
+          "contentType": "application/json",
+          "schemaName": "HandoffReportWorkspaceBinding",
+          "kind": "json"
+        }
+      ],
+      "errors": [
+        {
+          "status": 401,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 404,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 409,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 422,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        },
+        {
+          "status": 500,
+          "contentType": "application/json",
+          "schemaName": "ErrorResponse",
+          "kind": "json"
+        }
+      ]
+    }
+  ]
+}

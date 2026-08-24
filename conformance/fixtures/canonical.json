@@ -1,0 +1,280 @@
+{
+  "capabilities": [
+    "canonical.jcs",
+    "canonical.hash",
+    "canonical.sorting",
+    "canonical.utf8-bytes"
+  ],
+  "cases": [
+    {
+      "id": "jcs.literals-and-numbers",
+      "input": {
+        "literals": [
+          null,
+          true,
+          false
+        ],
+        "numbers": [
+          333333333.3333333,
+          1e+30,
+          4.5,
+          0.002,
+          1e-27
+        ]
+      },
+      "kind": "jcs",
+      "tags": [
+        "jcs"
+      ]
+    },
+    {
+      "id": "hash.literals-and-numbers",
+      "input": {
+        "literals": [
+          null,
+          true,
+          false
+        ],
+        "numbers": [
+          333333333.3333333,
+          1e+30,
+          4.5,
+          0.002,
+          1e-27
+        ]
+      },
+      "kind": "hash",
+      "tags": [
+        "hash"
+      ]
+    },
+    {
+      "id": "jcs.key-order",
+      "input": {
+        "a": 2,
+        "b": 1
+      },
+      "kind": "jcs",
+      "tags": [
+        "jcs"
+      ]
+    },
+    {
+      "id": "hash.key-order",
+      "input": {
+        "a": 2,
+        "b": 1
+      },
+      "kind": "hash",
+      "tags": [
+        "hash"
+      ]
+    },
+    {
+      "id": "jcs.negative-zero",
+      "input": {
+        "value": -0.0
+      },
+      "kind": "jcs",
+      "tags": [
+        "jcs"
+      ]
+    },
+    {
+      "id": "hash.negative-zero",
+      "input": {
+        "value": -0.0
+      },
+      "kind": "hash",
+      "tags": [
+        "hash"
+      ]
+    },
+    {
+      "id": "jcs.unicode-keys",
+      "input": {
+        "\r": "control",
+        "1": "digit",
+        "€": "euro",
+        "😀": "astral"
+      },
+      "kind": "jcs",
+      "tags": [
+        "jcs"
+      ]
+    },
+    {
+      "id": "hash.unicode-keys",
+      "input": {
+        "\r": "control",
+        "1": "digit",
+        "€": "euro",
+        "😀": "astral"
+      },
+      "kind": "hash",
+      "tags": [
+        "hash"
+      ]
+    },
+    {
+      "id": "jcs.control-escape",
+      "input": {
+        "value": "\b\t\n\f\r\"\\\u0001"
+      },
+      "kind": "jcs",
+      "tags": [
+        "jcs"
+      ]
+    },
+    {
+      "id": "hash.control-escape",
+      "input": {
+        "value": "\b\t\n\f\r\"\\\u0001"
+      },
+      "kind": "hash",
+      "tags": [
+        "hash"
+      ]
+    },
+    {
+      "id": "jcs.empty",
+      "input": {
+        "array": [],
+        "empty": "",
+        "object": {}
+      },
+      "kind": "jcs",
+      "tags": [
+        "jcs"
+      ]
+    },
+    {
+      "id": "hash.empty",
+      "input": {
+        "array": [],
+        "empty": "",
+        "object": {}
+      },
+      "kind": "hash",
+      "tags": [
+        "hash"
+      ]
+    },
+    {
+      "id": "jcs.cjk",
+      "input": {
+        "text": "中文测试"
+      },
+      "kind": "jcs",
+      "tags": [
+        "jcs"
+      ]
+    },
+    {
+      "id": "hash.cjk",
+      "input": {
+        "text": "中文测试"
+      },
+      "kind": "hash",
+      "tags": [
+        "hash"
+      ]
+    },
+    {
+      "id": "jcs.combining",
+      "input": {
+        "text": "é"
+      },
+      "kind": "jcs",
+      "tags": [
+        "jcs"
+      ]
+    },
+    {
+      "id": "hash.combining",
+      "input": {
+        "text": "é"
+      },
+      "kind": "hash",
+      "tags": [
+        "hash"
+      ]
+    },
+    {
+      "id": "sorting.utf16-keys",
+      "input": [
+        "",
+        "😀",
+        "€",
+        "1",
+        "\r"
+      ],
+      "kind": "sorting",
+      "tags": [
+        "sorting"
+      ]
+    },
+    {
+      "id": "utf8.ascii",
+      "input": {
+        "text": "hello"
+      },
+      "kind": "utf8",
+      "tags": [
+        "utf8"
+      ]
+    },
+    {
+      "id": "utf8.cjk",
+      "input": {
+        "text": "中文"
+      },
+      "kind": "utf8",
+      "tags": [
+        "utf8"
+      ]
+    },
+    {
+      "id": "utf8.emoji",
+      "input": {
+        "text": "😀"
+      },
+      "kind": "utf8",
+      "tags": [
+        "utf8"
+      ]
+    },
+    {
+      "id": "utf8.combining",
+      "input": {
+        "text": "é"
+      },
+      "kind": "utf8",
+      "tags": [
+        "utf8"
+      ]
+    },
+    {
+      "id": "utf8.mixed",
+      "input": {
+        "text": "PowerContext 中文 😀"
+      },
+      "kind": "utf8",
+      "tags": [
+        "utf8"
+      ]
+    }
+  ],
+  "comparator": "rfc8785-and-utf8-exact",
+  "contractVersion": 1,
+  "determinism": {
+    "clock": "not-used",
+    "id": "case.id",
+    "seed": 0
+  },
+  "expectedReference": "../expected/canonical.json",
+  "profile": "client",
+  "schema": "powercontext.conformance.canonical.v1",
+  "sourceReference": "../provenance.json",
+  "suite": "canonical"
+}

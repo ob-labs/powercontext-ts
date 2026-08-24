@@ -3,12 +3,13 @@
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 
-"""Verify the frozen contract plus Phase 1 CI evidence against one Python pin."""
+"""Verify the frozen contract and conformance assets against one pin."""
 
 from __future__ import annotations
 
 import argparse
 import ast
+import json
 import re
 import subprocess
 import sys
@@ -33,8 +34,10 @@ from lockfile import OPENAPI_PATH, ROOT, read_lock, read_yaml_mapping
 EXPECTED_SYNC_VERSION = (
     (ROOT / "tools" / "contract-sync" / "VERSION").read_text(encoding="utf-8").strip()
 )
-RFC_LEDGER_PATH = ROOT / "docs" / "governance" / "rfc-ledger.yaml"
-MANIFEST_PATH = ROOT / "docs" / "governance" / "capability-manifest.yaml"
+RFC_LEDGER_PATH = ROOT / "docs" / "policies" / "rfc-ledger.yaml"
+MANIFEST_PATH = ROOT / "docs" / "policies" / "capability-manifest.yaml"
+CONFORMANCE_MANIFEST_PATH = ROOT / "conformance" / "manifest.yaml"
+CONFORMANCE_PROVENANCE_PATH = ROOT / "conformance" / "provenance.json"
 _SHA256 = re.compile(r"^[0-9a-f]{64}$")
 _COMMIT = re.compile(r"^[0-9a-f]{40}$")
 _ANALYZER_POLICY_KEYS = (
@@ -51,7 +54,7 @@ _ANALYZER_POLICY_KEYS = (
 
 
 class VerificationError(ValueError):
-    """Report a baseline mismatch that must block Phase 0 exit."""
+    """Report a baseline mismatch that must block merge."""
 
 
 def _require_mapping(value: object, description: str) -> dict[str, Any]:
@@ -79,6 +82,64 @@ def _require_sha256(value: object, description: str) -> str:
     return digest
 
 
+def _snapshot_folder_digest(folder: Path) -> str:
+    payload = {
+        f"{folder.name}/{path.name}": sha256_bytes(
+            path.read_text(encoding="utf-8").encode("utf-8")
+        )
+        for path in sorted(folder.glob("*.json"))
+    }
+    encoded = json.dumps(payload, indent=2, sort_keys=True, ensure_ascii=False) + "\n"
+    return sha256_bytes(encoded.encode("utf-8"))
+
+
+def _verify_conformance_assets(lock: dict[str, Any], commit: str) -> None:
+    if lock.get("toolchain_phase") != 2:
+        raise VerificationError("toolchain_phase must be 2")
+    if lock.get("conformance_contract_version") != "powercontext.conformance.v1":
+        raise VerificationError("unsupported conformance_contract_version")
+    if lock.get("conformance_manifest_path") != "conformance/manifest.yaml":
+        raise VerificationError("conformance_manifest_path is not canonical")
+    if file_sha256(CONFORMANCE_MANIFEST_PATH) != _require_sha256(
+        lock.get("conformance_manifest_sha256"), "conformance_manifest_sha256"
+    ):
+        raise VerificationError("conformance manifest digest does not match the lock")
+
+    manifest = read_yaml_mapping(CONFORMANCE_MANIFEST_PATH)
+    if manifest.get("schema") != "powercontext.conformance.manifest.v1":
+        raise VerificationError("unsupported conformance manifest schema")
+    if manifest.get("contract_version") != 1:
+        raise VerificationError("conformance manifest contract_version must be 1")
+    if manifest.get("baseline_commit") != commit:
+        raise VerificationError("conformance manifest baseline does not match the lock")
+
+    provenance_value = json.loads(
+        CONFORMANCE_PROVENANCE_PATH.read_text(encoding="utf-8")
+    )
+    provenance = _require_mapping(provenance_value, "conformance provenance")
+    if provenance.get("schema") != "powercontext.conformance.provenance.v1":
+        raise VerificationError("unsupported conformance provenance schema")
+    if provenance.get("python_commit") != commit:
+        raise VerificationError("conformance provenance pin does not match the lock")
+    if provenance.get("openapi_sha256") != lock.get("openapi_sha256"):
+        raise VerificationError("conformance provenance OpenAPI digest is stale")
+
+    fixture_digest = _snapshot_folder_digest(ROOT / "conformance" / "fixtures")
+    expected_digest = _snapshot_folder_digest(ROOT / "conformance" / "expected")
+    if fixture_digest != _require_sha256(
+        lock.get("conformance_fixture_digest"), "conformance_fixture_digest"
+    ) or fixture_digest != _require_sha256(
+        provenance.get("fixture_digest"), "provenance.fixture_digest"
+    ):
+        raise VerificationError("conformance fixture digest does not match")
+    if expected_digest != _require_sha256(
+        lock.get("conformance_expected_digest"), "conformance_expected_digest"
+    ) or expected_digest != _require_sha256(
+        provenance.get("expected_digest"), "provenance.expected_digest"
+    ):
+        raise VerificationError("conformance expected digest does not match")
+
+
 def _require_run_url(value: object, description: str, repository: str) -> str:
     url = _require_string(value, description)
     prefix = f"{repository.rstrip('/')}/actions/runs/"
@@ -94,12 +155,12 @@ def _verify_phase1_ci_evidence(
     lock: dict[str, Any], supported_matrix: dict[str, Any]
 ) -> None:
     if lock.get("node_client_verified") != [22, 24]:
-        raise VerificationError("Phase 1 CI must verify Node Client 22 and 24")
+        raise VerificationError("CI must verify Node Client 22 and 24")
     if lock.get("node_verification_status") != "verified-phase1-ci":
-        raise VerificationError("Node verification status must cite Phase 1 CI")
+        raise VerificationError("Node verification status must cite recorded CI evidence")
     if supported_matrix.get("status") != "phase1-ci-smoke-verified":
         raise VerificationError(
-            "supported_matrix must distinguish Phase 1 smoke from product support"
+            "supported_matrix must distinguish CI smoke from product support"
         )
     expected_scope = {
         "node_client": [22, 24],
@@ -112,10 +173,10 @@ def _verify_phase1_ci_evidence(
 
     evidence = _require_mapping(lock.get("phase1_ci_evidence"), "phase1_ci_evidence")
     if evidence.get("verified_on") != "2026-08-24":
-        raise VerificationError("Phase 1 CI evidence must record its verification date")
+        raise VerificationError("CI evidence must record its verification date")
     repository = _require_string(evidence.get("repository"), "evidence repository")
     if repository != "https://github.com/knqiufan/powercontext-ts":
-        raise VerificationError("Phase 1 CI evidence points at the wrong repository")
+        raise VerificationError("CI evidence points at the wrong repository")
     commit = _require_string(evidence.get("verified_commit"), "verified_commit")
     if _COMMIT.fullmatch(commit) is None:
         raise VerificationError("verified_commit must be a full lowercase commit SHA")
@@ -129,7 +190,7 @@ def _verify_phase1_ci_evidence(
         "oracle_os": ["linux", "macos", "windows"],
     }
     if evidence.get("jobs") != expected_jobs:
-        raise VerificationError("Phase 1 CI evidence does not cover every required job")
+        raise VerificationError("CI evidence does not cover every required job")
 
 
 def _git(repo: Path, *arguments: str) -> bytes:
@@ -638,8 +699,8 @@ def _verify_analyzer_policy_sources(
 def _verify_internal(lock: dict[str, Any]) -> dict[str, int]:
     if lock.get("schema") != "powercontext.parity-baseline.v1":
         raise VerificationError("unsupported baseline lock schema")
-    if lock.get("lock_status") != "frozen" or lock.get("phase") != 0:
-        raise VerificationError("baseline lock must be frozen for Phase 0")
+    if lock.get("lock_status") != "frozen" or lock.get("phase") != 2:
+        raise VerificationError("baseline lock must be frozen at toolchain phase 2")
     commit = _require_string(lock.get("python_commit"), "python_commit")
     if _COMMIT.fullmatch(commit) is None:
         raise VerificationError("python_commit must be a full lowercase commit SHA")
@@ -660,6 +721,8 @@ def _verify_internal(lock: dict[str, Any]) -> dict[str, int]:
         raise VerificationError("openapi_path does not name the checked-in snapshot")
     if lock.get("openapi_digest_encoding") != "git-blob-lf":
         raise VerificationError("unsupported openapi_digest_encoding")
+
+    _verify_conformance_assets(lock, commit)
 
     digest = file_sha256(OPENAPI_PATH)
     if digest != _require_sha256(lock.get("openapi_sha256"), "openapi_sha256"):
@@ -859,7 +922,7 @@ def _verify_python_source(repo: Path, lock: dict[str, Any]) -> None:
             raise VerificationError(f"database schema source digest mismatch: {path}")
 
     ledger = read_yaml_mapping(RFC_LEDGER_PATH)
-    if lock.get("rfc_ledger") != "docs/governance/rfc-ledger.yaml":
+    if lock.get("rfc_ledger") != "docs/policies/rfc-ledger.yaml":
         raise VerificationError("rfc_ledger does not name the verified ledger")
     if ledger.get("schema") != "powercontext.rfc-ledger.v1":
         raise VerificationError("unsupported RFC ledger schema")
@@ -951,7 +1014,7 @@ def _arguments() -> argparse.Namespace:
     parser.add_argument(
         "--snapshot-only",
         action="store_true",
-        help="Verify checked-in assets only; Phase 0 exit requires the default source verification.",
+        help="Verify checked-in assets only. Default verification also opens the Python pin.",
     )
     return parser.parse_args()
 

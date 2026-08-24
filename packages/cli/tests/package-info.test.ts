@@ -20,7 +20,7 @@ import { PACKAGE_NAME, main, renderHelp } from '../src/index.js'
 describe('@powercontext/cli skeleton', () => {
   it('reserves the CLI identity and help surface', () => {
     expect(PACKAGE_NAME).toBe('@powercontext/cli')
-    expect(renderHelp()).toContain('Phase 1 skeleton')
+    expect(renderHelp()).toContain('not implemented yet')
     expect(main(['--help'])).toBe(0)
     expect(main([])).toBe(2)
   })

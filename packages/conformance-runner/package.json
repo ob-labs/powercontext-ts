@@ -24,5 +24,11 @@
   "scripts": {
     "build": "tsdown",
     "typecheck": "tsc --noEmit -p tsconfig.json"
+  },
+  "dependencies": {
+    "@powercontext/protocol": "workspace:*",
+    "ajv": "^8.17.1",
+    "canonicalize": "^2.1.0",
+    "yaml": "^2.8.1"
   }
 }

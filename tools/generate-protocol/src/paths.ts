@@ -17,7 +17,7 @@
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
-export const GENERATOR_VERSION = '0.1.0-phase1'
+export const GENERATOR_VERSION = '0.2.0-phase2'
 export const INTEGER_OVERLAY_ID = 'integer-safe-range.v1'
 
 const toolsDir = dirname(fileURLToPath(import.meta.url))
@@ -26,6 +26,9 @@ export const REPO_ROOT = join(toolsDir, '..', '..', '..')
 export const OPENAPI_PATH = join(REPO_ROOT, 'contract', 'openapi', 'powercontext.yaml')
 export const GENERATED_DIR = join(REPO_ROOT, 'packages', 'protocol', 'src', 'generated')
 export const OPERATIONS_PATH = join(GENERATED_DIR, 'operations.ts')
+export const CONTRACTS_PATH = join(GENERATED_DIR, 'operation-contracts.ts')
+export const CONTRACTS_JSON_PATH = join(GENERATED_DIR, 'operation-contracts.json')
 export const VALIDATORS_PATH = join(GENERATED_DIR, 'validators.ts')
 export const TYPES_PATH = join(GENERATED_DIR, 'openapi-types.ts')
 export const COVERAGE_PATH = join(GENERATED_DIR, 'coverage.json')
+export const OPENAPI_JSON_PATH = join(GENERATED_DIR, 'openapi-document.json')

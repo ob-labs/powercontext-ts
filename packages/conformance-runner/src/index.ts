@@ -29,3 +29,6 @@ export function describeRunner(): {
     ownsFixtures: false,
   }
 }
+
+export { runConformance, assertConformancePassed } from './run.js'
+export type { ConformanceReport } from './types.js'

@@ -3,7 +3,7 @@
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 
-"""Canonical digest helpers for Phase 0 lock verification."""
+"""Canonical digest helpers for baseline lock verification."""
 
 from __future__ import annotations
 

@@ -1,0 +1,85 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://powercontext.local/conformance/report.schema.json",
+  "title": "PowerContext conformance report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "profile",
+    "implementation",
+    "level",
+    "provenance",
+    "summary",
+    "cases"
+  ],
+  "properties": {
+    "schema": { "const": "powercontext.conformance.report.v1" },
+    "profile": { "type": "string" },
+    "implementation": { "type": "string" },
+    "level": {
+      "type": "string",
+      "enum": ["C0", "C1", "C2", "C3", "C4", "C5"]
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "contractVersion",
+        "baselineCommit",
+        "exporterVersion",
+        "openapiSha256",
+        "fixtureDigest",
+        "expectedDigest"
+      ],
+      "properties": {
+        "contractVersion": { "type": "integer", "minimum": 1 },
+        "baselineCommit": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        },
+        "exporterVersion": { "type": "string", "minLength": 1 },
+        "openapiSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "fixtureDigest": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "expectedDigest": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["passed", "failed", "skipped"],
+      "properties": {
+        "passed": { "type": "integer", "minimum": 0 },
+        "failed": { "type": "integer", "minimum": 0 },
+        "skipped": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "cases": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "status"],
+        "properties": {
+          "id": { "type": "string" },
+          "status": {
+            "type": "string",
+            "enum": ["pass", "fail", "skipped"]
+          },
+          "level": { "type": "string" },
+          "skipReason": { "type": "string" },
+          "detail": { "type": "string" }
+        }
+      }
+    }
+  }
+}

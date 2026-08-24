@@ -22,4 +22,15 @@ The harness:
 4. Writes and verifies a lock marker containing the Python commit and dependency
    lock digest.
 
+Export fixtures:
+
+```text
+python conformance/runners/python/run.py --export
+python conformance/runners/python/run.py --export-check
+```
+
+The exporter writes `conformance/fixtures`, `conformance/expected` and
+`conformance/provenance.json`. Repeat runs of the same pin must be
+byte-identical. Do not hand-edit those snapshots.
+
 CI repeats this on Linux, macOS and Windows.

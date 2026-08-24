@@ -35,7 +35,7 @@ const ALLOWED_LICENSES = new Set([
 const ALLOWED_LICENSE_EXPRESSIONS = new Set([
   '(MIT OR CC0-1.0)',
   // sqlite-vec publishes this legacy permissive expression in npm metadata.
-  // It is a root-only Phase 1 probe and never enters a published package.
+  // It is a root-only development probe and never enters a published package.
   'MIT OR Apache',
 ])
 const NATIVE_FORBIDDEN_IN = new Set([

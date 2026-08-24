@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://powercontext.local/conformance/provenance.schema.json",
+  "title": "PowerContext conformance provenance",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "python_commit",
+    "exporter_version",
+    "openapi_sha256",
+    "fixture_digest",
+    "expected_digest"
+  ],
+  "properties": {
+    "schema": { "const": "powercontext.conformance.provenance.v1" },
+    "python_commit": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+    "exporter_version": { "type": "string", "minLength": 1 },
+    "openapi_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "fixture_digest": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "expected_digest": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+  }
+}

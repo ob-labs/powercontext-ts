@@ -20,14 +20,14 @@ fixtures、release tag 与 CI。分离的代价是契约会漂，必须用显式
      powercontext-ts/    # this repository
    ```
 
-2. npm 包作用域占位为 `@powercontext/*`。正式发布前再确认组织名，不在 Phase 0
+2. npm 包作用域占位为 `@powercontext/*`。正式发布前再确认组织名，不提前
    抢占公共 registry。
 3. 两仓库之间只保留两条 Python → TypeScript 通道：
    - `tools/contract-sync`：按 lock 中的 commit 拉取 OpenAPI 快照并更新 digest；
    - oracle 导出：安装 pinned `powercontext`（研究文档里的 `powermem` 是历史名，
      实际发行包是 `powercontext`）生成 conformance fixtures。
 4. 禁止第三条通道：不得手改快照，TypeScript 改动不得回写 Python 仓库。
-5. 吸收 Python `main` 的节奏见 `docs/governance/contract-sync-cadence.md`：
+5. 吸收 Python `main` 的节奏见 `docs/policies/contract-sync.md`：
    每两周一次 baseline bump PR，必须走 compatibility review，并同步更新 fixtures。
 6. 快照 digest 规则：
    - OpenAPI digest 是 pinned git blob 的 SHA-256（LF）；
@@ -47,5 +47,5 @@ fixtures、release tag 与 CI。分离的代价是契约会漂，必须用显式
 
 ## Follow-up
 
-- Phase 1：实现完整 contract-sync 与 nightly advisory job。
+- contract-sync 与 nightly advisory 已落地。
 - 发布前确认 `@powercontext` npm 组织名。

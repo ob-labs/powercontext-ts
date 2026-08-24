@@ -39,4 +39,30 @@ export {
   OPERATION_METADATA,
   listOperationIds,
 } from './generated/operations.js'
+export type {
+  $defs,
+  components,
+  operations,
+  paths,
+  webhooks,
+  $defs as OpenApiDefinitions,
+  components as OpenApiComponents,
+  operations as OpenApiOperations,
+  paths as OpenApiPaths,
+  webhooks as OpenApiWebhooks,
+} from './generated/openapi-types.js'
 export { compileComponentValidator, validateWireValue } from './generated/validators.js'
+export type {
+  MediaContract,
+  MediaKind,
+  OperationContract,
+  RequestContract,
+} from './generated/operation-contracts.js'
+export {
+  getOperationContract,
+  listOperationContracts,
+  validateOperationError,
+  validateOperationRequest,
+  validateOperationSuccess,
+} from './operation-validation.js'
+export { validateWireJson } from './wire-json.js'

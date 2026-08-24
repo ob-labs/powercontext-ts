@@ -1,0 +1,142 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://powercontext.local/conformance/scenario.schema.json",
+  "title": "PowerContext conformance fixture suite",
+  "oneOf": [
+    { "$ref": "#/definitions/wireSuite" },
+    { "$ref": "#/definitions/canonicalSuite" }
+  ],
+  "definitions": {
+    "wireSuite": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema",
+        "contractVersion",
+        "suite",
+        "profile",
+        "capabilities",
+        "sourceReference",
+        "determinism",
+        "comparator",
+        "expectedReference",
+        "cases"
+      ],
+      "properties": {
+        "schema": { "const": "powercontext.conformance.wire.v1" },
+        "contractVersion": { "const": 1 },
+        "suite": { "const": "wire" },
+        "profile": { "const": "client" },
+        "capabilities": {
+          "const": ["protocol.wire-validation"]
+        },
+        "sourceReference": { "const": "../provenance.json" },
+        "determinism": { "$ref": "#/definitions/determinism" },
+        "comparator": { "const": "python-oracle-validity" },
+        "expectedReference": { "const": "../expected/wire.json" },
+        "cases": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/definitions/wireCase" }
+        }
+      }
+    },
+    "canonicalSuite": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema",
+        "contractVersion",
+        "suite",
+        "profile",
+        "capabilities",
+        "sourceReference",
+        "determinism",
+        "comparator",
+        "expectedReference",
+        "cases"
+      ],
+      "properties": {
+        "schema": { "const": "powercontext.conformance.canonical.v1" },
+        "contractVersion": { "const": 1 },
+        "suite": { "const": "canonical" },
+        "profile": { "const": "client" },
+        "capabilities": {
+          "const": [
+            "canonical.jcs",
+            "canonical.hash",
+            "canonical.sorting",
+            "canonical.utf8-bytes"
+          ]
+        },
+        "sourceReference": { "const": "../provenance.json" },
+        "determinism": { "$ref": "#/definitions/determinism" },
+        "comparator": { "const": "rfc8785-and-utf8-exact" },
+        "expectedReference": { "const": "../expected/canonical.json" },
+        "cases": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/definitions/canonicalCase" }
+        }
+      }
+    },
+    "determinism": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["clock", "id", "seed"],
+      "properties": {
+        "clock": { "const": "not-used" },
+        "id": { "const": "case.id" },
+        "seed": { "const": 0 }
+      }
+    },
+    "wireCase": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "kind", "role", "expect", "compare", "tags"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "kind": { "const": "wire" },
+        "operationId": { "type": "string", "minLength": 1 },
+        "schemaName": { "type": "string", "minLength": 1 },
+        "role": {
+          "type": "string",
+          "enum": ["request", "success", "error", "component"]
+        },
+        "status": { "type": "integer", "minimum": 100, "maximum": 599 },
+        "contentType": { "type": "string", "minLength": 1 },
+        "expect": { "type": "string", "enum": ["valid", "invalid"] },
+        "tags": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "compare": {
+          "type": "string",
+          "enum": ["both", "typescript-only"]
+        },
+        "overlay": { "type": "string", "minLength": 1 },
+        "value": true,
+        "rawJson": { "type": "string" }
+      }
+    },
+    "canonicalCase": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "kind", "input", "tags"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "kind": {
+          "type": "string",
+          "enum": ["jcs", "hash", "sorting", "utf8"]
+        },
+        "input": true,
+        "tags": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 }
+        }
+      }
+    }
+  }
+}

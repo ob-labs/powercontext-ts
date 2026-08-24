@@ -142,6 +142,40 @@ function importPackedGraph(tarballs) {
     )
     run(process.execPath, [probe], workspace)
   }
+  const typeProbe = join(workspace, 'protocol-types.ts')
+  writeFileSync(
+    typeProbe,
+    `import type {\n` +
+      `  OpenApiComponents, OpenApiOperations, OpenApiPaths,\n` +
+      `  components, operations, paths,\n` +
+      `} from '@powercontext/protocol'\n` +
+      `declare const pathsValue: paths\n` +
+      `declare const componentsValue: components\n` +
+      `declare const operationsValue: operations\n` +
+      `const pathsAlias: OpenApiPaths = pathsValue\n` +
+      `const componentsAlias: OpenApiComponents = componentsValue\n` +
+      `const operationsAlias: OpenApiOperations = operationsValue\n` +
+      `const health: components['schemas']['HealthResponse'] = { status: 'alive' }\n` +
+      `void [pathsAlias, componentsAlias, operationsAlias, health]\n`,
+  )
+  run(
+    'pnpm',
+    [
+      'exec',
+      'tsc',
+      '--noEmit',
+      '--strict',
+      '--skipLibCheck',
+      '--target',
+      'ES2022',
+      '--module',
+      'NodeNext',
+      '--moduleResolution',
+      'NodeNext',
+      typeProbe,
+    ],
+    ROOT,
+  )
   rmSync(workspace, { recursive: true, force: true })
 }
 

@@ -19,11 +19,14 @@ import { pathToFileURL } from 'node:url'
 import openapiTS, { astToString } from 'openapi-typescript'
 import { generatedFileBanner, normalizeNewlines } from './header.js'
 import type { OpenApiDocument } from './load-openapi.js'
+import type { OperationContract } from './contracts.js'
 import { convertComponentSchemas } from './oas3.js'
 import type { OperationMetadata } from './operations.js'
-import { listComponentSchemaNames } from './operations.js'
 import {
+  CONTRACTS_JSON_PATH,
+  CONTRACTS_PATH,
   COVERAGE_PATH,
+  OPENAPI_JSON_PATH,
   GENERATED_DIR,
   GENERATOR_VERSION,
   INTEGER_OVERLAY_ID,
@@ -31,13 +34,17 @@ import {
   TYPES_PATH,
   VALIDATORS_PATH,
 } from './paths.js'
-import { OAS3_CONVERSION_ID } from './oas3.js'
+import { renderContractsJson, renderContractsSource } from './render-contracts.js'
+import { renderCoverage } from './render-coverage.js'
 
 export interface GeneratedArtifacts {
   readonly operations: string
+  readonly contracts: string
+  readonly contractsJson: string
   readonly validators: string
   readonly types: string
   readonly coverage: string
+  readonly openapiJson: string
 }
 
 export function renderOperationsSource(
@@ -113,56 +120,57 @@ export async function renderTypesSource(
   return `${generatedFileBanner('openapi-typescript wire types', sourceDigest)}${astToString(ast)}`
 }
 
-export function renderCoverage(
-  document: OpenApiDocument,
-  operations: readonly OperationMetadata[],
-  sourceDigest: string,
-): string {
-  const schemas = listComponentSchemaNames(document)
-  return `${JSON.stringify(
-    {
-      generatorVersion: GENERATOR_VERSION,
-      conversion: OAS3_CONVERSION_ID,
-      overlay: INTEGER_OVERLAY_ID,
-      sourceDigest,
-      operationCount: operations.length,
-      operationIds: operations.map((row) => row.operationId),
-      schemaCount: schemas.length,
-      schemaNames: schemas,
-    },
-    null,
-    2,
-  )}\n`
-}
-
 export async function buildArtifacts(
   document: OpenApiDocument,
   operations: readonly OperationMetadata[],
+  contracts: readonly OperationContract[],
   openapiPath: string,
   sourceDigest: string,
 ): Promise<GeneratedArtifacts> {
+  const generatedOpenApiDocument = {
+    'x-powercontext-generated': {
+      notice: 'DO NOT EDIT',
+      source: 'contract/openapi/powercontext.yaml',
+      sourceDigest,
+      generatorVersion: GENERATOR_VERSION,
+    },
+    ...document,
+  }
   return {
     operations: normalizeNewlines(renderOperationsSource(operations, sourceDigest)),
+    contracts: normalizeNewlines(renderContractsSource(contracts, sourceDigest)),
+    contractsJson: normalizeNewlines(renderContractsJson(contracts, sourceDigest)),
     validators: normalizeNewlines(renderValidatorsSource(document, sourceDigest)),
     types: normalizeNewlines(await renderTypesSource(openapiPath, sourceDigest)),
-    coverage: normalizeNewlines(renderCoverage(document, operations, sourceDigest)),
+    coverage: normalizeNewlines(
+      renderCoverage(document, operations, contracts, sourceDigest),
+    ),
+    openapiJson: normalizeNewlines(
+      `${JSON.stringify(generatedOpenApiDocument, null, 2)}\n`,
+    ),
   }
 }
 
 export function writeArtifacts(artifacts: GeneratedArtifacts): void {
   mkdirSync(GENERATED_DIR, { recursive: true })
   writeFileSync(OPERATIONS_PATH, artifacts.operations)
+  writeFileSync(CONTRACTS_PATH, artifacts.contracts)
+  writeFileSync(CONTRACTS_JSON_PATH, artifacts.contractsJson)
   writeFileSync(VALIDATORS_PATH, artifacts.validators)
   writeFileSync(TYPES_PATH, artifacts.types)
   writeFileSync(COVERAGE_PATH, artifacts.coverage)
+  writeFileSync(OPENAPI_JSON_PATH, artifacts.openapiJson)
 }
 
 export function readCurrentArtifacts(): GeneratedArtifacts {
   return {
     operations: normalizeNewlines(readFileSync(OPERATIONS_PATH, 'utf8')),
+    contracts: normalizeNewlines(readFileSync(CONTRACTS_PATH, 'utf8')),
+    contractsJson: normalizeNewlines(readFileSync(CONTRACTS_JSON_PATH, 'utf8')),
     validators: normalizeNewlines(readFileSync(VALIDATORS_PATH, 'utf8')),
     types: normalizeNewlines(readFileSync(TYPES_PATH, 'utf8')),
     coverage: normalizeNewlines(readFileSync(COVERAGE_PATH, 'utf8')),
+    openapiJson: normalizeNewlines(readFileSync(OPENAPI_JSON_PATH, 'utf8')),
   }
 }
 
@@ -171,7 +179,15 @@ export function artifactsMatch(
   actual: GeneratedArtifacts,
 ): string[] {
   const drifted: string[] = []
-  for (const key of ['operations', 'validators', 'types', 'coverage'] as const) {
+  for (const key of [
+    'operations',
+    'contracts',
+    'contractsJson',
+    'validators',
+    'types',
+    'coverage',
+    'openapiJson',
+  ] as const) {
     if (expected[key] !== actual[key]) {
       drifted.push(key)
     }

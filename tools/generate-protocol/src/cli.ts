@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+import { parseOperationContracts } from './contracts.js'
 import { loadOpenApi } from './load-openapi.js'
 import { parseOperations } from './operations.js'
 import { OPENAPI_PATH } from './paths.js'
@@ -31,9 +32,14 @@ async function main(): Promise<void> {
   if (operations.length !== 52) {
     throw new Error(`expected 52 operations, parsed ${String(operations.length)}`)
   }
+  const contracts = parseOperationContracts(loaded.document, operations)
+  if (contracts.length !== 52) {
+    throw new Error(`expected 52 contracts, parsed ${String(contracts.length)}`)
+  }
   const artifacts = await buildArtifacts(
     loaded.document,
     operations,
+    contracts,
     OPENAPI_PATH,
     loaded.digest,
   )

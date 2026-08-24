@@ -1,6 +1,8 @@
 # Architecture Decision Records
 
-Phase 0 froze nine decisions. Two of them are hard gates for persistence writes.
+Accepted decisions that still bind this repository. Two of them are hard gates
+for persistence writes. A later ADR may supersede one of these files. It cannot
+do so silently inside a feature pull request.
 
 | ID | Kind | Title | Status |
 | --- | --- | --- | --- |
@@ -13,6 +15,3 @@ Phase 0 froze nine decisions. Two of them are hard gates for persistence writes.
 | 0007 | Regular | Node LTS policy | Accepted |
 | 0008 | Regular | Optional capability policy | Accepted |
 | 0009 | Regular | Python reference and TypeScript parity process | Accepted |
-
-A later ADR may supersede one of these files. It cannot do so silently inside a
-feature PR.

@@ -30,7 +30,10 @@
     "contract:sync": "python tools/contract-sync/sync.py",
     "contract:advisory": "python tools/contract-sync/advisory.py",
     "oracle:bootstrap": "python conformance/runners/python/bootstrap.py",
-    "oracle:check": "python conformance/runners/python/run.py --check"
+    "oracle:check": "python conformance/runners/python/run.py --check",
+    "oracle:export": "python conformance/runners/python/run.py --export",
+    "oracle:export:check": "python conformance/runners/python/run.py --export-check",
+    "conformance": "tsx packages/conformance-runner/src/cli.ts"
   },
   "devDependencies": {
     "@eslint/js": "^9.33.0",

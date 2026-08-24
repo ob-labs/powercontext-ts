@@ -3,6 +3,10 @@
   "compilerOptions": {
     "noEmit": true,
     "rootDir": ".",
+    "baseUrl": ".",
+    "paths": {
+      "@powercontext/protocol": ["packages/protocol/src/index.ts"]
+    },
     "types": ["node", "vitest/globals"]
   },
   "include": [

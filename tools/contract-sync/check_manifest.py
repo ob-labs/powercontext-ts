@@ -3,7 +3,7 @@
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 
-"""Validate Phase 0 operation and domain capability ownership."""
+"""Validate operation and domain capability ownership."""
 
 from __future__ import annotations
 
@@ -11,7 +11,7 @@ from typing import Any
 
 from lockfile import OPENAPI_PATH, ROOT, read_yaml_mapping
 
-MANIFEST = ROOT / "docs" / "governance" / "capability-manifest.yaml"
+MANIFEST = ROOT / "docs" / "policies" / "capability-manifest.yaml"
 _HTTP_METHODS = frozenset(
     {"delete", "get", "head", "options", "patch", "post", "put", "trace"}
 )
@@ -119,8 +119,8 @@ def validate_manifest(
     openapi = read_yaml_mapping(OPENAPI_PATH)
     if manifest.get("schema") != "powercontext.capability-manifest.v1":
         raise ManifestValidationError("unsupported capability manifest schema")
-    if manifest.get("status") != "phase-0-frozen":
-        raise ManifestValidationError("capability manifest must be frozen for Phase 0")
+    if manifest.get("status") != "frozen":
+        raise ManifestValidationError("capability manifest must be frozen")
     if (
         expected_commit is not None
         and manifest.get("baseline_commit") != expected_commit

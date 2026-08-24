@@ -1,0 +1,97 @@
+{
+  "contractVersion": 1,
+  "fixtureReference": "../fixtures/canonical.json",
+  "results": {
+    "hash.cjk": {
+      "sha256": "3b46cf16c38fa6242a5b1a3da086cf3042f9e4a5a58ed40066d0cee06ffdca98",
+      "valid": true
+    },
+    "hash.combining": {
+      "sha256": "9b53287cd41955684903378d2b1b4a3ddea9d80d67dcd026319a7c5a9a8a8b42",
+      "valid": true
+    },
+    "hash.control-escape": {
+      "sha256": "cd92614e41ea98ad4a463c8552ec9e3ea7324ddeb3916a78a9af4e7d6eff0511",
+      "valid": true
+    },
+    "hash.empty": {
+      "sha256": "9255707b36b127544195d14f812f6447ad1444738123a6dc6b822f63b55288ef",
+      "valid": true
+    },
+    "hash.key-order": {
+      "sha256": "d3626ac30a87e6f7a6428233b3c68299976865fa5508e4267c5415c76af7a772",
+      "valid": true
+    },
+    "hash.literals-and-numbers": {
+      "sha256": "f9ef8430c38ca3edd7fb96a698d14fdf39c74c63299627162d38b59af2af5abb",
+      "valid": true
+    },
+    "hash.negative-zero": {
+      "sha256": "23d7b286bd429460b92a2a1c21b6afc34110446c5034c17363fda363aa0a7c5d",
+      "valid": true
+    },
+    "hash.unicode-keys": {
+      "sha256": "f78a0b3ec33de2e1ee33ce044e48858bcc0122ffe842ca0a1841e65b8ec5bfba",
+      "valid": true
+    },
+    "jcs.cjk": {
+      "canonical": "{\"text\":\"中文测试\"}",
+      "valid": true
+    },
+    "jcs.combining": {
+      "canonical": "{\"text\":\"é\"}",
+      "valid": true
+    },
+    "jcs.control-escape": {
+      "canonical": "{\"value\":\"\\b\\t\\n\\f\\r\\\"\\\\\\u0001\"}",
+      "valid": true
+    },
+    "jcs.empty": {
+      "canonical": "{\"array\":[],\"empty\":\"\",\"object\":{}}",
+      "valid": true
+    },
+    "jcs.key-order": {
+      "canonical": "{\"a\":2,\"b\":1}",
+      "valid": true
+    },
+    "jcs.literals-and-numbers": {
+      "canonical": "{\"literals\":[null,true,false],\"numbers\":[333333333.3333333,1e+30,4.5,0.002,1e-27]}",
+      "valid": true
+    },
+    "jcs.negative-zero": {
+      "canonical": "{\"value\":0}",
+      "valid": true
+    },
+    "jcs.unicode-keys": {
+      "canonical": "{\"\\r\":\"control\",\"1\":\"digit\",\"€\":\"euro\",\"😀\":\"astral\"}",
+      "valid": true
+    },
+    "sorting.utf16-keys": {
+      "canonical": "{\"\\r\":true,\"1\":true,\"€\":true,\"😀\":true,\"\":true}",
+      "valid": true
+    },
+    "utf8.ascii": {
+      "bytes": 5,
+      "valid": true
+    },
+    "utf8.cjk": {
+      "bytes": 6,
+      "valid": true
+    },
+    "utf8.combining": {
+      "bytes": 3,
+      "valid": true
+    },
+    "utf8.emoji": {
+      "bytes": 4,
+      "valid": true
+    },
+    "utf8.mixed": {
+      "bytes": 24,
+      "valid": true
+    }
+  },
+  "schema": "powercontext.conformance.expected.v1",
+  "sourceReference": "../provenance.json",
+  "suite": "canonical"
+}

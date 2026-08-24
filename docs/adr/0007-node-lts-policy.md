@@ -17,14 +17,14 @@
    `>=22 <25`，或等价的“支持 22 与 24 LTS”。
 3. 不维护 Node 20 兼容构建。EOL 运行时不进入支持矩阵。
 4. DSH 插件的 `>=20` 声明必须提升到 `>=22`。改造在 Python 仓库独立 PR 中进行，
-   可延至 Phase 3 设计、Phase 11 落地。在那之前，官方 Client 文档必须写明
+   可随官方 Client 发布一并落地。在那之前，官方 Client 文档必须写明
    Node 20 不受支持。
 5. 选择“提升 DSH 最低版本”，不选择“为 Node 20 维持第二套构建”。
 6. 包为 ESM-only，`moduleResolution: NodeNext`。
 
 ## Consequences
 
-- Phase 1 CI 必须包含 Node 22 / 24 Client matrix 与 Node 24 Runtime matrix。
+- CI 必须包含 Node 22 / 24 Client matrix 与 Node 24 Runtime matrix。
 - 纯 Protocol / Client 安装不得触发 native build。
 - 宿主若仍停在 Node 20，只能继续调用 Python Server，不能把官方 TS Client
   标成受支持。

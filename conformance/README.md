@@ -1,9 +1,7 @@
 # Conformance assets
 
-This directory belongs to the repository root. It must not enter any npm package.
-
-Phase 0 only reserves the layout. Phase 2 fills schemas, fixtures, expected
-results and runners.
+This directory belongs to the repository root. It must not enter any npm
+package. See [docs/develop/conformance.md](../docs/develop/conformance.md).
 
 ```text
 conformance/
@@ -17,5 +15,5 @@ conformance/
     typescript/   # entry to packages/conformance-runner
 ```
 
-Snapshots here need provenance: `python_commit`, exporter version and digest.
+Snapshots need provenance: `python_commit`, exporter version, and digest.
 Hand edits are forbidden.

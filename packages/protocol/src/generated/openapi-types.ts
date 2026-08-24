@@ -18,7 +18,7 @@
  * Generated openapi-typescript wire types.
  * source: contract/openapi/powercontext.yaml
  * sourceDigest: a97488e85ab3a9f1db3f1dce720ec74b07c626b1974cc860c67b91cabb22f7e3
- * generatorVersion: 0.1.0-phase1
+ * generatorVersion: 0.2.0-phase2
  */
 export interface paths {
     "/health/live": {

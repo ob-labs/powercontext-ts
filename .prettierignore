@@ -9,7 +9,11 @@ contract/openapi
 packages/protocol/src/generated
 **/*.tgz
 **/*.md
-docs/governance/*.yaml
-docs/governance/*.yml
+docs/policies/*.yaml
+docs/policies/*.yml
 contract/*.yaml
 conformance/**/*.yaml
+conformance/fixtures
+conformance/expected
+conformance/provenance.json
+conformance/reports

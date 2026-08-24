@@ -24,6 +24,7 @@ export interface OpenApiDocument {
   readonly paths?: Record<string, PathItem | undefined>
   readonly components?: {
     readonly schemas?: Record<string, unknown>
+    readonly responses?: Record<string, unknown>
   }
 }
 
@@ -40,6 +41,7 @@ export interface OperationObject {
   readonly operationId?: string
   readonly parameters?: readonly unknown[]
   readonly requestBody?: unknown
+  readonly responses?: Record<string, unknown>
 }
 
 export function readOpenApiText(path: string): string {

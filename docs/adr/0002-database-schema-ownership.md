@@ -2,7 +2,7 @@
 
 - Status: Accepted
 - Date: 2026-08-23
-- Kind: Blocking (Phase 5 write gate)
+- Kind: Blocking (persistence write gate)
 - Owners: runtime-owner, python-owner
 
 ## Context
@@ -34,7 +34,7 @@ manifest digest 或 unknown-version 拒写。v0.0.2 已公开发布，迁移承�
 
 ## Consequences
 
-- Phase 5 之前没有全局 version 实现，这是已知缺口，不是 TypeScript 可以单方面补的。
+- 持久化写入打开之前没有全局 version 实现，这是已知缺口，不是 TypeScript 可以单方面补的。
 - Python 仓库需要独立 PR / RFC 落地识别逻辑；本仓库只消费 pinned 后的行为。
 - `baseline.lock.yaml` 的 `database_schema_digest` 冻结的是 733e4bf6 上的表定义源文件，
   不是已治理的 contract version。
@@ -43,5 +43,5 @@ manifest digest 或 unknown-version 拒写。v0.0.2 已公开发布，迁移承�
 ## Follow-up
 
 - Python PR：schema version 表 / manifest、拒写、migration registry 骨架。
-- Phase 5：TypeScript 实现同一检查，并做 Python ↔ TypeScript 离线互读。
-- Phase 12：公开版本 migration rehearsal 与 backup / rollback。
+- M2：TypeScript 实现同一检查，并做 Python ↔ TypeScript 离线互读。
+- M4：公开版本 migration rehearsal 与 backup / rollback。

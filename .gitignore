@@ -10,6 +10,7 @@ powercontext-*.tgz
 dist/
 build/
 coverage/
+conformance/reports/*.json
 conformance/reports/nightly-openapi-advisory.json
 .turbo/
 .pnpm-store/

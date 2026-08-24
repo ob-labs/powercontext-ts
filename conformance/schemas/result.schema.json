@@ -1,0 +1,68 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://powercontext.local/conformance/result.schema.json",
+  "title": "PowerContext conformance expected-result suite",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "contractVersion",
+    "suite",
+    "sourceReference",
+    "fixtureReference",
+    "results"
+  ],
+  "properties": {
+    "schema": { "const": "powercontext.conformance.expected.v1" },
+    "contractVersion": { "const": 1 },
+    "suite": { "type": "string", "enum": ["wire", "canonical"] },
+    "sourceReference": { "const": "../provenance.json" },
+    "fixtureReference": {
+      "type": "string",
+      "enum": ["../fixtures/wire.json", "../fixtures/canonical.json"]
+    },
+    "results": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": { "$ref": "#/definitions/expectedResult" }
+    }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "suite": { "const": "wire" } } },
+      "then": {
+        "properties": {
+          "fixtureReference": { "const": "../fixtures/wire.json" }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "suite": { "const": "canonical" } } },
+      "then": {
+        "properties": {
+          "fixtureReference": { "const": "../fixtures/canonical.json" }
+        }
+      }
+    }
+  ],
+  "definitions": {
+    "expectedResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["valid"],
+      "properties": {
+        "valid": { "type": "boolean" },
+        "engine": { "type": "string", "minLength": 1 },
+        "pythonValid": { "type": "boolean" },
+        "canonical": { "type": "string" },
+        "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "order": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "bytes": { "type": "integer", "minimum": 0 },
+        "error": { "type": "string" }
+      }
+    }
+  }
+}

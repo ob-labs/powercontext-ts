@@ -2,8 +2,8 @@
 
 - Status: Accepted
 - Date: 2026-08-23
-- Amended: 2026-08-24 (Phase 1 Spike F raw-JSON boundary)
-- Kind: Blocking (Phase 5 write gate)
+- Amended: 2026-08-24 (raw-JSON integer token boundary)
+- Kind: Blocking (persistence write gate)
 - Owners: protocol-owner, python-owner
 
 ## Context
@@ -48,11 +48,12 @@ PowerContext OpenAPI 3.0.3 把大量计数、游标、revision、usage 和统计
 - journal position、revision、usage、token statistics 必须有边界 fixture。
 - 若未来某字段确实会超过 2^53-1，必须开新的 wire-breaking RFC，不能在本 ADR
   下偷偷改用 string。
-- Phase 5 写入硬门：本 ADR 已批准；Python OpenAPI 补边界是跨仓库前置项，
+- 持久化写入硬门：本 ADR 已批准；Python OpenAPI 补边界是跨仓库前置项，
   未落地前 TypeScript 不得打开既有 Python 数据库写路径。
 
 ## Follow-up
 
 - Python PR：为全部 integer schema 补 safe-range。
-- Phase 1 spike F：SQLite `bigint` 读取与 JSON 边界失败语义。
-- Phase 2：每个 integer 字段的 valid / invalid fixture。
+- SQLite `bigint` 读取与 JSON 边界失败语义见
+  `docs/develop/investigations/integer-boundary.md`。
+- 每个 integer 字段的 valid / invalid fixture 属于 C1 wire 套件。

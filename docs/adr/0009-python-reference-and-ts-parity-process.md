@@ -21,7 +21,7 @@ conformance 套件追齐。若把 Draft RFC 或“看起来更干净的设计”
    5. 已实现 RFC 所描述、且仍与源码一致的行为。
 2. Draft RFC 不得作为 parity 事实源，也不得成为 M4 隐性需求。
    `accepted-not-implemented` 只能进入明确排期，不能混进 current parity。
-3. “full parity” 的书面定义见 `docs/governance/full-parity.md`。每个测试、
+3. “full parity” 的书面定义见 `docs/policies/compatibility.md`。每个测试、
    报告和 release 必须同时标注 profile 与 C0–C5。
 4. baseline 改变必须走 compatibility review。禁止在同一个 feature PR 里追随
    新的 Python `main` 并改 expected result。
@@ -32,6 +32,6 @@ conformance 套件追齐。若把 Draft RFC 或“看起来更干净的设计”
 
 ## Consequences
 
-- RFC 台账是 Phase 0 之后每次 bump 都要更新的活文档。
+- RFC 台账是每次 baseline bump 都要更新的活文档。
 - 停在 M1 或 M2 仍是成功，只要不把该 profile 说成 full-product C5。
-- M2 之后的 Go / No-Go 按建设路线 §21.3 执行，不通过时不得假装进入 M3 / M4。
+- 进入 M3 / M4 必须留下书面产品线结论，不得只靠测试变绿。

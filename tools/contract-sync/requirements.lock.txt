@@ -1,2 +1,2 @@
-# Runtime dependency lock for the Phase 0 verification tools.
+# Runtime dependency lock for the contract-sync verification tools.
 PyYAML==6.0.3

@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Unified oracle entry. Phase 1 only proves the pinned package is importable."""
+"""Unified oracle entry: pin check and fixture export."""
 
 from __future__ import annotations
 
@@ -42,6 +42,8 @@ def venv_python() -> Path:
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--check", action="store_true")
+    parser.add_argument("--export", action="store_true")
+    parser.add_argument("--export-check", action="store_true")
     arguments = parser.parse_args()
     python = venv_python()
     if not python.exists():
@@ -79,6 +81,11 @@ def main() -> None:
     print(output.strip())
     if arguments.check and not output.strip():
         raise SystemExit(1)
+    if arguments.export or arguments.export_check:
+        command = [str(python), str(HARNESS_DIR / "export.py")]
+        if arguments.export_check:
+            command.append("--check")
+        subprocess.check_call(command)
 
 
 if __name__ == "__main__":

@@ -1,7 +1,6 @@
 # Packages
 
-Phase 1 created the pnpm workspace. Public names are placeholders until npm
-org confirmation:
+Public npm names are placeholders until the organization is confirmed.
 
 | Directory | Package | First milestone |
 | --- | --- | --- |
@@ -13,4 +12,6 @@ org confirmation:
 | cli | `@powercontext/cli` | M2 / M4 |
 | conformance-runner | `@powercontext/conformance-runner` | M1 (private) |
 
-Do not split database or search adapters into extra public packages in Phase 1.
+Dependency direction is `protocol <- client` and
+`core <- builtin <- server <- cli`. See
+[docs/develop/packages.md](../docs/develop/packages.md).

@@ -1,0 +1,44 @@
+schema: powercontext.conformance.manifest.v1
+contract_version: 1
+baseline_commit: 733e4bf6b378785e76274ff07632029c699ecb09
+capabilities:
+  - capability: protocol.wire-validation
+    required_level: C1
+    profiles: [client]
+    fixtures:
+      - fixtures/wire.json
+    implementations:
+      python: required
+      typescript: required
+  - capability: canonical.jcs
+    required_level: C1
+    profiles: [client]
+    fixtures:
+      - fixtures/canonical.json
+    implementations:
+      python: required
+      typescript: required
+  - capability: canonical.hash
+    required_level: C1
+    profiles: [client]
+    fixtures:
+      - fixtures/canonical.json
+    implementations:
+      python: required
+      typescript: required
+  - capability: canonical.sorting
+    required_level: C1
+    profiles: [client]
+    fixtures:
+      - fixtures/canonical.json
+    implementations:
+      python: required
+      typescript: required
+  - capability: canonical.utf8-bytes
+    required_level: C1
+    profiles: [client]
+    fixtures:
+      - fixtures/canonical.json
+    implementations:
+      python: required
+      typescript: required

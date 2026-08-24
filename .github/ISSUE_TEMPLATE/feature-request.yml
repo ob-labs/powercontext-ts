@@ -1,0 +1,52 @@
+name: Feature Request
+description: Suggest an improvement for the TypeScript implementation
+title: 'feat: '
+labels: ['enhancement']
+body:
+  - type: markdown
+    attributes:
+      value: >
+        Cross-language product changes usually need an RFC in
+        oceanbase/powercontext first. TypeScript-only architecture choices
+        become ADRs after discussion.
+
+  - type: dropdown
+    id: profile
+    attributes:
+      label: Target profile
+      options:
+        - client
+        - sqlite-fts
+        - sqlite-vector
+        - oceanbase-hybrid
+        - full-product
+        - tooling / docs
+    validations:
+      required: true
+
+  - type: textarea
+    id: feature-description
+    attributes:
+      label: Feature description
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem-solution
+    attributes:
+      label: Problem and proposed solution
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+
+  - type: checkboxes
+    id: rfc-needed
+    attributes:
+      label: Design process
+      options:
+        - label: This may need a Python RFC (public API, persistence, or compatibility).
+        - label: This may need a TypeScript ADR (package boundary or implementation choice).

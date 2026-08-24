@@ -30,5 +30,5 @@ error taxonomy 的要求。
 
 ## Consequences
 
-- Phase 1 / Phase 2 先做生成链 spike，再写业务代码。
+- 生成链必须先于业务代码闭合，并由 CI 做漂移检查。
 - 任何人在 `packages/protocol/src/generated` 里手工修补都会在 drift check 中失败。
