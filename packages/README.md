@@ -1,6 +1,6 @@
 # Packages
 
-Phase 1 creates the pnpm workspace. Public names are placeholders until npm
+Phase 1 created the pnpm workspace. Public names are placeholders until npm
 org confirmation:
 
 | Directory | Package | First milestone |

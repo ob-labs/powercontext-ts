@@ -70,7 +70,9 @@ These items are accepted Phase 0 decisions, not TypeScript implementation work:
 - Python: add OpenAPI `minimum` / `maximum` for wire integers (ADR 0001).
 - Python: land the global schema version, manifest and write rejection (ADR 0002).
 - Python: raise the DSH plugin `engines.node` floor to `>=22` (ADR 0007).
-- This repository Phase 1: pnpm workspace, CI, contract-sync puller and spikes.
+- This repository Phase 1: implementation is present in the local repository;
+  stage exit remains pending required remote CI/nightly evidence. See
+  `docs/phase-1/README.md`.
 
 Do not open shared-database writes until the first two Python PRs merge and a
 baseline bump absorbs them.

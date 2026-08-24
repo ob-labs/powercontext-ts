@@ -2,6 +2,7 @@
 
 - Status: Accepted
 - Date: 2026-08-23
+- Amended: 2026-08-24 (Phase 1 Spike F raw-JSON boundary)
 - Kind: Blocking (Phase 5 write gate)
 - Owners: protocol-owner, python-owner
 
@@ -28,9 +29,14 @@ PowerContext OpenAPI 3.0.3 把大量计数、游标、revision、usage 和统计
 2. Python 仓库必须补 OpenAPI `minimum` / `maximum`，并让 Pydantic 模型执行同一边界。
    这是独立的 Python PR，不在本仓库改 OpenAPI 事实源。
 3. 在 Python PR 合并并被 baseline bump 吸收之前，TypeScript 仍按本 ADR 校验：
-   请求、响应、数据库读回和 CLI JSON 里的整数必须先通过 `Number.isSafeInteger`。
-   失败时返回 invalid request / invalid response，禁止四舍五入、截断或改成 `bigint`
-   再 `JSON.stringify`。
+   - HTTP/MCP/CLI 的原始 JSON bytes 必须在 `JSON.parse` 前由 string-aware number
+     lexer（或等价的 lossless JSON parser）检查；plain、decimal、exponent 形式只要
+     数学值是整数，就必须用十进制精确判断 safe range。不能等解析成 `number` 后才
+     调用 `Number.isSafeInteger`，因为 `9007199254740993` 会先被静默舍入成
+     `9007199254740992`；
+   - 已经由可信程序构造的 JavaScript `number` 才使用 `Number.isSafeInteger`；
+   - 失败时返回 invalid request / invalid response，禁止四舍五入、截断或改成
+     `bigint` 再 `JSON.stringify`。
 4. 数据库 `BIGINT` / `INTEGER` 用无损模式读取。`bigint -> number` 与
    `number -> DB` 都必须先证明值落在 safe integer 内。
 5. 不采用方案 2。现网 v0.0.2 已发布，string 化会破坏 Client 与数据库互读。

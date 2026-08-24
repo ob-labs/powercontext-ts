@@ -1,0 +1,15 @@
+pnpm-lock.yaml
+dist
+node_modules
+.venv
+coverage
+.python-pin
+pack-smoke-tmp
+contract/openapi
+packages/protocol/src/generated
+**/*.tgz
+**/*.md
+docs/governance/*.yaml
+docs/governance/*.yml
+contract/*.yaml
+conformance/**/*.yaml

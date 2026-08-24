@@ -18,6 +18,9 @@ From the repository root:
 
 ```text
 python tools/contract-sync/verify.py
+python tools/contract-sync/sync.py
+python tools/contract-sync/sync.py --check
+python tools/contract-sync/advisory.py
 ```
 
 The command hashes `openapi/powercontext.yaml` after LF normalization, compares

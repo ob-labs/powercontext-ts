@@ -1,0 +1,50 @@
+{
+  "schema": "powercontext.jcs-reference-corpus.v1",
+  "sourceRepository": "https://github.com/cyberphone/json-canonicalization",
+  "sourceCommit": "19d51d7fe467d4706a3ff08adf8a748f29fc21e0",
+  "sourceLicense": "Apache-2.0",
+  "vectors": [
+    {
+      "name": "arrays",
+      "inputBase64": "WwogIDU2LAogIHsKICAgICJkIjogdHJ1ZSwKICAgICIxMCI6IG51bGwsCiAgICAiMSI6IFsgXQogIH0KXQo=",
+      "inputSha256": "e503b6d71d1afa595b1c74b1016445c944cd89f90418066b23de1aeda7d17563",
+      "outputBase64": "WzU2LHsiMSI6W10sIjEwIjpudWxsLCJkIjp0cnVlfV0=",
+      "outputSha256": "099601b171cafed97c333f8878d68e7f8c8f795412adb34b2fdcf0e7c7beac42"
+    },
+    {
+      "name": "french",
+      "inputBase64": "ewogICJwZWFjaCI6ICJUaGlzIHNvcnRpbmcgb3JkZXIiLAogICJww6ljaMOpIjogImlzIHdyb25nIGFjY29yZGluZyB0byBGcmVuY2giLAogICJww6pjaGUiOiAiYnV0IGNhbm9uaWNhbGl6YXRpb24gTVVTVCIsCiAgInNpbiI6ICAgImlnbm9yZSBsb2NhbGUiCn0K",
+      "inputSha256": "03676a951cd8753ac62589f72eb2105cc782c33425418cfe1d517c111f6e5d5a",
+      "outputBase64": "eyJwZWFjaCI6IlRoaXMgc29ydGluZyBvcmRlciIsInDDqWNow6kiOiJpcyB3cm9uZyBhY2NvcmRpbmcgdG8gRnJlbmNoIiwicMOqY2hlIjoiYnV0IGNhbm9uaWNhbGl6YXRpb24gTVVTVCIsInNpbiI6Imlnbm9yZSBsb2NhbGUifQ==",
+      "outputSha256": "d99d0ebdcb0033cb858cfa830ae46bc0fb3309413b271f1da828c89901a27ed5"
+    },
+    {
+      "name": "structures",
+      "inputBase64": "ewogICIxIjogeyJmIjogeyJmIjogImhpIiwiRiI6IDV9ICwiXG4iOiA1Ni4wfSwKICAiMTAiOiB7IH0sCiAgIiI6ICJlbXB0eSIsCiAgImEiOiB7IH0sCiAgIjExMSI6IFsgeyJlIjogInllcyIsIkUiOiAibm8iIH0gXSwKICAiQSI6IHsgfQp9",
+      "inputSha256": "d66893805be1784116af50af3110d08766c70a6b4aad93374723f72346e7aaa6",
+      "outputBase64": "eyIiOiJlbXB0eSIsIjEiOnsiXG4iOjU2LCJmIjp7IkYiOjUsImYiOiJoaSJ9fSwiMTAiOnt9LCIxMTEiOlt7IkUiOiJubyIsImUiOiJ5ZXMifV0sIkEiOnt9LCJhIjp7fX0=",
+      "outputSha256": "605f65004ec2db7692522a0852c22f1c989e036d547e88963d1a3143cf3195d5"
+    },
+    {
+      "name": "unicode",
+      "inputBase64": "ewogICJVbm5vcm1hbGl6ZWQgVW5pY29kZSI6IkFcdTAzMGEiCn0K",
+      "inputSha256": "4621864e014d4a805a563f55b9ea20aba4a2d2dc09c7394f625496998c00702c",
+      "outputBase64": "eyJVbm5vcm1hbGl6ZWQgVW5pY29kZSI6IkHMiiJ9",
+      "outputSha256": "0d99aad92a125196ff887876643fd3206786a84ddce2cee52ba4ad256d2381d3"
+    },
+    {
+      "name": "values",
+      "inputBase64": "ewogICJudW1iZXJzIjogWzMzMzMzMzMzMy4zMzMzMzMyOSwgMUUzMCwgNC41MCwgMmUtMywgMC4wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDFdLAogICJzdHJpbmciOiAiXHUyMGFjJFx1MDAwRlx1MDAwYUEnXHUwMDQyXHUwMDIyXHUwMDVjXFxcIlwvIiwKICAibGl0ZXJhbHMiOiBbbnVsbCwgdHJ1ZSwgZmFsc2VdCn0=",
+      "inputSha256": "c4a041b503d6bc236036ef44db4dac499272f60fc22c40dc3b7a54870ba6f1c3",
+      "outputBase64": "eyJsaXRlcmFscyI6W251bGwsdHJ1ZSxmYWxzZV0sIm51bWJlcnMiOlszMzMzMzMzMzMuMzMzMzMzMywxZSszMCw0LjUsMC4wMDIsMWUtMjddLCJzdHJpbmciOiLigqwkXHUwMDBmXG5BJ0JcIlxcXFxcIi8ifQ==",
+      "outputSha256": "2d5e01a318d0f0879ab568c4be289c8b1f64ef8921a53c6277d5e069978baacb"
+    },
+    {
+      "name": "weird",
+      "inputBase64": "ewogICJcdTIwYWMiOiAiRXVybyBTaWduIiwKICAiXHIiOiAiQ2FycmlhZ2UgUmV0dXJuIiwKICAiXHUwMDBhIjogIk5ld2xpbmUiLAogICIxIjogIk9uZSIsCiAgIlx1MDA4MCI6ICJDb250cm9sXHUwMDdmIiwKICAiXHVkODNkXHVkZTAyIjogIlNtaWxleSIsCiAgIlx1MDBmNiI6ICJMYXRpbiBTbWFsbCBMZXR0ZXIgTyBXaXRoIERpYWVyZXNpcyIsCiAgIlx1ZmIzMyI6ICJIZWJyZXcgTGV0dGVyIERhbGV0IFdpdGggRGFnZXNoIiwKICAiPC9zY3JpcHQ+IjogIkJyb3dzZXIgQ2hhbGxlbmdlIgp9Cg==",
+      "inputSha256": "a3a905266bd4a49a969274ea69baa14ee0c4af0ead926d6fa2b7612b4af75387",
+      "outputBase64": "eyJcbiI6Ik5ld2xpbmUiLCJcciI6IkNhcnJpYWdlIFJldHVybiIsIjEiOiJPbmUiLCI8L3NjcmlwdD4iOiJCcm93c2VyIENoYWxsZW5nZSIsIsKAIjoiQ29udHJvbH8iLCLDtiI6IkxhdGluIFNtYWxsIExldHRlciBPIFdpdGggRGlhZXJlc2lzIiwi4oKsIjoiRXVybyBTaWduIiwi8J+YgiI6IlNtaWxleSIsIu+ssyI6IkhlYnJldyBMZXR0ZXIgRGFsZXQgV2l0aCBEYWdlc2gifQ==",
+      "outputSha256": "6af595a9aa80110b964b4de3f82a05fa6ae7423005019bacfa2620dddc4e94d1"
+    }
+  ]
+}

@@ -1,17 +1,51 @@
+# Node / TypeScript
 node_modules/
+pack-smoke-tmp/
+.python-pin/
+conformance/runners/python/.pin-src/
+conformance/runners/python/.pin-repo/
+packages/*/LICENSE
+powercontext-*.tgz
+@powercontext-*.tgz
 dist/
 build/
 coverage/
 .turbo/
 .pnpm-store/
+.eslintcache
+*.tsbuildinfo
+*.tgz
+
+# Python tool caches and local environments
+# Do not ignore tools/contract-sync/ or a future committed uv.lock.
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.ruff_cache/
+.pytest_cache/
+.mypy_cache/
+.tox/
+.nox/
+.coverage
+.coverage.*
+htmlcov/
+.hypothesis/
+.cache/
+
+# Local interpreter pin. Oracle may later commit one under runners/python/.
+.python-version
+!conformance/runners/python/.python-version
+
+# Secrets and local machine files
+.env
+.env.*
+!.env.example
 *.log
 .DS_Store
 Thumbs.db
-.venv/
-.python-version
-__pycache__/
-*.pyc
+Desktop.ini
+
+# Editor
 .idea/
 .vscode/
-*.tsbuildinfo
-.cache/

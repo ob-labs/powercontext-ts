@@ -14,7 +14,8 @@ oracle_python: "3.11"
 oracle_dependency_lock_path: uv.lock
 oracle_dependency_lock_sha256: f8c76c987a77dbed2d245a87212914d2dd68beac7a77a366af858fcaa15df375
 oracle_dependency_lock_mode: export-python-source-at-python_commit-and-run-uv-sync-locked
-contract_sync_version: 0.1.0-phase0
+contract_sync_version: 0.1.0-phase1
+toolchain_phase: 1
 structured_digest_algorithm: canonical-json-sha256-v1
 
 openapi_path: contract/openapi/powercontext.yaml
@@ -60,7 +61,7 @@ conformance_contract_version: powercontext.conformance.v0-empty
 
 mcp_protocols:
   - 2025-03-26
-mcp_protocol_pin_status: provisional-until-phase1-spike-c
+mcp_protocol_pin_status: locked-phase1-spike-c
 mcp_operation_count: 22
 mcp_operation_ids:
   - acknowledge_handoff

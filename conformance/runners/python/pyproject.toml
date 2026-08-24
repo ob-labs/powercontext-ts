@@ -1,0 +1,9 @@
+[project]
+name = "powercontext-oracle-harness"
+version = "0.1.0"
+description = "Thin oracle harness. Installs pinned powercontext; contains no implementation."
+requires-python = ">=3.11,<4.0"
+dependencies = []
+
+[tool.uv]
+package = false
