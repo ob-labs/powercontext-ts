@@ -213,9 +213,21 @@ analyzer_prompt_policy_sources:
 node_versions: [22, 24]
 node_runtime_baseline: 24
 node_client_targets: [22, 24]
-node_client_verified: []
-node_verification_status: pending-phase1-ci
+node_client_verified: [22, 24]
+node_verification_status: verified-phase1-ci
 node_eol_excluded: [20]
+phase1_ci_evidence:
+  verified_on: "2026-08-24"
+  repository: https://github.com/knqiufan/powercontext-ts
+  verified_commit: e049f8b39d7779ffd940f36eff9e22472e80d933
+  ci_run: https://github.com/knqiufan/powercontext-ts/actions/runs/32684403806
+  nightly_run: https://github.com/knqiufan/powercontext-ts/actions/runs/32684551539
+  jobs:
+    quality: passed
+    client_matrix: [22, 24]
+    runtime_matrix: [24]
+    smoke_os: [linux, macos, windows]
+    oracle_os: [linux, macos, windows]
 profiles:
   - client
   - sqlite-fts
@@ -224,7 +236,14 @@ profiles:
   - full-product
 
 supported_matrix:
-  status: target-not-verified
+  # This status covers the Phase 1 CI baseline only. It is not a product-support
+  # claim for every CPU, database, provider, or profile listed below.
+  status: phase1-ci-smoke-verified
+  verified_scope:
+    node_client: [22, 24]
+    node_runtime: [24]
+    os: [linux, macos, windows]
+    gates: [contract-sync, oracle, package-smoke]
   os: [linux, macos, windows]
   cpu: [x64, arm64]
   databases:

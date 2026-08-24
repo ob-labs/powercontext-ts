@@ -3,7 +3,7 @@
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 
-"""Verify all Phase 0 contract and governance facts against one Python pin."""
+"""Verify the frozen contract plus Phase 1 CI evidence against one Python pin."""
 
 from __future__ import annotations
 
@@ -77,6 +77,59 @@ def _require_sha256(value: object, description: str) -> str:
     if _SHA256.fullmatch(digest) is None:
         raise VerificationError(f"{description} must be a lowercase SHA-256")
     return digest
+
+
+def _require_run_url(value: object, description: str, repository: str) -> str:
+    url = _require_string(value, description)
+    prefix = f"{repository.rstrip('/')}/actions/runs/"
+    run_id = url.removeprefix(prefix)
+    if not url.startswith(prefix) or not run_id.isdigit() or int(run_id) < 1:
+        raise VerificationError(
+            f"{description} must be an immutable GitHub Actions run URL for {repository}"
+        )
+    return url
+
+
+def _verify_phase1_ci_evidence(
+    lock: dict[str, Any], supported_matrix: dict[str, Any]
+) -> None:
+    if lock.get("node_client_verified") != [22, 24]:
+        raise VerificationError("Phase 1 CI must verify Node Client 22 and 24")
+    if lock.get("node_verification_status") != "verified-phase1-ci":
+        raise VerificationError("Node verification status must cite Phase 1 CI")
+    if supported_matrix.get("status") != "phase1-ci-smoke-verified":
+        raise VerificationError(
+            "supported_matrix must distinguish Phase 1 smoke from product support"
+        )
+    expected_scope = {
+        "node_client": [22, 24],
+        "node_runtime": [24],
+        "os": ["linux", "macos", "windows"],
+        "gates": ["contract-sync", "oracle", "package-smoke"],
+    }
+    if supported_matrix.get("verified_scope") != expected_scope:
+        raise VerificationError("supported_matrix verified_scope is incomplete")
+
+    evidence = _require_mapping(lock.get("phase1_ci_evidence"), "phase1_ci_evidence")
+    if evidence.get("verified_on") != "2026-08-24":
+        raise VerificationError("Phase 1 CI evidence must record its verification date")
+    repository = _require_string(evidence.get("repository"), "evidence repository")
+    if repository != "https://github.com/knqiufan/powercontext-ts":
+        raise VerificationError("Phase 1 CI evidence points at the wrong repository")
+    commit = _require_string(evidence.get("verified_commit"), "verified_commit")
+    if _COMMIT.fullmatch(commit) is None:
+        raise VerificationError("verified_commit must be a full lowercase commit SHA")
+    _require_run_url(evidence.get("ci_run"), "ci_run", repository)
+    _require_run_url(evidence.get("nightly_run"), "nightly_run", repository)
+    expected_jobs = {
+        "quality": "passed",
+        "client_matrix": [22, 24],
+        "runtime_matrix": [24],
+        "smoke_os": ["linux", "macos", "windows"],
+        "oracle_os": ["linux", "macos", "windows"],
+    }
+    if evidence.get("jobs") != expected_jobs:
+        raise VerificationError("Phase 1 CI evidence does not cover every required job")
 
 
 def _git(repo: Path, *arguments: str) -> bytes:
@@ -735,19 +788,10 @@ def _verify_internal(lock: dict[str, Any]) -> dict[str, int]:
         raise VerificationError(
             "Node Runtime baseline/exclusion does not match ADR 0007"
         )
-    if lock.get("node_client_verified"):
-        raise VerificationError(
-            "Phase 0 must not claim Node Client verification before Phase 1 CI"
-        )
-    if lock.get("node_verification_status") != "pending-phase1-ci":
-        raise VerificationError(
-            "Node verification status must remain explicit in Phase 0"
-        )
     supported_matrix = _require_mapping(
         lock.get("supported_matrix"), "supported_matrix"
     )
-    if supported_matrix.get("status") != "target-not-verified":
-        raise VerificationError("Phase 0 supported_matrix must be marked as a target")
+    _verify_phase1_ci_evidence(lock, supported_matrix)
 
     _verify_analyzer_policy_lock(lock)
     try:
