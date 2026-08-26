@@ -15,5 +15,6 @@ The only Python → TypeScript channels are contract-sync and the oracle exporte
 | --- | --- |
 | Package boundaries | [packages.md](packages.md) |
 | Protocol generation | [generating-protocol.md](generating-protocol.md) |
+| Official Client / DSH reuse | [dsh-reuse.md](dsh-reuse.md) |
 | Conformance kit | [conformance.md](conformance.md) |
 | Investigation notes | [investigations/README.md](investigations/README.md) |

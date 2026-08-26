@@ -116,7 +116,11 @@ export async function renderTypesSource(
   openapiPath: string,
   sourceDigest: string,
 ): Promise<string> {
-  const ast = await openapiTS(pathToFileURL(openapiPath))
+  const ast = await openapiTS(pathToFileURL(openapiPath), {
+    // OpenAPI defaults are applied by the Server. They must not turn an
+    // otherwise optional request property into a required Client argument.
+    defaultNonNullable: false,
+  })
   return `${generatedFileBanner('openapi-typescript wire types', sourceDigest)}${astToString(ast)}`
 }
 

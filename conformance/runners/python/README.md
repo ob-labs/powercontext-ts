@@ -17,8 +17,10 @@ The harness:
 
 1. Verifies the pinned `uv.lock` digest from the baseline lock;
 2. Creates `.venv` with `uv` and Python 3.11;
-3. Checks out `python_commit` and runs `uv sync --locked --no-dev --no-editable`
-   into that environment;
+3. Checks out `python_commit` and runs
+   `uv sync --locked --no-dev --no-editable --extra cli --extra server`
+   into that environment so the pinned Server CLI can start for Client
+   call-through;
 4. Writes and verifies a lock marker containing the Python commit and dependency
    lock digest.
 

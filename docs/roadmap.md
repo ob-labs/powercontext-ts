@@ -14,7 +14,7 @@ The 2026-08-23 construction study is background only. It is not the tracker.
 | --- | --- |
 | Protocol types, 52 operation contracts, runtime validators | Done |
 | C1 wire and canonical conformance fixtures | Done |
-| Official typed HTTP Client transport | Not started |
+| Official typed HTTP Client transport | M1 release candidate (`client` / C1); see [exit review](reviews/m1-client-exit-review.md) |
 | Deterministic Core, SQLite Runtime, Server, MCP, CLI | Not started |
 
 Python remains the reference implementation and semantic oracle.
@@ -75,7 +75,8 @@ the RFC ledger.
 2. Issues for the workstreams above. Labels name the area (`client`, `core`,
    `persistence`, `conformance`), not a construction phase.
 3. Closing a milestone updates [Current status](user/README.md) and
-   [CHANGELOG.md](../CHANGELOG.md). Do not add stage-exit review folders.
+   [CHANGELOG.md](../CHANGELOG.md), and records the applicable evidence in an
+   auditable [exit review](reviews/m1-client-exit-review.md).
 
 ## Background
 

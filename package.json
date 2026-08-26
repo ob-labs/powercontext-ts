@@ -2,7 +2,7 @@
   "name": "powercontext-ts",
   "private": true,
   "version": "0.0.0",
-  "description": "TypeScript PowerContext workspace. Public package names are placeholders until npm org confirmation.",
+  "description": "TypeScript PowerContext workspace for the official Client and parity implementation.",
   "license": "Apache-2.0",
   "type": "module",
   "packageManager": "pnpm@10.33.2",

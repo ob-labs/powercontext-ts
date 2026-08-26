@@ -1004,9 +1004,9 @@ export interface components {
             boundary_source: components["schemas"]["SourceReference"];
             objective: string;
             /** @default [] */
-            evidence: components["schemas"]["HandoffCitation"][];
+            evidence?: components["schemas"]["HandoffCitation"][];
             /** @default 8000 */
-            max_bytes: number;
+            max_bytes?: number;
         };
         ArtifactReference: {
             family: string;
@@ -1046,17 +1046,17 @@ export interface components {
              * @description Whether the configured model can generate reviewed Experience Candidates.
              * @default false
              */
-            experience_generation: boolean;
+            experience_generation?: boolean;
             /**
              * @description Whether the configured model can generate reviewed managed Skill Candidates.
              * @default false
              */
-            managed_skill_generation: boolean;
+            managed_skill_generation?: boolean;
             /**
              * @description Whether host-local external Skill discovery and exact resolution are configured.
              * @default false
              */
-            external_skill_registry: boolean;
+            external_skill_registry?: boolean;
             /** @description Whether exact evidence can be generated into an inspectable Handoff Draft. */
             handoff_generation: boolean;
             search_modes: components["schemas"]["MemorySearchMode"][];
@@ -1185,7 +1185,7 @@ export interface components {
         GetStatsRequest: {
             scope_id: string;
             /** @default 30d */
-            period: components["schemas"]["StatsPeriod"];
+            period?: components["schemas"]["StatsPeriod"];
         };
         /** @enum {string} */
         WorkClaimBasis: "declared" | "verified";
@@ -1409,7 +1409,7 @@ export interface components {
             objective: string;
             evidence: components["schemas"]["HandoffCitation"][];
             /** @default 8000 */
-            max_bytes: number;
+            max_bytes?: number;
         };
         PreparedHandoff: {
             schema: components["schemas"]["PreparedHandoffSchema"];
@@ -1524,16 +1524,16 @@ export interface components {
             title: string;
             description?: string | null;
             /** @default zh-CN */
-            default_locale: components["schemas"]["ReportLocale"];
+            default_locale?: components["schemas"]["ReportLocale"];
             /** @default UTC */
-            timezone: string;
+            timezone?: string;
         };
         ListHandoffReportProjectsRequest: {
             cursor?: string | null;
             /** @default 50 */
-            limit: number;
+            limit?: number;
             /** @default false */
-            include_archived: boolean;
+            include_archived?: boolean;
         };
         GetHandoffReportProjectRequest: {
             project_id: string;
@@ -1549,19 +1549,19 @@ export interface components {
             title: string;
             kind: components["schemas"]["WorkstreamKind"];
             /** @default included */
-            catalog_state: components["schemas"]["ReportCatalogState"];
+            catalog_state?: components["schemas"]["ReportCatalogState"];
             /** @default [] */
-            external_refs: components["schemas"]["HandoffReportExternalReference"][];
+            external_refs?: components["schemas"]["HandoffReportExternalReference"][];
             /** @default [] */
-            labels: string[];
+            labels?: string[];
         };
         ListHandoffReportWorkstreamsRequest: {
             project_id: string;
             cursor?: string | null;
             /** @default 50 */
-            limit: number;
+            limit?: number;
             /** @default false */
-            include_archived: boolean;
+            include_archived?: boolean;
         };
         UpdateHandoffReportWorkstreamRequest: {
             workstream: components["schemas"]["WorkstreamDescriptor"];
@@ -1571,13 +1571,13 @@ export interface components {
             project_id: string;
             locale?: components["schemas"]["ReportLocale"];
             /** @default true */
-            include_evidence_checks: boolean;
+            include_evidence_checks?: boolean;
             /** @default markdown */
-            format: components["schemas"]["ReportFormat"];
+            format?: components["schemas"]["ReportFormat"];
             /** @default false */
-            include_archived: boolean;
+            include_archived?: boolean;
             /** @default false */
-            download: boolean;
+            download?: boolean;
             period?: components["schemas"]["HandoffReportPeriodRequest"];
         };
         HandoffReportPeriodRequest: {
@@ -1587,7 +1587,7 @@ export interface components {
             end: string;
             timezone?: string | null;
             /** @default false */
-            compare_to_previous_period: boolean;
+            compare_to_previous_period?: boolean;
         };
         HandoffReportResponse: {
             format: components["schemas"]["ReportFormat"];
@@ -1625,7 +1625,7 @@ export interface components {
             session_id?: string | null;
             vcs_context?: components["schemas"]["HandoffReportActivityVcsContext"];
             /** @default [] */
-            evidence_refs: components["schemas"]["HandoffReportExternalReference"][];
+            evidence_refs?: components["schemas"]["HandoffReportExternalReference"][];
         };
         HandoffReportActivity: {
             /** @enum {string} */
@@ -1662,10 +1662,10 @@ export interface components {
             period_end?: string | null;
             sources?: components["schemas"]["ReportActivitySource"][] | null;
             /** @default 0 */
-            after_cursor: number;
+            after_cursor?: number;
             through_cursor?: number | null;
             /** @default 50 */
-            limit: number;
+            limit?: number;
         };
         HandoffReportActivityPage: {
             items: components["schemas"]["HandoffReportActivity"][];
@@ -1778,7 +1778,7 @@ export interface components {
              * @description Include inactive entries from the current Memory head for explicit audit.
              * @default false
              */
-            include_inactive: boolean;
+            include_inactive?: boolean;
         };
         ListMemoryEntriesResponse: {
             memory?: components["schemas"]["ArtifactReference"];
@@ -1787,16 +1787,16 @@ export interface components {
         ListArtifactCandidatesRequest: {
             scope_id: string;
             /** @default pending */
-            status: components["schemas"]["CandidateStatus"];
+            status?: components["schemas"]["CandidateStatus"];
             family?: components["schemas"]["CandidateFamily"];
             cursor?: string | null;
             /** @default 50 */
-            limit: number;
+            limit?: number;
         };
         ListExternalSkillsRequest: {
             scope_id: string;
             /** @default false */
-            include_unavailable: boolean;
+            include_unavailable?: boolean;
         };
         MemoryEntry: {
             citation: components["schemas"]["MemoryCitation"];
@@ -1824,7 +1824,7 @@ export interface components {
             scope_id: string;
             query: string;
             /** @default 8000 */
-            max_bytes: number;
+            max_bytes?: number;
         };
         ProposeExperienceRequest: {
             scope_id: string;
@@ -1933,9 +1933,9 @@ export interface components {
             scope_id: string;
             query: string;
             /** @default 10 */
-            limit: number;
+            limit?: number;
             /** @default auto */
-            mode: components["schemas"]["MemorySearchMode"];
+            mode?: components["schemas"]["MemorySearchMode"];
         };
         ScanExternalSkillsRequest: {
             scope_id: string;

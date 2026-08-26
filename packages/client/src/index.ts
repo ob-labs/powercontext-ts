@@ -14,8 +14,44 @@
  * limitations under the License.
  */
 
-export const PACKAGE_NAME = '@powercontext/client' as const
-export const PACKAGE_VERSION = '0.0.0' as const
-export const PACKAGE_ROLE = 'client' as const
-export const PACKAGE_PROFILE = 'client' as const
-export const NATIVE_DEPENDENCIES = Object.freeze([])
+export { PowerContextClient } from './client.js'
+export {
+  CLIENT_USER_AGENT,
+  DEFAULT_TIMEOUT_MS,
+  MAX_RESPONSE_BYTES,
+  REQUEST_ID_HEADER,
+} from './constants.js'
+export {
+  ClientError,
+  InvalidRequestError,
+  InvalidResponseError,
+  ServerResponseError,
+  TransportError,
+  UnavailableError,
+  UnknownOperationError,
+  isClientError,
+} from './errors.js'
+export type {
+  OperationJsonSuccess,
+  OperationMethod,
+  OperationRequest,
+  OperationResult,
+  TypedClientMethods,
+} from './operation-types.js'
+export {
+  NATIVE_DEPENDENCIES,
+  PACKAGE_NAME,
+  PACKAGE_PROFILE,
+  PACKAGE_ROLE,
+  PACKAGE_VERSION,
+} from './package-info.js'
+export type {
+  CallOptions,
+  ClientOptions,
+  ClientSpanHandle,
+  ClientSuccess,
+  ClientTraceDetails,
+  ClientTraceOutcome,
+  ClientTracer,
+  FetchFn,
+} from './types.js'
