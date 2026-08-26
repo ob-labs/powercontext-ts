@@ -40,6 +40,8 @@ jobs:
       - run: pnpm typecheck
       - run: pnpm build
       - run: pnpm test
+        env:
+          POWERCONTEXT_CLIENT_CALLTHROUGH: '1'
       - run: pnpm license:check
       - run: pnpm generate:check
       - run: python conformance/runners/python/run.py --export-check

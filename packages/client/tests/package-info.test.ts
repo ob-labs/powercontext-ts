@@ -18,30 +18,32 @@ import { readFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { describe, expect, it } from 'vitest'
-import { NATIVE_DEPENDENCIES, PACKAGE_NAME, PACKAGE_PROFILE } from '../src/index.js'
+import {
+  CLIENT_USER_AGENT,
+  NATIVE_DEPENDENCIES,
+  PACKAGE_NAME,
+  PACKAGE_PROFILE,
+  PACKAGE_VERSION,
+} from '../src/index.js'
 
 const packageRoot = dirname(fileURLToPath(import.meta.url))
 
-describe('@powercontext/client skeleton', () => {
+describe('@powercontext/client package', () => {
   it('declares the client profile and no native dependencies', () => {
     expect(PACKAGE_NAME).toBe('@powercontext/client')
     expect(PACKAGE_PROFILE).toBe('client')
     expect(NATIVE_DEPENDENCIES).toEqual([])
   })
 
-  it('does not pull SQLite, MCP server or provider SDKs into the package', () => {
+  it('keeps User-Agent aligned with package.json and claims client/C1', () => {
     const manifest = JSON.parse(
       readFileSync(join(packageRoot, '..', 'package.json'), 'utf8'),
-    ) as {
-      dependencies?: Record<string, string>
-      optionalDependencies?: Record<string, string>
-    }
-    const names = [
-      ...Object.keys(manifest.dependencies ?? {}),
-      ...Object.keys(manifest.optionalDependencies ?? {}),
-    ]
+    ) as { version: string; dependencies?: Record<string, string> }
+    expect(PACKAGE_VERSION).toBe(manifest.version)
+    expect(CLIENT_USER_AGENT).toBe(`@powercontext/client/${manifest.version}`)
+    const names = Object.keys(manifest.dependencies ?? {})
+    expect(names).toEqual(['@powercontext/protocol'])
     expect(names.some((name) => name.includes('sqlite'))).toBe(false)
-    expect(names.some((name) => name.includes('better-sqlite'))).toBe(false)
     expect(names.some((name) => name.includes('modelcontextprotocol'))).toBe(false)
   })
 })

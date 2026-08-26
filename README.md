@@ -10,8 +10,9 @@ kit.
 ## Status
 
 The `client` profile has Protocol types, 52 operation contracts, runtime
-validators, and C1 wire / canonical fixtures. The official HTTP Client
-transport, Runtime, Server, MCP, and CLI are not shipped.
+validators, C1 wire / canonical fixtures, and the official typed HTTP Client.
+Runtime, Server, MCP, and CLI are not shipped. Docs claim `client` / C1, not
+full-product.
 
 See [Current status](docs/user/README.md) and the
 [compatibility policy](docs/policies/compatibility.md).

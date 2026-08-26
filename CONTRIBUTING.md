@@ -50,6 +50,8 @@ pnpm lint
 pnpm typecheck
 pnpm build
 pnpm test
+# Optional: require Python Server call-through after oracle bootstrap
+# POWERCONTEXT_CLIENT_CALLTHROUGH=1 pnpm test
 pnpm generate:check
 python conformance/runners/python/run.py --export-check
 pnpm conformance

@@ -13,7 +13,7 @@ that can block parity or force a route change.
 | R6 | Provider | Non-deterministic output used for byte comparison; secrets in CI | Medium | Fake / recorded fixtures on the main path; live providers opt-in | M4 |
 | R7 | Migration | Dual writers without a global schema version | High | ADR 0002; do not write existing Python databases until it lands | ADR 0002, M2 |
 | R8 | Contract drift | The independent repository silently follows Python `main` | High | Biweekly bump, PR drift check, nightly advisory | [contract-sync.md](contract-sync.md) |
-| R9 | DSH Node 20 | Plugin still declares `>=20`; Client is tested on 22 / 24 | Medium | ADR 0007; raise `engines` on the Python side | ADR 0007 |
+| R9 | DSH Node range | Plugin still declares `>=20`; Client is tested on 22 / 24 | Medium | ADR 0007; set Python-side `engines` to `>=22 <25` | ADR 0007 |
 | R10 | Draft RFC creep | Unimplemented RFC 0048 / 0082 / 1223 clauses become M4 work | Medium | RFC ledger; Draft is not a fact source | [rfc-ledger.yaml](rfc-ledger.yaml) |
 
 When a risk becomes fact, write a compatibility decision before changing

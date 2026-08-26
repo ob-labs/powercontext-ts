@@ -92,6 +92,23 @@ function assertNoNativeBinding(tarballPath) {
   }
 }
 
+function assertPublishableTarball(tarballPath, name) {
+  const listing = run('tar', ['-tf', tarballPath], ROOT).replaceAll('\\', '/')
+  const forbidden = [
+    '/src/',
+    '/tests/',
+    '/scripts/',
+    '.env',
+    'secrets',
+    'dev-scripts',
+  ].filter((marker) => listing.includes(marker))
+  if (forbidden.length > 0) {
+    throw new Error(
+      `${name} tarball contains unpublished paths: ${forbidden.join(', ')}`,
+    )
+  }
+}
+
 function findNativeBuildFiles(directory, found = []) {
   for (const entry of readdirSync(directory, { withFileTypes: true })) {
     const path = join(directory, entry.name)
@@ -253,6 +270,7 @@ function main() {
       assertCuratedExports(item.dir, item.name)
       const tarball = packOne(item.dir)
       assertNoNativeBinding(tarball)
+      assertPublishableTarball(tarball, item.name)
       tarballs.push({ ...item, tarball })
     }
     importPackedGraph(tarballs)

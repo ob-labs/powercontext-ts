@@ -31,6 +31,7 @@ export {
 } from './integers.js'
 export type {
   HttpMethod,
+  OperationId,
   OperationMetadata,
   RequestLocation,
 } from './generated/operations.js'
