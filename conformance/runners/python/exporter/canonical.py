@@ -18,6 +18,12 @@ from hashlib import sha256
 from typing import Any
 
 import rfc8785
+from powercontext.builtin.artifacts.memory.canonical import (
+    canonical_json as domain_json_bytes,
+)
+from powercontext.builtin.artifacts.memory.canonical import normalize_refs
+
+ENTRY_CONTENT_HASH_DOMAIN = b"powercontext:entry-content:v1\0"
 
 VECTORS: list[tuple[str, object]] = [
     (
@@ -41,8 +47,22 @@ def jcs_bytes(value: object) -> bytes:
     return rfc8785.dumps(value)
 
 
-def canonical_case(kind: str, case_id: str, payload: object) -> dict[str, Any]:
-    return {"id": case_id, "kind": kind, "input": payload, "tags": [kind]}
+def canonical_case(
+    kind: str,
+    case_id: str,
+    payload: object,
+    *,
+    expect: str = "valid",
+    input_mode: str = "json",
+) -> dict[str, Any]:
+    return {
+        "id": case_id,
+        "kind": kind,
+        "expect": expect,
+        "input": payload,
+        "inputMode": input_mode,
+        "tags": [kind, expect],
+    }
 
 
 def build_canonical_cases() -> list[dict[str, Any]]:
@@ -50,6 +70,72 @@ def build_canonical_cases() -> list[dict[str, Any]]:
     for name, payload in VECTORS:
         cases.append(canonical_case("jcs", f"jcs.{name}", payload))
         cases.append(canonical_case("hash", f"hash.{name}", payload))
+    cases.extend(
+        [
+            canonical_case(
+                "jcs",
+                "jcs.invalid.lone-high-surrogate",
+                {"codeUnits": [0xD800]},
+                expect="invalid",
+                input_mode="unicode-code-units",
+            ),
+            canonical_case(
+                "jcs",
+                "jcs.invalid.lone-low-surrogate",
+                {"codeUnits": [0xDC00]},
+                expect="invalid",
+                input_mode="unicode-code-units",
+            ),
+            canonical_case("domain", "domain.nfc-recursive", {"nested": [{"text": "e\u0301"}]}),
+            canonical_case(
+                "domain",
+                "domain.reserved-object-keys",
+                {"__proto__": {"polluted": True}, "constructor": "preserved"},
+            ),
+            canonical_case(
+                "domain",
+                "domain.invalid.nfc-key-collision",
+                {"e\u0301": 1, "é": 2},
+                expect="invalid",
+            ),
+            canonical_case(
+                "domain",
+                "domain.safe-positive-integer",
+                {"decimal": "9007199254740991"},
+                input_mode="decimal-integer",
+            ),
+            canonical_case(
+                "domain",
+                "domain.safe-negative-integer",
+                {"decimal": "-9007199254740991"},
+                input_mode="decimal-integer",
+            ),
+            canonical_case(
+                "domain",
+                "domain.invalid.unsafe-positive-integer",
+                {"decimal": "9007199254740992"},
+                expect="invalid",
+                input_mode="decimal-integer",
+            ),
+            canonical_case(
+                "domain",
+                "domain.invalid.unsafe-negative-integer",
+                {"decimal": "-9007199254740992"},
+                expect="invalid",
+                input_mode="decimal-integer",
+            ),
+            canonical_case(
+                "refs",
+                "refs.nfc-sort-dedupe",
+                [{"id": "b"}, {"id": "a"}, {"id": "e\u0301"}, {"id": "é"}],
+            ),
+            canonical_case(
+                "domain-hash",
+                "domain-hash.entry-content",
+                {"domain": "entry-content", "value": {"kind": "preference", "text": "Cafe\u0301"}},
+            ),
+        ]
+    )
     cases.append(
         canonical_case(
             "sorting",
@@ -65,17 +151,58 @@ def build_canonical_cases() -> list[dict[str, Any]]:
         ("mixed", "PowerContext 中文 😀"),
     ]:
         cases.append(canonical_case("utf8", f"utf8.{name}", {"text": text}))
+    cases.extend(
+        [
+            canonical_case(
+                "utf8",
+                "utf8.invalid.lone-high-surrogate",
+                {"codeUnits": [0xD800]},
+                expect="invalid",
+                input_mode="unicode-code-units",
+            ),
+            canonical_case(
+                "utf8",
+                "utf8.invalid.lone-low-surrogate",
+                {"codeUnits": [0xDC00]},
+                expect="invalid",
+                input_mode="unicode-code-units",
+            ),
+        ]
+    )
     return cases
 
 
-def expected_for_canonical(case: dict[str, Any]) -> dict[str, Any]:
-    kind = case["kind"]
+def materialize_input(case: dict[str, Any]) -> object:
+    mode = case["inputMode"]
     payload = case["input"]
+    if mode == "json":
+        return payload
+    if mode == "unicode-code-units":
+        text = "".join(chr(value) for value in payload["codeUnits"])
+        return {"text": text} if case["kind"] == "utf8" else {"value": text}
+    if mode == "decimal-integer":
+        return {"value": int(payload["decimal"])}
+    raise ValueError(f"unknown canonical input mode: {mode}")
+
+
+def evaluate_canonical(case: dict[str, Any]) -> dict[str, Any]:
+    kind = case["kind"]
+    payload = materialize_input(case)
     if kind == "jcs":
         return {"valid": True, "canonical": jcs_bytes(payload).decode("utf-8")}
+    if kind == "domain":
+        return {"valid": True, "canonical": domain_json_bytes(payload).decode("utf-8")}
     if kind == "hash":
         digest = sha256(jcs_bytes(payload)).hexdigest()
         return {"valid": True, "sha256": digest}
+    if kind == "domain-hash":
+        if payload["domain"] != "entry-content":
+            raise ValueError(f"unknown hash domain: {payload['domain']}")
+        digest = sha256(ENTRY_CONTENT_HASH_DOMAIN + domain_json_bytes(payload["value"])).hexdigest()
+        return {"valid": True, "sha256": digest}
+    if kind == "refs":
+        canonical = domain_json_bytes(list(normalize_refs(payload))).decode("utf-8")
+        return {"valid": True, "canonical": canonical}
     if kind == "sorting":
         obj = {key: True for key in payload}
         canonical = jcs_bytes(obj).decode("utf-8")
@@ -86,16 +213,30 @@ def expected_for_canonical(case: dict[str, Any]) -> dict[str, Any]:
     raise ValueError(kind)
 
 
+def expected_for_canonical(case: dict[str, Any]) -> dict[str, Any]:
+    try:
+        result = evaluate_canonical(case)
+    except (rfc8785.CanonicalizationError, UnicodeError, TypeError, ValueError) as error:
+        if case["expect"] != "invalid":
+            raise
+        return {"valid": False, "error": type(error).__name__}
+    if case["expect"] == "invalid":
+        raise AssertionError(f"canonical invalid case unexpectedly succeeded: {case['id']}")
+    return result
+
+
 def build_canonical_fixture(cases: list[dict[str, Any]]) -> dict[str, Any]:
     return {
         "schema": "powercontext.conformance.canonical.v1",
         "contractVersion": 1,
         "suite": "canonical",
-        "profile": "client",
+        "profile": "sqlite-fts",
         "capabilities": [
             "canonical.jcs",
+            "canonical.nfc",
             "canonical.hash",
             "canonical.sorting",
+            "canonical.refs",
             "canonical.utf8-bytes",
         ],
         "sourceReference": "../provenance.json",
@@ -104,7 +245,7 @@ def build_canonical_fixture(cases: list[dict[str, Any]]) -> dict[str, Any]:
             "id": "case.id",
             "seed": 0,
         },
-        "comparator": "rfc8785-and-utf8-exact",
+        "comparator": "python-canonical-exact",
         "expectedReference": "../expected/canonical.json",
         "cases": cases,
     }

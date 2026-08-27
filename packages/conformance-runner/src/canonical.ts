@@ -14,37 +14,93 @@
  * limitations under the License.
  */
 
-import { createHash } from 'node:crypto'
-import { canonicalizeStrict } from './jcs.js'
+import {
+  ENTRY_CONTENT_HASH_DOMAIN,
+  canonicalizeDomain,
+  canonicalizeDomainBytes,
+  canonicalizeJson,
+  domainSeparatedHash,
+  normalizeRefs,
+  sha256Canonical,
+  utf8ByteLength,
+} from '@powercontext/core'
 import type { CanonicalCase, CaseOutcome, ExpectedResult } from './types.js'
 
-function utf8Bytes(text: string): number {
-  return Buffer.byteLength(text, 'utf8')
+function record(value: unknown): Record<string, unknown> {
+  if (typeof value !== 'object' || value === null || Array.isArray(value)) {
+    throw new Error('canonical fixture input must be an object')
+  }
+  return value as Record<string, unknown>
+}
+
+function materializeInput(caseRow: CanonicalCase): unknown {
+  if (caseRow.inputMode === 'json') {
+    return caseRow.input
+  }
+  const input = record(caseRow.input)
+  if (caseRow.inputMode === 'unicode-code-units') {
+    if (!Array.isArray(input['codeUnits'])) {
+      throw new Error('unicode-code-units input must contain codeUnits')
+    }
+    const text = String.fromCharCode(
+      ...input['codeUnits'].map((value) => {
+        if (typeof value !== 'number') {
+          throw new Error('unicode code units must be numbers')
+        }
+        return value
+      }),
+    )
+    return caseRow.kind === 'utf8' ? { text } : { value: text }
+  }
+  const decimal = input['decimal']
+  if (typeof decimal !== 'string') {
+    throw new Error('decimal-integer input must contain decimal text')
+  }
+  return { value: Number(decimal) }
 }
 
 function evaluateCanonical(
   caseRow: CanonicalCase,
   expected: ExpectedResult,
 ): string | undefined {
+  const input = materializeInput(caseRow)
   if (caseRow.kind === 'jcs') {
-    const actual = canonicalizeStrict(caseRow.input)
+    const actual = canonicalizeJson(input)
     return actual === expected.canonical ? undefined : `canonical mismatch: ${actual}`
   }
+  if (caseRow.kind === 'domain') {
+    const actual = canonicalizeDomain(input)
+    return actual === expected.canonical ? undefined : `domain mismatch: ${actual}`
+  }
   if (caseRow.kind === 'hash') {
-    const digest = createHash('sha256')
-      .update(canonicalizeStrict(caseRow.input), 'utf8')
-      .digest('hex')
+    const digest = sha256Canonical(Buffer.from(canonicalizeJson(input), 'utf8'))
     return digest === expected.sha256 ? undefined : `hash mismatch: ${digest}`
   }
-  if (caseRow.kind === 'sorting') {
-    const keys = caseRow.input as readonly string[]
-    const actual = canonicalizeStrict(
-      Object.fromEntries(keys.map((key) => [key, true])),
+  if (caseRow.kind === 'domain-hash') {
+    const domainInput = record(input)
+    if (domainInput['domain'] !== 'entry-content') {
+      throw new Error(`unknown hash domain: ${String(domainInput['domain'])}`)
+    }
+    const digest = domainSeparatedHash(
+      ENTRY_CONTENT_HASH_DOMAIN,
+      canonicalizeDomainBytes(domainInput['value']),
     )
+    return digest === expected.sha256 ? undefined : `domain hash mismatch: ${digest}`
+  }
+  if (caseRow.kind === 'refs') {
+    if (!Array.isArray(input)) {
+      throw new Error('refs input must be an array')
+    }
+    const actual = canonicalizeDomain(normalizeRefs(input))
+    return actual === expected.canonical ? undefined : `refs mismatch: ${actual}`
+  }
+  if (caseRow.kind === 'sorting') {
+    const keys = input as readonly string[]
+    const actual = canonicalizeJson(Object.fromEntries(keys.map((key) => [key, true])))
     return actual === expected.canonical ? undefined : `sort mismatch: ${actual}`
   }
-  const text = (caseRow.input as { text: string }).text
-  const bytes = utf8Bytes(text)
+  const text = (input as { text: string }).text
+  const bytes = utf8ByteLength(text)
   return bytes === expected.bytes ? undefined : `utf8 bytes ${String(bytes)}`
 }
 
@@ -55,7 +111,23 @@ export function runCanonicalCase(
   if (expected === undefined) {
     return { id: caseRow.id, status: 'fail', detail: 'missing expected result' }
   }
-  const detail = evaluateCanonical(caseRow, expected)
+  let detail: string | undefined
+  try {
+    detail = evaluateCanonical(caseRow, expected)
+  } catch (error) {
+    if (!expected.valid) {
+      return { id: caseRow.id, status: 'pass' }
+    }
+    const message = error instanceof Error ? error.message : String(error)
+    return { id: caseRow.id, status: 'fail', detail: `unexpected error: ${message}` }
+  }
+  if (!expected.valid) {
+    return {
+      id: caseRow.id,
+      status: 'fail',
+      detail: 'expected canonical input to be rejected',
+    }
+  }
   return detail === undefined
     ? { id: caseRow.id, status: 'pass' }
     : { id: caseRow.id, status: 'fail', detail }

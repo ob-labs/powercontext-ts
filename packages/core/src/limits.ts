@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import { assertConformancePassed, runConformance } from './run.js'
-
-const reports = runConformance()
-for (const report of [reports.client, reports.core]) {
-  process.stdout.write(
-    `conformance ${report.profile} ${report.level}: ${String(report.summary.passed)} passed, ${String(report.summary.failed)} failed\n`,
-  )
-  assertConformancePassed(report)
-}
+/** Shared identity limits that remain safe for utf8mb4 relational indexes. */
+export const MAX_SCOPE_ID_LENGTH = 256
+export const MAX_SOURCE_ID_LENGTH = 256
+export const MAX_SOURCE_TYPE_LENGTH = 128
+export const MAX_ARTIFACT_FAMILY_LENGTH = 128
+export const MAX_ARTIFACT_ID_LENGTH = 128
+export const MAX_BINDING_NAME_LENGTH = 128
+export const MEMORY_ENTRY_TEXT_MAX_BYTES = 8192
+export const MEMORY_CHANGE_REASON_MAX_CODE_POINTS = 512

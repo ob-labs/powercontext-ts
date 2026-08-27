@@ -16,9 +16,16 @@ commit `19d51d7fe467d4706a3ff08adf8a748f29fc21e0`. The oracle is
 
 ## Result
 
-Official vectors and the reference corpus match Python `rfc8785.dumps`
-byte-for-byte. Lone surrogates, NaN, Infinity, bigint, and non-JSON values are
-rejected.
+Official object/string/key-order vectors and the reference corpus match Python
+`rfc8785.dumps` byte-for-byte. Lone surrogates, NaN, Infinity, bigint, and
+non-JSON values are rejected.
+
+The integer-domain row is the documented exception in
+[ADR 0006](../../adr/0006-jcs-hash-authority.md). RFC 8785 Appendix B serializes
+the IEEE 754 value `2^53` as `9007199254740992`. Python `rfc8785==0.1.4`
+rejects the Python `int` `9007199254740992` with `IntegerDomainError`.
+TypeScript raw JCS follows Appendix B; `canonicalizeDomain` follows the Python
+integer domain and ADR 0001.
 
 Control:
 
@@ -31,6 +38,8 @@ canonicalize({ b: 1, a: 2 })   === '{"a":2,"b":1}'
 
 ## Conclusion
 
-The JCS investigation passed. Canonical work must ship “strict input checks +
-canonical serializer” as a whole. Do not call `canonicalize` bare. Do not
-treat `JSON.stringify` as canonical bytes.
+The JCS investigation passed, with the `±2^53` split recorded in ADR 0006.
+Canonical work must ship “strict input checks + canonical serializer” as a
+whole. Do not call `canonicalize` bare. Do not treat `JSON.stringify` as
+canonical bytes. Do not hash raw JCS output that skipped the domain integer
+gate.

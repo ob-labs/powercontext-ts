@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -15,29 +15,23 @@
  */
 
 import canonicalizeModule from 'canonicalize'
+import { CanonicalizationError } from '../errors.js'
 
 const canonicalize = canonicalizeModule as unknown as (value: unknown) => string
 
-export class JcsInputError extends TypeError {
-  constructor(message: string) {
-    super(message)
-    this.name = 'JcsInputError'
-  }
-}
-
-function assertUnicodeScalarString(value: string, path: string): void {
+export function assertUnicodeScalarString(value: string, path: string): void {
   for (let index = 0; index < value.length; index += 1) {
     const codeUnit = value.charCodeAt(index)
     if (codeUnit >= 0xd800 && codeUnit <= 0xdbff) {
       const next = value.charCodeAt(index + 1)
       if (!(next >= 0xdc00 && next <= 0xdfff)) {
-        throw new JcsInputError(`${path} contains a lone high surrogate`)
+        throw new CanonicalizationError(`${path} contains a lone high surrogate`)
       }
       index += 1
       continue
     }
     if (codeUnit >= 0xdc00 && codeUnit <= 0xdfff) {
-      throw new JcsInputError(`${path} contains a lone low surrogate`)
+      throw new CanonicalizationError(`${path} contains a lone low surrogate`)
     }
   }
 }
@@ -45,14 +39,27 @@ function assertUnicodeScalarString(value: string, path: string): void {
 function assertPlainObject(value: object, path: string): void {
   const prototype = Object.getPrototypeOf(value) as object | null
   if (prototype !== Object.prototype && prototype !== null) {
-    throw new JcsInputError(`${path} must be a plain JSON object`)
+    throw new CanonicalizationError(`${path} must be a plain JSON object`)
   }
   if (Object.getOwnPropertySymbols(value).length > 0) {
-    throw new JcsInputError(`${path} must not contain symbol keys`)
+    throw new CanonicalizationError(`${path} must not contain symbol keys`)
   }
 }
 
-function assertJsonValue(
+function assertJsonArray(
+  value: unknown[],
+  path: string,
+  ancestors: WeakSet<object>,
+): void {
+  for (let index = 0; index < value.length; index += 1) {
+    if (!Object.hasOwn(value, index)) {
+      throw new CanonicalizationError(`${path} must not contain sparse array holes`)
+    }
+    assertJsonValue(value[index], `${path}[${String(index)}]`, ancestors)
+  }
+}
+
+export function assertJsonValue(
   value: unknown,
   path: string,
   ancestors: WeakSet<object>,
@@ -66,25 +73,20 @@ function assertJsonValue(
   }
   if (typeof value === 'number') {
     if (!Number.isFinite(value)) {
-      throw new JcsInputError(`${path} must contain a finite JSON number`)
+      throw new CanonicalizationError(`${path} must contain a finite JSON number`)
     }
     return
   }
   if (typeof value !== 'object') {
-    throw new JcsInputError(`${path} is not a JSON value`)
+    throw new CanonicalizationError(`${path} is not a JSON value`)
   }
   if (ancestors.has(value)) {
-    throw new JcsInputError(`${path} contains a cycle`)
+    throw new CanonicalizationError(`${path} contains a cycle`)
   }
   ancestors.add(value)
   try {
     if (Array.isArray(value)) {
-      value.forEach((entry, index) => {
-        if (!Object.hasOwn(value, index)) {
-          throw new JcsInputError(`${path} must not contain sparse array holes`)
-        }
-        assertJsonValue(entry, `${path}[${String(index)}]`, ancestors)
-      })
+      assertJsonArray(value, path, ancestors)
       return
     }
     assertPlainObject(value, path)
@@ -97,7 +99,17 @@ function assertJsonValue(
   }
 }
 
-export function canonicalizeStrict(value: unknown): string {
+/**
+ * RFC 8785 JCS. This is not `JSON.stringify` and does not apply project NFC.
+ * Appendix B keeps ±2^53 as finite IEEE 754 numbers. Python rfc8785==0.1.4
+ * rejects those Python ints; domain canonicalization follows that rejection.
+ * See ADR 0006.
+ */
+export function canonicalizeJson(value: unknown): string {
   assertJsonValue(value, '$', new WeakSet())
   return canonicalize(value)
+}
+
+export function canonicalizeJsonBytes(value: unknown): Uint8Array {
+  return new TextEncoder().encode(canonicalizeJson(value))
 }

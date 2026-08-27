@@ -2,6 +2,38 @@
   "contractVersion": 1,
   "fixtureReference": "../fixtures/canonical.json",
   "results": {
+    "domain-hash.entry-content": {
+      "sha256": "3999e8d998684ce8374a55244d3f768671cd6071e70d87b94fc277133597bc0d",
+      "valid": true
+    },
+    "domain.invalid.nfc-key-collision": {
+      "error": "_CanonicalValueError",
+      "valid": false
+    },
+    "domain.invalid.unsafe-negative-integer": {
+      "error": "IntegerDomainError",
+      "valid": false
+    },
+    "domain.invalid.unsafe-positive-integer": {
+      "error": "IntegerDomainError",
+      "valid": false
+    },
+    "domain.nfc-recursive": {
+      "canonical": "{\"nested\":[{\"text\":\"é\"}]}",
+      "valid": true
+    },
+    "domain.reserved-object-keys": {
+      "canonical": "{\"__proto__\":{\"polluted\":true},\"constructor\":\"preserved\"}",
+      "valid": true
+    },
+    "domain.safe-negative-integer": {
+      "canonical": "{\"value\":-9007199254740991}",
+      "valid": true
+    },
+    "domain.safe-positive-integer": {
+      "canonical": "{\"value\":9007199254740991}",
+      "valid": true
+    },
     "hash.cjk": {
       "sha256": "3b46cf16c38fa6242a5b1a3da086cf3042f9e4a5a58ed40066d0cee06ffdca98",
       "valid": true
@@ -50,6 +82,14 @@
       "canonical": "{\"array\":[],\"empty\":\"\",\"object\":{}}",
       "valid": true
     },
+    "jcs.invalid.lone-high-surrogate": {
+      "error": "CanonicalizationError",
+      "valid": false
+    },
+    "jcs.invalid.lone-low-surrogate": {
+      "error": "CanonicalizationError",
+      "valid": false
+    },
     "jcs.key-order": {
       "canonical": "{\"a\":2,\"b\":1}",
       "valid": true
@@ -64,6 +104,10 @@
     },
     "jcs.unicode-keys": {
       "canonical": "{\"\\r\":\"control\",\"1\":\"digit\",\"€\":\"euro\",\"😀\":\"astral\"}",
+      "valid": true
+    },
+    "refs.nfc-sort-dedupe": {
+      "canonical": "[{\"id\":\"a\"},{\"id\":\"b\"},{\"id\":\"é\"}]",
       "valid": true
     },
     "sorting.utf16-keys": {
@@ -85,6 +129,14 @@
     "utf8.emoji": {
       "bytes": 4,
       "valid": true
+    },
+    "utf8.invalid.lone-high-surrogate": {
+      "error": "UnicodeEncodeError",
+      "valid": false
+    },
+    "utf8.invalid.lone-low-surrogate": {
+      "error": "UnicodeEncodeError",
+      "valid": false
     },
     "utf8.mixed": {
       "bytes": 24,

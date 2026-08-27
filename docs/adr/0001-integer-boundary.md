@@ -2,7 +2,7 @@
 
 - Status: Accepted
 - Date: 2026-08-23
-- Amended: 2026-08-24 (raw-JSON integer token boundary)
+- Amended: 2026-08-26 (raw-JSON boundary and Python contract implementation)
 - Kind: Blocking (persistence write gate)
 - Owners: protocol-owner, python-owner
 
@@ -53,7 +53,8 @@ PowerContext OpenAPI 3.0.3 把大量计数、游标、revision、usage 和统计
 
 ## Follow-up
 
-- Python PR：为全部 integer schema 补 safe-range。
+- Python 源码树：全部 OpenAPI integer schema 已补 safe-range，并重新生成 Pydantic
+  模型；合并后仍需把本仓库 frozen baseline 从 `733e4bf…` bump 到对应 Python commit。
 - SQLite `bigint` 读取与 JSON 边界失败语义见
   `docs/develop/investigations/integer-boundary.md`。
 - 每个 integer 字段的 valid / invalid fixture 属于 C1 wire 套件。

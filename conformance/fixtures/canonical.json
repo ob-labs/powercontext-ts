@@ -1,12 +1,15 @@
 {
   "capabilities": [
     "canonical.jcs",
+    "canonical.nfc",
     "canonical.hash",
     "canonical.sorting",
+    "canonical.refs",
     "canonical.utf8-bytes"
   ],
   "cases": [
     {
+      "expect": "valid",
       "id": "jcs.literals-and-numbers",
       "input": {
         "literals": [
@@ -22,12 +25,15 @@
           1e-27
         ]
       },
+      "inputMode": "json",
       "kind": "jcs",
       "tags": [
-        "jcs"
+        "jcs",
+        "valid"
       ]
     },
     {
+      "expect": "valid",
       "id": "hash.literals-and-numbers",
       "input": {
         "literals": [
@@ -43,54 +49,69 @@
           1e-27
         ]
       },
+      "inputMode": "json",
       "kind": "hash",
       "tags": [
-        "hash"
+        "hash",
+        "valid"
       ]
     },
     {
+      "expect": "valid",
       "id": "jcs.key-order",
       "input": {
         "a": 2,
         "b": 1
       },
+      "inputMode": "json",
       "kind": "jcs",
       "tags": [
-        "jcs"
+        "jcs",
+        "valid"
       ]
     },
     {
+      "expect": "valid",
       "id": "hash.key-order",
       "input": {
         "a": 2,
         "b": 1
       },
+      "inputMode": "json",
       "kind": "hash",
       "tags": [
-        "hash"
+        "hash",
+        "valid"
       ]
     },
     {
+      "expect": "valid",
       "id": "jcs.negative-zero",
       "input": {
         "value": -0.0
       },
+      "inputMode": "json",
       "kind": "jcs",
       "tags": [
-        "jcs"
+        "jcs",
+        "valid"
       ]
     },
     {
+      "expect": "valid",
       "id": "hash.negative-zero",
       "input": {
         "value": -0.0
       },
+      "inputMode": "json",
       "kind": "hash",
       "tags": [
-        "hash"
+        "hash",
+        "valid"
       ]
     },
     {
+      "expect": "valid",
       "id": "jcs.unicode-keys",
       "input": {
         "\r": "control",
@@ -98,12 +119,15 @@
         "€": "euro",
         "😀": "astral"
       },
+      "inputMode": "json",
       "kind": "jcs",
       "tags": [
-        "jcs"
+        "jcs",
+        "valid"
       ]
     },
     {
+      "expect": "valid",
       "id": "hash.unicode-keys",
       "input": {
         "\r": "control",
@@ -111,96 +135,293 @@
         "€": "euro",
         "😀": "astral"
       },
+      "inputMode": "json",
       "kind": "hash",
       "tags": [
-        "hash"
+        "hash",
+        "valid"
       ]
     },
     {
+      "expect": "valid",
       "id": "jcs.control-escape",
       "input": {
         "value": "\b\t\n\f\r\"\\\u0001"
       },
+      "inputMode": "json",
       "kind": "jcs",
       "tags": [
-        "jcs"
+        "jcs",
+        "valid"
       ]
     },
     {
+      "expect": "valid",
       "id": "hash.control-escape",
       "input": {
         "value": "\b\t\n\f\r\"\\\u0001"
       },
+      "inputMode": "json",
       "kind": "hash",
       "tags": [
-        "hash"
+        "hash",
+        "valid"
       ]
     },
     {
+      "expect": "valid",
       "id": "jcs.empty",
       "input": {
         "array": [],
         "empty": "",
         "object": {}
       },
+      "inputMode": "json",
       "kind": "jcs",
       "tags": [
-        "jcs"
+        "jcs",
+        "valid"
       ]
     },
     {
+      "expect": "valid",
       "id": "hash.empty",
       "input": {
         "array": [],
         "empty": "",
         "object": {}
       },
+      "inputMode": "json",
       "kind": "hash",
       "tags": [
-        "hash"
+        "hash",
+        "valid"
       ]
     },
     {
+      "expect": "valid",
       "id": "jcs.cjk",
       "input": {
         "text": "中文测试"
       },
+      "inputMode": "json",
       "kind": "jcs",
       "tags": [
-        "jcs"
+        "jcs",
+        "valid"
       ]
     },
     {
+      "expect": "valid",
       "id": "hash.cjk",
       "input": {
         "text": "中文测试"
       },
+      "inputMode": "json",
       "kind": "hash",
       "tags": [
-        "hash"
+        "hash",
+        "valid"
       ]
     },
     {
+      "expect": "valid",
       "id": "jcs.combining",
       "input": {
         "text": "é"
       },
+      "inputMode": "json",
       "kind": "jcs",
       "tags": [
-        "jcs"
+        "jcs",
+        "valid"
       ]
     },
     {
+      "expect": "valid",
       "id": "hash.combining",
       "input": {
         "text": "é"
       },
+      "inputMode": "json",
       "kind": "hash",
       "tags": [
-        "hash"
+        "hash",
+        "valid"
       ]
     },
     {
+      "expect": "invalid",
+      "id": "jcs.invalid.lone-high-surrogate",
+      "input": {
+        "codeUnits": [
+          55296
+        ]
+      },
+      "inputMode": "unicode-code-units",
+      "kind": "jcs",
+      "tags": [
+        "jcs",
+        "invalid"
+      ]
+    },
+    {
+      "expect": "invalid",
+      "id": "jcs.invalid.lone-low-surrogate",
+      "input": {
+        "codeUnits": [
+          56320
+        ]
+      },
+      "inputMode": "unicode-code-units",
+      "kind": "jcs",
+      "tags": [
+        "jcs",
+        "invalid"
+      ]
+    },
+    {
+      "expect": "valid",
+      "id": "domain.nfc-recursive",
+      "input": {
+        "nested": [
+          {
+            "text": "é"
+          }
+        ]
+      },
+      "inputMode": "json",
+      "kind": "domain",
+      "tags": [
+        "domain",
+        "valid"
+      ]
+    },
+    {
+      "expect": "valid",
+      "id": "domain.reserved-object-keys",
+      "input": {
+        "__proto__": {
+          "polluted": true
+        },
+        "constructor": "preserved"
+      },
+      "inputMode": "json",
+      "kind": "domain",
+      "tags": [
+        "domain",
+        "valid"
+      ]
+    },
+    {
+      "expect": "invalid",
+      "id": "domain.invalid.nfc-key-collision",
+      "input": {
+        "é": 1,
+        "é": 2
+      },
+      "inputMode": "json",
+      "kind": "domain",
+      "tags": [
+        "domain",
+        "invalid"
+      ]
+    },
+    {
+      "expect": "valid",
+      "id": "domain.safe-positive-integer",
+      "input": {
+        "decimal": "9007199254740991"
+      },
+      "inputMode": "decimal-integer",
+      "kind": "domain",
+      "tags": [
+        "domain",
+        "valid"
+      ]
+    },
+    {
+      "expect": "valid",
+      "id": "domain.safe-negative-integer",
+      "input": {
+        "decimal": "-9007199254740991"
+      },
+      "inputMode": "decimal-integer",
+      "kind": "domain",
+      "tags": [
+        "domain",
+        "valid"
+      ]
+    },
+    {
+      "expect": "invalid",
+      "id": "domain.invalid.unsafe-positive-integer",
+      "input": {
+        "decimal": "9007199254740992"
+      },
+      "inputMode": "decimal-integer",
+      "kind": "domain",
+      "tags": [
+        "domain",
+        "invalid"
+      ]
+    },
+    {
+      "expect": "invalid",
+      "id": "domain.invalid.unsafe-negative-integer",
+      "input": {
+        "decimal": "-9007199254740992"
+      },
+      "inputMode": "decimal-integer",
+      "kind": "domain",
+      "tags": [
+        "domain",
+        "invalid"
+      ]
+    },
+    {
+      "expect": "valid",
+      "id": "refs.nfc-sort-dedupe",
+      "input": [
+        {
+          "id": "b"
+        },
+        {
+          "id": "a"
+        },
+        {
+          "id": "é"
+        },
+        {
+          "id": "é"
+        }
+      ],
+      "inputMode": "json",
+      "kind": "refs",
+      "tags": [
+        "refs",
+        "valid"
+      ]
+    },
+    {
+      "expect": "valid",
+      "id": "domain-hash.entry-content",
+      "input": {
+        "domain": "entry-content",
+        "value": {
+          "kind": "preference",
+          "text": "Café"
+        }
+      },
+      "inputMode": "json",
+      "kind": "domain-hash",
+      "tags": [
+        "domain-hash",
+        "valid"
+      ]
+    },
+    {
+      "expect": "valid",
       "id": "sorting.utf16-keys",
       "input": [
         "",
@@ -209,63 +430,110 @@
         "1",
         "\r"
       ],
+      "inputMode": "json",
       "kind": "sorting",
       "tags": [
-        "sorting"
+        "sorting",
+        "valid"
       ]
     },
     {
+      "expect": "valid",
       "id": "utf8.ascii",
       "input": {
         "text": "hello"
       },
+      "inputMode": "json",
       "kind": "utf8",
       "tags": [
-        "utf8"
+        "utf8",
+        "valid"
       ]
     },
     {
+      "expect": "valid",
       "id": "utf8.cjk",
       "input": {
         "text": "中文"
       },
+      "inputMode": "json",
       "kind": "utf8",
       "tags": [
-        "utf8"
+        "utf8",
+        "valid"
       ]
     },
     {
+      "expect": "valid",
       "id": "utf8.emoji",
       "input": {
         "text": "😀"
       },
+      "inputMode": "json",
       "kind": "utf8",
       "tags": [
-        "utf8"
+        "utf8",
+        "valid"
       ]
     },
     {
+      "expect": "valid",
       "id": "utf8.combining",
       "input": {
         "text": "é"
       },
+      "inputMode": "json",
       "kind": "utf8",
       "tags": [
-        "utf8"
+        "utf8",
+        "valid"
       ]
     },
     {
+      "expect": "valid",
       "id": "utf8.mixed",
       "input": {
         "text": "PowerContext 中文 😀"
       },
+      "inputMode": "json",
       "kind": "utf8",
       "tags": [
-        "utf8"
+        "utf8",
+        "valid"
+      ]
+    },
+    {
+      "expect": "invalid",
+      "id": "utf8.invalid.lone-high-surrogate",
+      "input": {
+        "codeUnits": [
+          55296
+        ]
+      },
+      "inputMode": "unicode-code-units",
+      "kind": "utf8",
+      "tags": [
+        "utf8",
+        "invalid"
+      ]
+    },
+    {
+      "expect": "invalid",
+      "id": "utf8.invalid.lone-low-surrogate",
+      "input": {
+        "codeUnits": [
+          56320
+        ]
+      },
+      "inputMode": "unicode-code-units",
+      "kind": "utf8",
+      "tags": [
+        "utf8",
+        "invalid"
       ]
     }
   ],
-  "comparator": "rfc8785-and-utf8-exact",
+  "comparator": "python-canonical-exact",
   "contractVersion": 1,
   "determinism": {
     "clock": "not-used",
@@ -273,7 +541,7 @@
     "seed": 0
   },
   "expectedReference": "../expected/canonical.json",
-  "profile": "client",
+  "profile": "sqlite-fts",
   "schema": "powercontext.conformance.canonical.v1",
   "sourceReference": "../provenance.json",
   "suite": "canonical"

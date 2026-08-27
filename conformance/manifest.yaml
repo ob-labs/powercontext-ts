@@ -11,32 +11,48 @@ capabilities:
       python: required
       typescript: required
   - capability: canonical.jcs
-    required_level: C1
-    profiles: [client]
+    required_level: C2
+    profiles: [sqlite-fts]
     fixtures:
       - fixtures/canonical.json
     implementations:
       python: required
       typescript: required
   - capability: canonical.hash
-    required_level: C1
-    profiles: [client]
+    required_level: C2
+    profiles: [sqlite-fts]
     fixtures:
       - fixtures/canonical.json
     implementations:
       python: required
       typescript: required
   - capability: canonical.sorting
-    required_level: C1
-    profiles: [client]
+    required_level: C2
+    profiles: [sqlite-fts]
     fixtures:
       - fixtures/canonical.json
     implementations:
       python: required
       typescript: required
   - capability: canonical.utf8-bytes
-    required_level: C1
-    profiles: [client]
+    required_level: C2
+    profiles: [sqlite-fts]
+    fixtures:
+      - fixtures/canonical.json
+    implementations:
+      python: required
+      typescript: required
+  - capability: canonical.nfc
+    required_level: C2
+    profiles: [sqlite-fts]
+    fixtures:
+      - fixtures/canonical.json
+    implementations:
+      python: required
+      typescript: required
+  - capability: canonical.refs
+    required_level: C2
+    profiles: [sqlite-fts]
     fixtures:
       - fixtures/canonical.json
     implementations:
