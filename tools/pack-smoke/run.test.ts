@@ -14,23 +14,31 @@
  * limitations under the License.
  */
 
-import { mkdtempSync, readFileSync, rmSync } from 'node:fs'
+import { spawnSync } from 'node:child_process'
+import { mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
-import { join } from 'node:path'
+import { dirname, join } from 'node:path'
+import { fileURLToPath, pathToFileURL } from 'node:url'
 import { describe, expect, it } from 'vitest'
-import { writeSmokeWorkspace } from './run.mjs'
+
+const toolDir = dirname(fileURLToPath(import.meta.url))
+const runScript = pathToFileURL(join(toolDir, 'run.mjs')).href
 
 describe('pack-smoke workspace', () => {
   it('writes sibling tarball overrides in pnpm-workspace.yaml', () => {
     const workspace = mkdtempSync(join(tmpdir(), 'pack-smoke-overrides-'))
+    const probe = join(workspace, 'probe.mjs')
     try {
-      writeSmokeWorkspace(workspace, 'pack-smoke', [
-        {
-          name: '@powercontext/protocol',
-          localFile: 'powercontext-protocol-0.0.0.tgz',
-        },
-        { name: '@powercontext/core', localFile: 'powercontext-core-0.0.0.tgz' },
-      ])
+      writeFileSync(
+        probe,
+        `import { writeSmokeWorkspace } from ${JSON.stringify(runScript)}\n` +
+          `writeSmokeWorkspace(${JSON.stringify(workspace)}, 'pack-smoke', [\n` +
+          `  { name: '@powercontext/protocol', localFile: 'powercontext-protocol-0.0.0.tgz' },\n` +
+          `  { name: '@powercontext/core', localFile: 'powercontext-core-0.0.0.tgz' },\n` +
+          `])\n`,
+      )
+      const result = spawnSync(process.execPath, [probe], { encoding: 'utf8' })
+      expect(result.status, result.stderr).toBe(0)
       const manifest = JSON.parse(
         readFileSync(join(workspace, 'package.json'), 'utf8'),
       ) as { pnpm?: unknown }
