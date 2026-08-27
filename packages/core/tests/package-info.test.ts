@@ -33,6 +33,10 @@ describe('@powercontext/core skeleton', () => {
         'utf8',
       ),
     ) as { dependencies?: Record<string, string> }
-    expect(manifest.dependencies ?? {}).toEqual({})
+    const names = Object.keys(manifest.dependencies ?? {})
+    expect(names).toEqual(['@powercontext/protocol', 'canonicalize'])
+    expect(
+      names.some((name) => /fastify|sqlite|kysely|openai|anthropic/i.test(name)),
+    ).toBe(false)
   })
 })

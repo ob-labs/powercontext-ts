@@ -31,4 +31,4 @@ export function describeRunner(): {
 }
 
 export { runConformance, assertConformancePassed } from './run.js'
-export type { ConformanceReport } from './types.js'
+export type { ConformanceReport, ConformanceReports } from './types.js'

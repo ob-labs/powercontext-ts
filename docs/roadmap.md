@@ -13,9 +13,10 @@ The 2026-08-23 construction study is background only. It is not the tracker.
 | Surface | Status |
 | --- | --- |
 | Protocol types, 52 operation contracts, runtime validators | Done |
-| C1 wire and canonical conformance fixtures | Done |
+| C1 wire fixtures and deterministic Core C2 canonical fixtures | Done |
 | Official typed HTTP Client transport | M1 release candidate (`client` / C1); see [exit review](reviews/m1-client-exit-review.md) |
-| Deterministic Core, SQLite Runtime, Server, MCP, CLI | Not started |
+| Deterministic Core primitives (JCS, NFC, hash, refs, UTF-8, fake-store) | Done for [#2](https://github.com/ob-labs/powercontext-ts/issues/2); `sqlite-fts` / C2 canonical fixtures evaluate through `@powercontext/core` |
+| SQLite Runtime, Server, MCP, CLI | Not started |
 
 Python remains the reference implementation and semantic oracle.
 

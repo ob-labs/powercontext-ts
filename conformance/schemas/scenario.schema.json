@@ -60,18 +60,20 @@
         "schema": { "const": "powercontext.conformance.canonical.v1" },
         "contractVersion": { "const": 1 },
         "suite": { "const": "canonical" },
-        "profile": { "const": "client" },
+        "profile": { "const": "sqlite-fts" },
         "capabilities": {
           "const": [
             "canonical.jcs",
+            "canonical.nfc",
             "canonical.hash",
             "canonical.sorting",
+            "canonical.refs",
             "canonical.utf8-bytes"
           ]
         },
         "sourceReference": { "const": "../provenance.json" },
         "determinism": { "$ref": "#/definitions/determinism" },
-        "comparator": { "const": "rfc8785-and-utf8-exact" },
+        "comparator": { "const": "python-canonical-exact" },
         "expectedReference": { "const": "../expected/canonical.json" },
         "cases": {
           "type": "array",
@@ -123,14 +125,19 @@
     "canonicalCase": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["id", "kind", "input", "tags"],
+      "required": ["id", "kind", "expect", "input", "inputMode", "tags"],
       "properties": {
         "id": { "type": "string", "minLength": 1 },
         "kind": {
           "type": "string",
-          "enum": ["jcs", "hash", "sorting", "utf8"]
+          "enum": ["jcs", "domain", "hash", "domain-hash", "refs", "sorting", "utf8"]
         },
+        "expect": { "type": "string", "enum": ["valid", "invalid"] },
         "input": true,
+        "inputMode": {
+          "type": "string",
+          "enum": ["json", "unicode-code-units", "decimal-integer"]
+        },
         "tags": {
           "type": "array",
           "minItems": 1,

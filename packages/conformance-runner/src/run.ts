@@ -25,10 +25,10 @@ import {
   loadWireExpected,
 } from './load.js'
 import { buildReport, writeReport } from './report.js'
-import type { CaseOutcome, ConformanceReport } from './types.js'
+import type { CaseOutcome, ConformanceReport, ConformanceReports } from './types.js'
 import { runWireCase } from './wire.js'
 
-export function runConformance(): ConformanceReport {
+export function runConformance(): ConformanceReports {
   const manifest = loadManifest()
   const provenance = loadProvenance()
   if (manifest.baseline_commit !== provenance.python_commit) {
@@ -36,22 +36,25 @@ export function runConformance(): ConformanceReport {
       'conformance manifest baseline_commit does not match provenance python_commit',
     )
   }
-  const outcomes: CaseOutcome[] = []
+  const wireOutcomes: CaseOutcome[] = []
   const wireCases = loadWireCases()
   const wireExpected = loadWireExpected()
   assertExpectedCoverage('wire', wireCases, wireExpected)
   for (const caseRow of wireCases) {
-    outcomes.push(runWireCase(caseRow, wireExpected[caseRow.id]))
+    wireOutcomes.push(runWireCase(caseRow, wireExpected[caseRow.id]))
   }
+  const canonicalOutcomes: CaseOutcome[] = []
   const canonicalCases = loadCanonicalCases()
   const canonicalExpected = loadCanonicalExpected()
   assertExpectedCoverage('canonical', canonicalCases, canonicalExpected)
   for (const caseRow of canonicalCases) {
-    outcomes.push(runCanonicalCase(caseRow, canonicalExpected[caseRow.id]))
+    canonicalOutcomes.push(runCanonicalCase(caseRow, canonicalExpected[caseRow.id]))
   }
-  const report = buildReport(outcomes, manifest, provenance)
-  writeReport(report)
-  return report
+  const client = buildReport(wireOutcomes, manifest, provenance, 'client', 'C1')
+  const core = buildReport(canonicalOutcomes, manifest, provenance, 'sqlite-fts', 'C2')
+  writeReport(client, 'typescript.json')
+  writeReport(core, 'typescript-core.json')
+  return { client, core }
 }
 
 export function assertConformancePassed(report: ConformanceReport): void {

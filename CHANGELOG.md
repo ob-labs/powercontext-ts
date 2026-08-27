@@ -9,6 +9,12 @@ are published.
 
 ### Added
 
+- `@powercontext/core` deterministic primitives for the `sqlite-fts`
+  profile: RFC 8785 JCS, recursive NFC, domain-separated SHA-256, UTF-8
+  byte budgets, Source/Artifact refs, Trigger contracts, and fake-store
+  revision/head traces. Shared `sqlite-fts` / C2 canonical fixtures, including
+  invalid Unicode, Python-int token rejection, IEEE `1e30`, NFC collision,
+  ref, and domain-hash cases, now run through this package.
 - Official `@powercontext/client` typed HTTP Client: 52 methods, strict
   transport, runtime validation, and Python Server call-through for the
   `client` / C1 profile.
@@ -18,6 +24,14 @@ are published.
 
 ### Changed
 
+- Canonical UTF-8 helpers reject lone surrogates, identity limits count Unicode
+  code points, and fake Artifact histories are immutable snapshots with
+  collision-free composite identities.
+- ADR 0006 records that raw JCS keeps RFC 8785 Appendix B `±2^53` values, while
+  domain canonicalization and content hashes reject them to match Python
+  `rfc8785`.
+- Conformance emits separate `client` / C1 and deterministic Core /
+  `sqlite-fts` / C2 reports.
 - OpenAPI-derived request types preserve required fields while leaving
   server-defaulted fields optional.
 - Undeclared 2xx responses are classified as Server errors, and malformed UTF-8

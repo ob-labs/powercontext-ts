@@ -7,8 +7,9 @@ What do `JSON.parse`, SQLite `INTEGER`, and `JSON.stringify` do past
 
 ## Method
 
-`@powercontext/protocol` exposes `assertSafeInteger`, `bigintToSafeInteger`,
-and `findUnsafeIntegerTokens`. SQLite behavior is in
+`@powercontext/protocol` owns `assertSafeInteger`, `bigintToSafeInteger`,
+and `findUnsafeIntegerTokens`. `@powercontext/core` re-exports that same
+implementation. SQLite behavior is in
 [sqlite-driver.md](sqlite-driver.md).
 
 ## Result
@@ -37,4 +38,7 @@ ADR 0001’s TypeScript surface is:
 3. Never `JSON.stringify(bigint)`.
 4. Never leak bigint into the domain canonical model.
 
-Python still needs OpenAPI `minimum` / `maximum` as a cross-repository follow-up.
+The sibling Python source tree now constrains every OpenAPI integer schema to
+this safe range and regenerates the Pydantic models. The TypeScript frozen
+baseline still points at `733e4bf…`; advance it only after the Python change has
+a commit to pin.

@@ -79,7 +79,7 @@ describe('TypeScript conformance runner', () => {
     const provenance = loadProvenance()
     expect(provenance['schema']).toBe('powercontext.conformance.provenance.v1')
     expect(provenance['python_commit']).toHaveLength(40)
-    expect(provenance['exporter_version']).toBe('0.2.0-phase2')
+    expect(provenance['exporter_version']).toBe('0.3.1-core')
   })
 
   it('covers a request fixture for every frozen operation', () => {
@@ -116,10 +116,14 @@ describe('TypeScript conformance runner', () => {
   })
 
   it('matches oracle expected results for wire and canonical fixtures', () => {
-    const report = runConformance()
-    expect(report.profile).toBe('client')
-    expect(report.level).toBe('C1')
-    expect(report.summary.failed).toBe(0)
-    expect(report.summary.passed).toBeGreaterThan(52)
+    const reports = runConformance()
+    expect(reports.client.profile).toBe('client')
+    expect(reports.client.level).toBe('C1')
+    expect(reports.client.summary.failed).toBe(0)
+    expect(reports.client.summary.passed).toBeGreaterThan(52)
+    expect(reports.core.profile).toBe('sqlite-fts')
+    expect(reports.core.level).toBe('C2')
+    expect(reports.core.summary.failed).toBe(0)
+    expect(reports.core.summary.passed).toBeGreaterThan(22)
   })
 })

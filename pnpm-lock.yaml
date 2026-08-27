@@ -95,20 +95,27 @@ importers:
 
   packages/conformance-runner:
     dependencies:
+      '@powercontext/core':
+        specifier: workspace:*
+        version: link:../core
       '@powercontext/protocol':
         specifier: workspace:*
         version: link:../protocol
       ajv:
         specifier: ^8.17.1
         version: 8.20.0
-      canonicalize:
-        specifier: ^2.1.0
-        version: 2.1.0
       yaml:
         specifier: ^2.8.1
         version: 2.9.0
 
-  packages/core: {}
+  packages/core:
+    dependencies:
+      '@powercontext/protocol':
+        specifier: workspace:*
+        version: link:../protocol
+      canonicalize:
+        specifier: ^2.1.0
+        version: 2.1.0
 
   packages/protocol:
     dependencies:

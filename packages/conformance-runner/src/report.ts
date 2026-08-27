@@ -29,15 +29,17 @@ export function buildReport(
   cases: readonly CaseOutcome[],
   manifest: ConformanceManifest,
   provenance: ConformanceProvenance,
+  profile: string,
+  level: ConformanceReport['level'],
 ): ConformanceReport {
   const passed = cases.filter((row) => row.status === 'pass').length
   const failed = cases.filter((row) => row.status === 'fail').length
   const skipped = cases.filter((row) => row.status === 'skipped').length
   return {
     schema: 'powercontext.conformance.report.v1',
-    profile: 'client',
+    profile,
     implementation: 'typescript',
-    level: 'C1',
+    level,
     provenance: {
       contractVersion: manifest.contract_version,
       baselineCommit: manifest.baseline_commit,
@@ -51,10 +53,10 @@ export function buildReport(
   }
 }
 
-export function writeReport(report: ConformanceReport): string {
+export function writeReport(report: ConformanceReport, filename: string): string {
   assertConformanceDocument('report', report)
   mkdirSync(REPORTS_DIR, { recursive: true })
-  const path = join(REPORTS_DIR, 'typescript.json')
+  const path = join(REPORTS_DIR, filename)
   writeFileSync(path, `${JSON.stringify(report, null, 2)}\n`)
   return path
 }

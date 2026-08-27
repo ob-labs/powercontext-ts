@@ -24,6 +24,10 @@
     "build": "tsdown",
     "typecheck": "tsc --noEmit -p tsconfig.json"
   },
+  "dependencies": {
+    "@powercontext/protocol": "workspace:*",
+    "canonicalize": "^2.1.0"
+  },
   "publishConfig": {
     "access": "public",
     "provenance": true
