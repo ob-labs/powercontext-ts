@@ -16,8 +16,10 @@
 
 import { assertConformancePassed, runConformance } from './run.js'
 
-const report = runConformance()
-process.stdout.write(
-  `conformance ${report.profile} ${report.level}: ${String(report.summary.passed)} passed, ${String(report.summary.failed)} failed\n`,
-)
-assertConformancePassed(report)
+const reports = runConformance()
+for (const report of [reports.client, reports.core]) {
+  process.stdout.write(
+    `conformance ${report.profile} ${report.level}: ${String(report.summary.passed)} passed, ${String(report.summary.failed)} failed\n`,
+  )
+  assertConformancePassed(report)
+}

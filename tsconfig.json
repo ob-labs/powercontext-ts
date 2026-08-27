@@ -5,7 +5,8 @@
     "rootDir": ".",
     "baseUrl": ".",
     "paths": {
-      "@powercontext/protocol": ["packages/protocol/src/index.ts"]
+      "@powercontext/protocol": ["packages/protocol/src/index.ts"],
+      "@powercontext/core": ["packages/core/src/index.ts"]
     },
     "types": ["node", "vitest/globals"]
   },

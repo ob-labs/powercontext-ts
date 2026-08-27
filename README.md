@@ -10,9 +10,12 @@ kit.
 ## Status
 
 The `client` profile has Protocol types, 52 operation contracts, runtime
-validators, C1 wire / canonical fixtures, and the official typed HTTP Client.
-Runtime, Server, MCP, and CLI are not shipped. Docs claim `client` / C1, not
-full-product.
+validators, C1 wire fixtures, and the official typed HTTP Client.
+`@powercontext/core` owns the deterministic JCS / NFC / hash / ref / UTF-8
+primitives and immutable in-memory fake-store histories. Its Python-oracle
+canonical suite is `sqlite-fts` / C2 evidence for that deterministic scope;
+it is not a claim that persistence or the complete profile ships. Persistence,
+Server, MCP, and CLI are not shipped.
 
 See [Current status](docs/user/README.md) and the
 [compatibility policy](docs/policies/compatibility.md).

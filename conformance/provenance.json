@@ -1,7 +1,7 @@
 {
-  "expected_digest": "c80ebb00e27f7c82d73fb47c930070a7d0abd18cc5cf7460e4de2047970fbfbf",
-  "exporter_version": "0.2.0-phase2",
-  "fixture_digest": "f9f0dbf028be3d6135a6edd83d95a21aec8e675c8af67006e00a414677b58308",
+  "expected_digest": "58794e2bb7b4e24b86e4c3475cff77b74b6a2a829ffb4a905aedd7a601fdba15",
+  "exporter_version": "0.3.1-core",
+  "fixture_digest": "3a3f556667e7a6549d4b188566199860fccdff9a22dca4c897a9e4dbbfe64760",
   "openapi_sha256": "a97488e85ab3a9f1db3f1dce720ec74b07c626b1974cc860c67b91cabb22f7e3",
   "python_commit": "733e4bf6b378785e76274ff07632029c699ecb09",
   "schema": "powercontext.conformance.provenance.v1"

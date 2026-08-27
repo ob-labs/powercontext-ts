@@ -7,3 +7,6 @@ the repository-root `conformance/` directory. It does not own fixture truth.
 ```text
 pnpm conformance
 ```
+
+The command emits separate `client` / C1 wire and deterministic
+`sqlite-fts` / C2 Core reports under `conformance/reports/`.

@@ -32,8 +32,10 @@ export interface WireCase {
 
 export interface CanonicalCase {
   readonly id: string
-  readonly kind: 'jcs' | 'hash' | 'sorting' | 'utf8'
+  readonly kind: 'jcs' | 'domain' | 'hash' | 'domain-hash' | 'refs' | 'sorting' | 'utf8'
+  readonly expect: 'valid' | 'invalid'
   readonly input: unknown
+  readonly inputMode: 'json' | 'unicode-code-units' | 'decimal-integer'
   readonly tags?: readonly string[]
 }
 
@@ -81,7 +83,7 @@ export interface ConformanceReport {
   readonly schema: 'powercontext.conformance.report.v1'
   readonly profile: string
   readonly implementation: string
-  readonly level: 'C1'
+  readonly level: 'C1' | 'C2'
   readonly provenance: {
     readonly contractVersion: number
     readonly baselineCommit: string
@@ -96,4 +98,9 @@ export interface ConformanceReport {
     readonly skipped: number
   }
   readonly cases: readonly CaseOutcome[]
+}
+
+export interface ConformanceReports {
+  readonly client: ConformanceReport
+  readonly core: ConformanceReport
 }

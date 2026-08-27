@@ -23,6 +23,9 @@ export default defineConfig({
       '@powercontext/protocol': fileURLToPath(
         new URL('./packages/protocol/src/index.ts', import.meta.url),
       ),
+      '@powercontext/core': fileURLToPath(
+        new URL('./packages/core/src/index.ts', import.meta.url),
+      ),
     },
   },
   test: {

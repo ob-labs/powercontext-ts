@@ -7,6 +7,7 @@ reference and semantic oracle.
 | --- | --- |
 | Protocol types, operation metadata, and runtime validators | Available (`client` / C1) |
 | Official typed HTTP Client transport | M1 release candidate (`client` / C1) |
+| Deterministic Core primitives | Available (`@powercontext/core`; `sqlite-fts` / C2 canonical evidence; no persistence writes) |
 | SQLite / OceanBase Runtime | Not shipped |
 | HTTP Server, MCP, CLI, Dashboard | Not shipped |
 
