@@ -54,7 +54,11 @@ function projectTypedRef(value: unknown): unknown {
   const family = asString(value['family'])
   const artifactId = asString(value['artifactId'] ?? value['artifact_id'])
   const revision = value['revision']
-  if (family !== undefined && artifactId !== undefined && typeof revision === 'number') {
+  if (
+    family !== undefined &&
+    artifactId !== undefined &&
+    typeof revision === 'number'
+  ) {
     return artifactRefJson(createArtifactRef(family, artifactId, revision))
   }
   return value

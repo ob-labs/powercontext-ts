@@ -76,7 +76,10 @@ export {
   sha256DigestLabel,
 } from './canonical/hash.js'
 export { assertUtf8Budget, codePointLength, utf8ByteLength } from './canonical/utf8.js'
-export { materializeCanonicalInput, parseDomainIntegerToken } from './canonical/input.js'
+export {
+  materializeCanonicalInput,
+  parseDomainIntegerToken,
+} from './canonical/input.js'
 export type { CanonicalInputMode } from './canonical/input.js'
 export { normalizeRefs } from './canonical/refs.js'
 export {

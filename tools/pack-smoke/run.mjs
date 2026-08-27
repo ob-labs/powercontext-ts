@@ -124,6 +124,22 @@ function findNativeBuildFiles(directory, found = []) {
   return found
 }
 
+export function writeSmokeWorkspace(workspace, name, localTarballs) {
+  writeFileSync(
+    join(workspace, 'package.json'),
+    JSON.stringify({
+      name,
+      private: true,
+      type: 'module',
+    }),
+  )
+  const lines = ['overrides:']
+  for (const item of localTarballs) {
+    lines.push(`  "${item.name}": "file:./${item.localFile}"`)
+  }
+  writeFileSync(join(workspace, 'pnpm-workspace.yaml'), `${lines.join('\n')}\n`)
+}
+
 function importPackedGraph(tarballs) {
   const workspace = mkdtempSync(join(tmpdir(), 'powercontext-pack-'))
   const localTarballs = tarballs.map((item) => {
@@ -132,19 +148,7 @@ function importPackedGraph(tarballs) {
     copyFileSync(item.tarball, localPath)
     return { ...item, localFile: fileName }
   })
-  writeFileSync(
-    join(workspace, 'package.json'),
-    JSON.stringify({
-      name: 'pack-smoke',
-      private: true,
-      type: 'module',
-      pnpm: {
-        overrides: Object.fromEntries(
-          localTarballs.map((item) => [item.name, `file:./${item.localFile}`]),
-        ),
-      },
-    }),
-  )
+  writeSmokeWorkspace(workspace, 'pack-smoke', localTarballs)
   for (const item of localTarballs) {
     run('pnpm', ['add', `file:./${item.localFile}`], workspace)
   }
@@ -208,19 +212,7 @@ function assertPureClientInstall(tarballs) {
       copyFileSync(item.tarball, join(workspace, fileName))
       return { ...item, localFile: fileName }
     })
-    writeFileSync(
-      join(workspace, 'package.json'),
-      JSON.stringify({
-        name: 'pure-client-pack-smoke',
-        private: true,
-        type: 'module',
-        pnpm: {
-          overrides: Object.fromEntries(
-            localTarballs.map((item) => [item.name, `file:./${item.localFile}`]),
-          ),
-        },
-      }),
-    )
+    writeSmokeWorkspace(workspace, 'pure-client-pack-smoke', localTarballs)
     let installOutput = ''
     for (const item of localTarballs) {
       installOutput += run(

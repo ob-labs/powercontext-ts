@@ -143,7 +143,10 @@ export class FakeArtifactStore
 
   async latest(artifact: Artifact): Promise<Artifact>
   async latest(family: string, artifactId: string): Promise<Artifact>
-  async latest(familyOrArtifact: string | Artifact, artifactId?: string): Promise<Artifact> {
+  async latest(
+    familyOrArtifact: string | Artifact,
+    artifactId?: string,
+  ): Promise<Artifact> {
     const { family, artifactId: id } = artifactIdentity(familyOrArtifact, artifactId)
     const current = this.headOf(family, id)
     if (current === undefined) {
