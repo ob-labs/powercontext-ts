@@ -15,6 +15,7 @@
  */
 
 import { createHash } from 'node:crypto'
+import { canonicalizeDomainBytes } from './nfc.js'
 
 export const ENTRY_CONTENT_HASH_DOMAIN = Buffer.from('powercontext:entry-content:v1\0')
 export const EMBEDDING_CONTENT_HASH_DOMAIN = Buffer.from(
@@ -27,6 +28,11 @@ export function sha256Canonical(bytes: Uint8Array): string {
 
 export function domainSeparatedHash(domain: Uint8Array, bytes: Uint8Array): string {
   return createHash('sha256').update(domain).update(bytes).digest('hex')
+}
+
+/** Hash a JSON value after domain canonicalization. Do not pass raw JCS bytes. */
+export function hashDomain(domain: Uint8Array, value: unknown): string {
+  return domainSeparatedHash(domain, canonicalizeDomainBytes(value))
 }
 
 export function sha256DigestLabel(bytes: Uint8Array): string {

@@ -63,4 +63,18 @@ describe('ADR 0001 integer boundaries', () => {
     })
     expect(findUnsafeIntegerTokens(raw)).toEqual([])
   })
+
+  it('detects unsafe integral exponent and decimal spellings before JSON.parse rounds them', () => {
+    const exponent = '{"position":9007199254740993e0}'
+    const decimal = '{"position":9007199254740993.0}'
+    expect((JSON.parse(exponent) as { position: number }).position).toBe(
+      9007199254740992,
+    )
+    expect(findUnsafeIntegerTokens(exponent)).toEqual(['9007199254740993e0'])
+    expect(findUnsafeIntegerTokens(decimal)).toEqual(['9007199254740993.0'])
+    expect(findUnsafeIntegerTokens('{"ratio":9007199254740993.5}')).toEqual([])
+    expect(findUnsafeIntegerTokens('{"position":1e1000000000}')).toEqual([
+      '1e1000000000',
+    ])
+  })
 })

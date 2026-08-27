@@ -7,8 +7,9 @@ What do `JSON.parse`, SQLite `INTEGER`, and `JSON.stringify` do past
 
 ## Method
 
-`@powercontext/protocol` exposes `assertSafeInteger`, `bigintToSafeInteger`,
-and `findUnsafeIntegerTokens`. SQLite behavior is in
+`@powercontext/protocol` owns `assertSafeInteger`, `bigintToSafeInteger`,
+and `findUnsafeIntegerTokens`. `@powercontext/core` re-exports that same
+implementation. SQLite behavior is in
 [sqlite-driver.md](sqlite-driver.md).
 
 ## Result

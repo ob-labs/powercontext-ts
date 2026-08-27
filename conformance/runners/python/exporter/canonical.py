@@ -92,6 +92,7 @@ def build_canonical_cases() -> list[dict[str, Any]]:
                 "domain.reserved-object-keys",
                 {"__proto__": {"polluted": True}, "constructor": "preserved"},
             ),
+            canonical_case("domain", "domain.float-1e30", {"value": 1e30}),
             canonical_case(
                 "domain",
                 "domain.invalid.nfc-key-collision",

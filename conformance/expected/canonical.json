@@ -6,6 +6,10 @@
       "sha256": "3999e8d998684ce8374a55244d3f768671cd6071e70d87b94fc277133597bc0d",
       "valid": true
     },
+    "domain.float-1e30": {
+      "canonical": "{\"value\":1e+30}",
+      "valid": true
+    },
     "domain.invalid.nfc-key-collision": {
       "error": "_CanonicalValueError",
       "valid": false

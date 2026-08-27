@@ -2,7 +2,7 @@
 
 - Status: Accepted
 - Date: 2026-08-23
-- Amended: 2026-08-27 (raw JCS vs domain integer split)
+- Amended: 2026-08-27 (raw JCS vs domain integer split; IEEE float vs Python int)
 - Kind: Regular
 - Owners: runtime-owner, conformance-owner
 
@@ -23,13 +23,18 @@ IEEE 754 number。两条权威在这一点上冲突。
    UTF-16 code unit key 排序、无额外空白、拒绝非法 Unicode 与非有限数值。
 2. Python `rfc8785` 在 pinned baseline 上的输出是 oracle。TypeScript 必须与它
    byte-for-byte 一致，包括官方 vectors 与项目 vectors。
-3. 对 `±2^53` 的整数域冲突，按两条路径拆开，禁止混用：
-   - raw JCS（`canonicalizeJson`）跟 RFC 8785 Appendix B，接受该 IEEE 754
-     值并写出 `9007199254740992` / `-9007199254740992`；
-   - project domain（`canonicalizeDomain`、hash、共享 C2 integer fixtures）
-     跟 Python `rfc8785` 与 ADR 0001，拒绝超出 `±(2^53-1)` 的整数。
-   Identity 与 content hash 必须走 domain 路径，不得对未校验的 raw JCS 结果
-   做 domain-separated hash。
+3. 对整数域冲突，按输入形态拆开，禁止混用：
+   - raw JCS（`canonicalizeJson`）跟 RFC 8785 Appendix B，接受有限 IEEE 754
+     值，包括 `±2^53` 与 `1e30`。
+   - 已经解析成 JavaScript `number` 的 domain 值（`canonicalizeDomain`）跟
+     Python `float` / `rfc8785.dumps`：有限 IEEE 数交给 JCS，`1e30` 与
+     Appendix B `±2^53` 都合法。解析后无法区分 `1e30` 与整数 token，不能用
+     `Number.isInteger` 假装对齐 Python `int` 域。
+   - Python `int` 与共享 C2 `decimal-integer` token（以及 raw JSON 的
+     `findUnsafeIntegerTokens`）跟 ADR 0001：超出 `±(2^53-1)` 的整数 token
+     必须拒绝。`json.loads("9007199254740992")` 在 Python 里是 `int`。
+   Identity 与 content hash 必须走 `hashDomain`（内部先 `canonicalizeDomain`），
+   不得对未校验的 raw JCS 结果做 domain-separated hash。
 4. 项目叠加规则同样是契约，不是实现细节：
    - recursive NFC；canonical key 在 NFC 后冲突则拒绝；
    - SourceRef / ArtifactRef 排序与去重；禁止 `localeCompare`；
@@ -49,4 +54,5 @@ IEEE 754 number。两条权威在这一点上冲突。
 - canonical primitives 达到 C2 属于 Runtime 工作，不在 Client C1 范围内。
 - 任何“为了方便改用 JSON.stringify”的补丁都直接否决。
 - 不得为了迁就 Python `IntegerDomainError` 而改掉 raw JCS 的 Appendix B 行为。
-- 不得为了迁就 Appendix B 而放宽 domain / hash 的 safe-integer 拒绝。
+- 不得对已经解析的 IEEE `number`（如 `1e30`）再套 `Number.isInteger` 去对齐
+  Python `int` 域；整数 token 拒绝只发生在 `decimal-integer` / raw JSON lexer。

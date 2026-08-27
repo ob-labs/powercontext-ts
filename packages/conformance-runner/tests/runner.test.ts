@@ -79,7 +79,7 @@ describe('TypeScript conformance runner', () => {
     const provenance = loadProvenance()
     expect(provenance['schema']).toBe('powercontext.conformance.provenance.v1')
     expect(provenance['python_commit']).toHaveLength(40)
-    expect(provenance['exporter_version']).toBe('0.3.0-core')
+    expect(provenance['exporter_version']).toBe('0.3.1-core')
   })
 
   it('covers a request fixture for every frozen operation', () => {

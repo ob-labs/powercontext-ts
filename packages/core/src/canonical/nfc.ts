@@ -15,8 +15,7 @@
  */
 
 import { CanonicalizationError } from '../errors.js'
-import { isSafeInteger } from '../integers.js'
-import { assertJsonValue, canonicalizeJson } from './jcs.js'
+import { assertJsonValue, assertUnicodeScalarString, canonicalizeJson } from './jcs.js'
 
 export type JsonValue =
   | null
@@ -31,6 +30,7 @@ function normalizeMapping(value: Record<string, unknown>): {
 } {
   const normalized = Object.create(null) as { [key: string]: JsonValue }
   for (const [rawKey, rawValue] of Object.entries(value)) {
+    assertUnicodeScalarString(rawKey, 'canonical JSON object key')
     const key = rawKey.normalize('NFC')
     if (Object.hasOwn(normalized, key)) {
       throw new CanonicalizationError(
@@ -47,14 +47,13 @@ export function normalizeUnicode(value: unknown): JsonValue {
     return value
   }
   if (typeof value === 'number') {
-    if (Number.isInteger(value) && !isSafeInteger(value)) {
-      throw new CanonicalizationError(
-        'canonical domain integers must stay inside the JavaScript safe-integer range',
-      )
+    if (!Number.isFinite(value)) {
+      throw new CanonicalizationError('canonical domain numbers must be finite')
     }
     return value
   }
   if (typeof value === 'string') {
+    assertUnicodeScalarString(value, 'canonical text')
     return value.normalize('NFC')
   }
   if (typeof value !== 'object') {

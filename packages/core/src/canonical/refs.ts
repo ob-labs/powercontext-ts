@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+import { artifactRefJson, createArtifactRef } from '../artifacts/models.js'
+import { createSourceRef, sourceRefJson } from '../sources/models.js'
 import { canonicalizeJson } from './jcs.js'
 import { normalizeUnicode, type JsonValue } from './nfc.js'
 
@@ -32,11 +34,38 @@ function compareUtf8(left: string, right: string): number {
   return leftBytes.length - rightBytes.length
 }
 
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === 'object' && value !== null && !Array.isArray(value)
+}
+
+function asString(value: unknown): string | undefined {
+  return typeof value === 'string' ? value : undefined
+}
+
+function projectTypedRef(value: unknown): unknown {
+  if (!isRecord(value)) {
+    return value
+  }
+  const sourceType = asString(value['sourceType'] ?? value['source_type'])
+  const sourceId = asString(value['sourceId'] ?? value['source_id'])
+  if (sourceType !== undefined && sourceId !== undefined) {
+    return sourceRefJson(createSourceRef(sourceType, sourceId))
+  }
+  const family = asString(value['family'])
+  const artifactId = asString(value['artifactId'] ?? value['artifact_id'])
+  const revision = value['revision']
+  if (family !== undefined && artifactId !== undefined && typeof revision === 'number') {
+    return artifactRefJson(createArtifactRef(family, artifactId, revision))
+  }
+  return value
+}
+
 /** NFC-normalize, JCS-encode, exact-dedupe, then sort by UTF-8 canonical bytes. */
 export function normalizeRefs(values: readonly unknown[]): JsonValue[] {
   const byBytes = new Map<string, JsonValue>()
   for (const value of values) {
-    const normalized = normalizeUnicode(value)
+    const projected = projectTypedRef(value)
+    const normalized = normalizeUnicode(projected)
     const encoded = canonicalizeJson(normalized)
     if (!byBytes.has(encoded)) {
       byBytes.set(encoded, JSON.parse(encoded) as JsonValue)

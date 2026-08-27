@@ -23,10 +23,25 @@ import {
   createArtifact,
   createArtifactRef,
   type Artifact,
+  type ArtifactCatalog,
   type ArtifactDraft,
   type ArtifactRef,
   type ArtifactStore,
 } from './models.js'
+
+function isArtifactValue(value: Artifact | ArtifactRef): value is Artifact {
+  return typeof (value as Artifact).asRef === 'function'
+}
+
+function artifactIdentity(
+  familyOrArtifact: string | Artifact,
+  artifactId?: string,
+): { family: string; artifactId: string } {
+  if (typeof familyOrArtifact !== 'string') {
+    return { family: familyOrArtifact.family, artifactId: familyOrArtifact.artifactId }
+  }
+  return { family: familyOrArtifact, artifactId: artifactId ?? '' }
+}
 
 export type ArtifactStoreTrace =
   | {
@@ -52,7 +67,9 @@ export type ArtifactStoreTrace =
       readonly actualRevision: number | null
     }
 
-export class FakeArtifactStore implements ArtifactStore<ArtifactDraft, Artifact> {
+export class FakeArtifactStore
+  implements ArtifactStore<ArtifactDraft, Artifact>, ArtifactCatalog<Artifact>
+{
   private readonly histories = new Map<string, Map<string, Artifact[]>>()
   private readonly events: ArtifactStoreTrace[] = []
 
@@ -114,7 +131,8 @@ export class FakeArtifactStore implements ArtifactStore<ArtifactDraft, Artifact>
     return revised
   }
 
-  async get(ref: ArtifactRef): Promise<Artifact> {
+  async get(target: ArtifactRef | Artifact): Promise<Artifact> {
+    const ref = isArtifactValue(target) ? target.asRef() : target
     const history = this.historyOf(ref.family, ref.artifactId) ?? []
     const found = history.find((item) => item.revision === ref.revision)
     if (found === undefined) {
@@ -123,16 +141,25 @@ export class FakeArtifactStore implements ArtifactStore<ArtifactDraft, Artifact>
     return found
   }
 
-  async latest(family: string, artifactId: string): Promise<Artifact> {
-    const current = this.headOf(family, artifactId)
+  async latest(artifact: Artifact): Promise<Artifact>
+  async latest(family: string, artifactId: string): Promise<Artifact>
+  async latest(familyOrArtifact: string | Artifact, artifactId?: string): Promise<Artifact> {
+    const { family, artifactId: id } = artifactIdentity(familyOrArtifact, artifactId)
+    const current = this.headOf(family, id)
     if (current === undefined) {
-      throw new ArtifactNotFoundError(createArtifactRef(family, artifactId, 1))
+      throw new ArtifactNotFoundError(createArtifactRef(family, id || 'missing', 1))
     }
     return current
   }
 
-  async revisions(family: string, artifactId: string): Promise<readonly Artifact[]> {
-    return [...(this.historyOf(family, artifactId) ?? [])]
+  async revisions(artifact: Artifact): Promise<readonly Artifact[]>
+  async revisions(family: string, artifactId: string): Promise<readonly Artifact[]>
+  async revisions(
+    familyOrArtifact: string | Artifact,
+    artifactId?: string,
+  ): Promise<readonly Artifact[]> {
+    const { family, artifactId: id } = artifactIdentity(familyOrArtifact, artifactId)
+    return [...(this.historyOf(family, id) ?? [])]
   }
 
   traces(): readonly ArtifactStoreTrace[] {

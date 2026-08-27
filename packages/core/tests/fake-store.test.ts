@@ -19,6 +19,8 @@ import {
   ArtifactFamilyMismatchError,
   ArtifactNotFoundError,
   FakeArtifactStore,
+  InvalidArtifactReferenceError,
+  InvalidSourceReferenceError,
   RevisionConflictError,
   createArtifactDraft,
   createArtifactRef,
@@ -155,6 +157,34 @@ describe('FakeArtifactStore revision and head traces', () => {
     expect(Object.isFrozen(storedContent.evidence)).toBe(true)
     expect(await store.latest('handoff', 'handoff-1')).toBe(created)
     expect(store.traces()).toHaveLength(1)
+  })
+
+  it('validates lineage refs when constructing drafts and artifacts', () => {
+    expect(() =>
+      createArtifactDraft({
+        family: 'handoff',
+        content: {},
+        sources: [{ sourceType: '', sourceId: 'session-42' }],
+      }),
+    ).toThrow(InvalidSourceReferenceError)
+    expect(() =>
+      createArtifactDraft({
+        family: 'handoff',
+        content: {},
+        artifacts: [{ family: 'memory', artifactId: 'id', revision: 0 }],
+      }),
+    ).toThrow(InvalidArtifactReferenceError)
+  })
+
+  it('implements ArtifactCatalog by dispatching through the stored artifact', async () => {
+    const store = new FakeArtifactStore()
+    const created = await store.create(
+      'handoff-1',
+      createArtifactDraft({ family: 'handoff', content: { summary: 'v1' } }),
+    )
+    expect(await store.get(created)).toEqual(created)
+    expect(await store.latest(created)).toEqual(created)
+    expect(await store.revisions(created)).toEqual([created])
   })
 
   it('keeps identities containing NUL distinct and protects trace snapshots', async () => {

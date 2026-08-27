@@ -17,9 +17,9 @@
 import {
   ENTRY_CONTENT_HASH_DOMAIN,
   canonicalizeDomain,
-  canonicalizeDomainBytes,
   canonicalizeJson,
-  domainSeparatedHash,
+  hashDomain,
+  materializeCanonicalInput,
   normalizeRefs,
   sha256Canonical,
   utf8ByteLength,
@@ -34,29 +34,7 @@ function record(value: unknown): Record<string, unknown> {
 }
 
 function materializeInput(caseRow: CanonicalCase): unknown {
-  if (caseRow.inputMode === 'json') {
-    return caseRow.input
-  }
-  const input = record(caseRow.input)
-  if (caseRow.inputMode === 'unicode-code-units') {
-    if (!Array.isArray(input['codeUnits'])) {
-      throw new Error('unicode-code-units input must contain codeUnits')
-    }
-    const text = String.fromCharCode(
-      ...input['codeUnits'].map((value) => {
-        if (typeof value !== 'number') {
-          throw new Error('unicode code units must be numbers')
-        }
-        return value
-      }),
-    )
-    return caseRow.kind === 'utf8' ? { text } : { value: text }
-  }
-  const decimal = input['decimal']
-  if (typeof decimal !== 'string') {
-    throw new Error('decimal-integer input must contain decimal text')
-  }
-  return { value: Number(decimal) }
+  return materializeCanonicalInput(caseRow.inputMode, caseRow.kind, caseRow.input)
 }
 
 function evaluateCanonical(
@@ -81,10 +59,7 @@ function evaluateCanonical(
     if (domainInput['domain'] !== 'entry-content') {
       throw new Error(`unknown hash domain: ${String(domainInput['domain'])}`)
     }
-    const digest = domainSeparatedHash(
-      ENTRY_CONTENT_HASH_DOMAIN,
-      canonicalizeDomainBytes(domainInput['value']),
-    )
+    const digest = hashDomain(ENTRY_CONTENT_HASH_DOMAIN, domainInput['value'])
     return digest === expected.sha256 ? undefined : `domain hash mismatch: ${digest}`
   }
   if (caseRow.kind === 'refs') {

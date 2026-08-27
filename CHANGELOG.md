@@ -11,10 +11,10 @@ are published.
 
 - `@powercontext/core` deterministic primitives for the `sqlite-fts`
   profile: RFC 8785 JCS, recursive NFC, domain-separated SHA-256, UTF-8
-  byte budgets, Source/Artifact/Trigger refs, and fake-store revision/head
-  traces. Shared `sqlite-fts` / C2 canonical fixtures, including invalid
-  Unicode, unsafe integer, NFC collision, ref, and domain-hash cases, now run
-  through this package.
+  byte budgets, Source/Artifact refs, Trigger contracts, and fake-store
+  revision/head traces. Shared `sqlite-fts` / C2 canonical fixtures, including
+  invalid Unicode, Python-int token rejection, IEEE `1e30`, NFC collision,
+  ref, and domain-hash cases, now run through this package.
 - Official `@powercontext/client` typed HTTP Client: 52 methods, strict
   transport, runtime validation, and Python Server call-through for the
   `client` / C1 profile.

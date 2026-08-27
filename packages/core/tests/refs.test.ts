@@ -94,4 +94,23 @@ describe('SourceRef and ArtifactRef', () => {
       { artifact_id: 'z', family: 'memory', revision: 2 },
     ])
   })
+
+  it('projects typed camelCase refs onto the Python wire shape before sorting', () => {
+    const sorted = normalizeRefs([
+      createArtifactRef('memory', 'z', 2),
+      createSourceRef('conversation', 'session-42'),
+    ])
+    expect(sorted).toEqual([
+      { artifact_id: 'z', family: 'memory', revision: 2 },
+      { source_id: 'session-42', source_type: 'conversation' },
+    ])
+    expect(canonicalizeDomain(sorted)).toBe(
+      '[{"artifact_id":"z","family":"memory","revision":2},{"source_id":"session-42","source_type":"conversation"}]',
+    )
+  })
+
+  it('sorts by UTF-8 JCS bytes when UTF-16 order would reverse the pair', () => {
+    const sorted = normalizeRefs([{ id: '\u{10000}' }, { id: '\uffff' }])
+    expect(sorted).toEqual([{ id: '\uffff' }, { id: '\u{10000}' }])
+  })
 })

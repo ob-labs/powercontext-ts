@@ -19,6 +19,8 @@ import {
   ArtifactFamilyMismatchError,
   FakeArtifactStore,
   FakeSourceStore,
+  InvalidSourceReferenceError,
+  InvalidSourceResultError,
   PowerContext,
   SourceAdapterNotFoundError,
   SourceCatalog,
@@ -128,6 +130,74 @@ describe('Source catalog and composition root', () => {
         }),
       ),
     ).rejects.toBeInstanceOf(SourceNotFoundError)
+  })
+
+  it('rejects adapter names that do not match the stored source kind', () => {
+    const catalog = new SourceCatalog({
+      backend: new FakeSourceStore(),
+      adapters: [
+        createSourceAdapter({
+          name: 'conversation-v2',
+          matchesInput: (_value): _value is never => false,
+          belongsTo: (source): source is Source => source.sourceKind === 'conversation',
+          async resolve() {
+            return createSource({
+              name: 'session',
+              sourceKind: 'conversation',
+              materialization: 'referenced',
+            })
+          },
+          async read() {
+            return []
+          },
+        }),
+      ],
+    })
+    expect(() =>
+      catalog.asRef(
+        createSource({
+          name: 'session',
+          sourceKind: 'conversation',
+          materialization: 'referenced',
+        }),
+      ),
+    ).toThrow(InvalidSourceResultError)
+  })
+
+  it('snapshots sources and treats identical identities as idempotent', async () => {
+    const store = new FakeSourceStore()
+    const first = createSource({
+      name: 'session-42',
+      sourceKind: 'conversation',
+      materialization: 'captured',
+      description: 'keep',
+    })
+    const stored = await store.add(first)
+    expect(await store.add(first)).toBe(stored)
+    await expect(
+      store.add(
+        createSource({
+          name: 'session-42',
+          sourceKind: 'conversation',
+          materialization: 'referenced',
+        }),
+      ),
+    ).rejects.toBeInstanceOf(SourceConflictError)
+    expect(store.traces().at(-1)).toEqual({
+      op: 'conflict',
+      sourceType: 'conversation',
+      sourceId: 'session-42',
+    })
+  })
+
+  it('rejects an unknown materialization at construction time', () => {
+    expect(() =>
+      createSource({
+        name: 'session',
+        sourceKind: 'conversation',
+        materialization: 'derived' as Source['materialization'],
+      }),
+    ).toThrow(InvalidSourceReferenceError)
   })
 
   it('binds sources, artifacts, and a pure trigger without selecting a database', async () => {

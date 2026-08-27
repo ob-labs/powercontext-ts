@@ -26,7 +26,10 @@ import {
   canonicalizeJson,
   domainSeparatedHash,
   ENTRY_CONTENT_HASH_DOMAIN,
+  hashDomain,
+  materializeCanonicalInput,
   normalizeRefs,
+  normalizeUnicode,
   sha256Canonical,
   utf8ByteLength,
   assertUtf8Budget,
@@ -49,18 +52,7 @@ interface CanonicalExpected {
 }
 
 function materializeCase(row: CanonicalCase): unknown {
-  if (row.inputMode === 'json') {
-    return row.input
-  }
-  const input = row.input as {
-    readonly codeUnits?: readonly number[]
-    readonly decimal?: string
-  }
-  if (row.inputMode === 'unicode-code-units') {
-    const text = String.fromCharCode(...(input.codeUnits ?? []))
-    return row.kind === 'utf8' ? { text } : { value: text }
-  }
-  return { value: Number(input.decimal) }
+  return materializeCanonicalInput(row.inputMode, row.kind, row.input)
 }
 
 function evaluateCase(row: CanonicalCase): Omit<CanonicalExpected, 'valid'> {
@@ -81,12 +73,7 @@ function evaluateCase(row: CanonicalCase): Omit<CanonicalExpected, 'valid'> {
     if (domainInput.domain !== 'entry-content') {
       throw new Error(`unknown hash domain: ${domainInput.domain}`)
     }
-    return {
-      sha256: domainSeparatedHash(
-        ENTRY_CONTENT_HASH_DOMAIN,
-        canonicalizeDomainBytes(domainInput.value),
-      ),
-    }
+    return { sha256: hashDomain(ENTRY_CONTENT_HASH_DOMAIN, domainInput.value) }
   }
   if (row.kind === 'refs') {
     return { canonical: canonicalizeDomain(normalizeRefs(input as readonly unknown[])) }
@@ -133,18 +120,49 @@ describe('project NFC and domain hash', () => {
     expect((Object.prototype as { polluted?: boolean }).polluted).toBeUndefined()
   })
 
-  it('keeps RFC Appendix B ±2^53 on raw JCS and rejects them in the domain path', () => {
+  it('accepts finite IEEE numbers on the domain path, including 1e30 and Appendix B ±2^53', () => {
     expect(canonicalizeJson({ value: 9007199254740992 })).toBe(
       '{"value":9007199254740992}',
     )
-    expect(canonicalizeJson({ value: -9007199254740992 })).toBe(
+    expect(canonicalizeDomain({ value: 9007199254740992 })).toBe(
+      '{"value":9007199254740992}',
+    )
+    expect(canonicalizeDomain({ value: -9007199254740992 })).toBe(
       '{"value":-9007199254740992}',
     )
-    expect(() => canonicalizeDomain({ value: 9007199254740992 })).toThrow(
-      CanonicalizationError,
-    )
-    expect(() => canonicalizeDomain({ value: -9007199254740992 })).toThrow(
-      CanonicalizationError,
+    expect(canonicalizeDomain({ value: 1e30 })).toBe('{"value":1e+30}')
+  })
+
+  it('rejects unsafe Python-int tokens before they become IEEE numbers', () => {
+    expect(() =>
+      materializeCanonicalInput('decimal-integer', 'domain', {
+        decimal: '9007199254740992',
+      }),
+    ).toThrow(CanonicalizationError)
+    expect(() =>
+      materializeCanonicalInput('decimal-integer', 'domain', {
+        decimal: '-9007199254740992',
+      }),
+    ).toThrow(CanonicalizationError)
+    expect(
+      materializeCanonicalInput('decimal-integer', 'domain', {
+        decimal: '9007199254740991',
+      }),
+    ).toEqual({ value: 9007199254740991 })
+  })
+
+  it('rejects unpaired surrogates on the public NFC helper', () => {
+    expect(() => normalizeUnicode('\ud800')).toThrow(CanonicalizationError)
+    expect(() => normalizeUnicode({ '\udc00': 1 })).toThrow(CanonicalizationError)
+  })
+
+  it('hashes JSON values through domain canonical bytes', () => {
+    const digest = hashDomain(ENTRY_CONTENT_HASH_DOMAIN, { b: 1, a: 2 })
+    expect(digest).toBe(
+      domainSeparatedHash(
+        ENTRY_CONTENT_HASH_DOMAIN,
+        canonicalizeDomainBytes({ a: 2, b: 1 }),
+      ),
     )
   })
 

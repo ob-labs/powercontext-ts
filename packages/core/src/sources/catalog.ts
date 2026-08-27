@@ -17,6 +17,7 @@
 import {
   InvalidSourceAdapterError,
   InvalidSourceEntryError,
+  InvalidSourceResultError,
   SourceAdapterNotFoundError,
   SourceConflictError,
   SourceNotFoundError,
@@ -88,6 +89,14 @@ export class SourceCatalog {
       throw new InvalidSourceEntryError(source)
     }
     const adapter = adapterForSource(source, this.adapters)
+    if (adapter.name !== source.sourceKind) {
+      throw new InvalidSourceResultError(
+        adapter.name,
+        'asRef',
+        adapter.name,
+        source.sourceKind,
+      )
+    }
     return createSourceRef(adapter.name, source.name)
   }
 

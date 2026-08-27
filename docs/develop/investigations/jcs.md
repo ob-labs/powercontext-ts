@@ -23,9 +23,10 @@ non-JSON values are rejected.
 The integer-domain row is the documented exception in
 [ADR 0006](../../adr/0006-jcs-hash-authority.md). RFC 8785 Appendix B serializes
 the IEEE 754 value `2^53` as `9007199254740992`. Python `rfc8785==0.1.4`
-rejects the Python `int` `9007199254740992` with `IntegerDomainError`.
-TypeScript raw JCS follows Appendix B; `canonicalizeDomain` follows the Python
-integer domain and ADR 0001.
+rejects the Python `int` `9007199254740992` with `IntegerDomainError`, but
+accepts the IEEE float `1e30`. TypeScript raw JCS and `canonicalizeDomain`
+follow the IEEE / Python `float` path. Shared C2 `decimal-integer` fixtures
+and `findUnsafeIntegerTokens` follow the Python `int` / ADR 0001 token path.
 
 Control:
 
@@ -41,5 +42,4 @@ canonicalize({ b: 1, a: 2 })   === '{"a":2,"b":1}'
 The JCS investigation passed, with the `±2^53` split recorded in ADR 0006.
 Canonical work must ship “strict input checks + canonical serializer” as a
 whole. Do not call `canonicalize` bare. Do not treat `JSON.stringify` as
-canonical bytes. Do not hash raw JCS output that skipped the domain integer
-gate.
+canonical bytes. Do not hash raw JCS output. Identity hashes must call `hashDomain`.

@@ -32,5 +32,7 @@ writes two reports:
 Each report names the profile and C0–C5 level. Canonical JCS, recursive NFC,
 SHA-256, reference normalization, and UTF-8 cases—including expected-invalid
 cases—are executed by `@powercontext/core`, not a runner-local serializer.
-Shared integer-boundary cases use the domain path. Raw JCS keeps RFC 8785
+Shared integer-boundary cases use the `decimal-integer` token path so they
+match Python `int` / `IntegerDomainError`. Finite IEEE numbers such as
+`1e30` stay valid on `canonicalizeDomain`. Raw JCS keeps RFC 8785
 Appendix B `±2^53`; see [ADR 0006](../adr/0006-jcs-hash-authority.md).

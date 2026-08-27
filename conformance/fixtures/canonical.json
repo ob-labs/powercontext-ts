@@ -314,6 +314,19 @@
       ]
     },
     {
+      "expect": "valid",
+      "id": "domain.float-1e30",
+      "input": {
+        "value": 1e+30
+      },
+      "inputMode": "json",
+      "kind": "domain",
+      "tags": [
+        "domain",
+        "valid"
+      ]
+    },
+    {
       "expect": "invalid",
       "id": "domain.invalid.nfc-key-collision",
       "input": {

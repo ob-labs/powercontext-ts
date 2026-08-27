@@ -62,6 +62,16 @@ export function createSourceRef(sourceType: string, sourceId: string): SourceRef
   })
 }
 
+function validateMaterialization(value: string): SourceMaterialization {
+  if (value === 'captured' || value === 'referenced') {
+    return value
+  }
+  throw new InvalidSourceReferenceError(
+    'materialization',
+    'must be captured or referenced',
+  )
+}
+
 export function createSource(input: {
   readonly name: string
   readonly sourceKind: string
@@ -77,7 +87,7 @@ export function createSource(input: {
   const source: Source = {
     name,
     sourceKind,
-    materialization: input.materialization,
+    materialization: validateMaterialization(input.materialization),
   }
   if (input.description !== undefined) {
     return Object.freeze({ ...source, description: input.description })

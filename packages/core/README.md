@@ -8,12 +8,13 @@ UTF-8 byte budgets, reference sort/dedupe, and in-memory fake stores.
 It has no Fastify, database driver, or provider SDK dependency.
 
 Raw RFC 8785 JSON uses `canonicalize` with strict I-JSON checks. Do not use
-`JSON.stringify` as a substitute. RFC Appendix B numbers remain valid in the
-raw helper, including `±2^53`. Python `rfc8785==0.1.4` rejects those values as
-`IntegerDomainError`. The project-domain helper follows that integer domain,
-recursively applies NFC, preserves reserved object keys such as `__proto__`,
-and rejects post-NFC key collisions. Hash identity bytes through the domain
-helper. See ADR 0006.
+`JSON.stringify` as a substitute. Finite IEEE numbers, including Appendix B
+`±2^53` and `1e30`, stay valid on both raw JCS and `canonicalizeDomain`.
+Python `int` tokens outside `±(2^53-1)` are rejected on the shared
+`decimal-integer` fixtures and by `findUnsafeIntegerTokens`. Identity hashes
+must use `hashDomain`, which canonicalizes through the domain helper first.
+Typed Source/Artifact refs are projected to snake_case wire JSON before
+sort/dedupe. See ADR 0006.
 
 UTF-8 helpers reject lone UTF-16 surrogates instead of silently encoding the
 replacement character. Source and Artifact identity limits count Unicode code

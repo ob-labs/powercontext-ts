@@ -17,7 +17,7 @@
 import { InvalidArtifactReferenceError } from '../errors.js'
 import { assertSafeInteger } from '../integers.js'
 import { MAX_ARTIFACT_FAMILY_LENGTH, MAX_ARTIFACT_ID_LENGTH } from '../limits.js'
-import type { SourceRef } from '../sources/models.js'
+import { createSourceRef, type SourceRef } from '../sources/models.js'
 import { immutableSnapshot } from '../snapshot.js'
 
 export interface ArtifactRef {
@@ -81,6 +81,28 @@ function validateRevision(revision: unknown): number {
   }
 }
 
+function requireSourceRef(value: SourceRef): SourceRef {
+  return createSourceRef(value.sourceType, value.sourceId)
+}
+
+function requireArtifactRef(value: ArtifactRef): ArtifactRef {
+  return createArtifactRef(value.family, value.artifactId, value.revision)
+}
+
+function freezeLineage(
+  sources: readonly SourceRef[],
+  artifacts: readonly ArtifactRef[],
+  path: string,
+): ArtifactLineage {
+  return immutableSnapshot(
+    {
+      sources: sources.map((ref) => requireSourceRef(ref)),
+      artifacts: artifacts.map((ref) => requireArtifactRef(ref)),
+    },
+    path,
+  )
+}
+
 export function createArtifactRef(
   family: string,
   artifactId: string,
@@ -99,11 +121,16 @@ export function createArtifactDraft<TContent>(input: {
   readonly sources?: readonly SourceRef[]
   readonly artifacts?: readonly ArtifactRef[]
 }): ArtifactDraft<TContent> {
+  const lineage = freezeLineage(
+    input.sources ?? [],
+    input.artifacts ?? [],
+    'artifact draft lineage',
+  )
   return Object.freeze({
     family: validateIdentity('family', input.family, MAX_ARTIFACT_FAMILY_LENGTH),
     content: immutableSnapshot(input.content, 'artifact draft content'),
-    sources: immutableSnapshot(input.sources ?? [], 'artifact draft sources'),
-    artifacts: immutableSnapshot(input.artifacts ?? [], 'artifact draft artifacts'),
+    sources: lineage.sources,
+    artifacts: lineage.artifacts,
   })
 }
 
@@ -115,11 +142,9 @@ export function createArtifact<TContent>(input: {
   readonly lineage?: ArtifactLineage
 }): Artifact<TContent> {
   const ref = createArtifactRef(input.family, input.artifactId, input.revision)
-  const lineage = immutableSnapshot(
-    {
-      sources: input.lineage?.sources ?? [],
-      artifacts: input.lineage?.artifacts ?? [],
-    },
+  const lineage = freezeLineage(
+    input.lineage?.sources ?? [],
+    input.lineage?.artifacts ?? [],
     'artifact lineage',
   )
   return Object.freeze({
