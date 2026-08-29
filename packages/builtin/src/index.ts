@@ -29,6 +29,11 @@ export {
   PREPARED_CONTEXT_SCHEMA,
   type PreparedContext,
 } from './persistence/context-packer.js'
+export {
+  SQLiteContentSourceStore,
+  type CaptureContentInput,
+  type CapturedContent,
+} from './persistence/content-source-store.js'
 export { SQLiteArtifactStore } from './persistence/artifact-store.js'
 export {
   SQLiteMemoryStore,

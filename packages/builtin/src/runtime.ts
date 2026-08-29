@@ -21,6 +21,10 @@ import {
   type PreparedContext,
 } from './persistence/context-packer.js'
 import {
+  SQLiteContentSourceStore,
+  type CaptureContentInput,
+} from './persistence/content-source-store.js'
+import {
   SQLiteMemoryStore,
   type MemorySearchInput,
   type RememberInput,
@@ -32,6 +36,7 @@ export class ExperimentalRuntime {
   readonly sources: SQLiteSourceStore
   readonly artifacts: SQLiteArtifactStore
   readonly memory: SQLiteMemoryStore
+  readonly contentSources: SQLiteContentSourceStore
   private readonly session
 
   constructor(path: string) {
@@ -39,10 +44,15 @@ export class ExperimentalRuntime {
     this.sources = new SQLiteSourceStore(this.session)
     this.artifacts = new SQLiteArtifactStore(this.session)
     this.memory = new SQLiteMemoryStore(this.session)
+    this.contentSources = new SQLiteContentSourceStore(this.session)
   }
 
   capture(source: Source) {
     return this.sources.add(source)
+  }
+
+  captureContent(input: CaptureContentInput) {
+    return this.contentSources.capture(input)
   }
 
   remember(input: RememberInput) {

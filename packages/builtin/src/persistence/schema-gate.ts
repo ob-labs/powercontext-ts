@@ -44,6 +44,14 @@ CREATE TABLE pc_source (
   description TEXT,
   PRIMARY KEY (source_kind, source_id)
 );
+CREATE TABLE pc_content_source_entry (
+  scope_id TEXT NOT NULL,
+  source_id TEXT NOT NULL,
+  position INTEGER NOT NULL CHECK (position >= 1),
+  content TEXT NOT NULL,
+  metadata_json TEXT,
+  PRIMARY KEY (scope_id, source_id, position)
+);
 CREATE TABLE pc_artifact_version (
   family TEXT NOT NULL,
   artifact_id TEXT NOT NULL,
@@ -92,6 +100,17 @@ CREATE VIRTUAL TABLE pc_memory_entry_fts USING fts5(
   entry_id UNINDEXED,
   searchable_text,
   tokenize = "unicode61 tokenchars '_'"
+);
+`
+
+const ADDITIVE_DDL = `
+CREATE TABLE IF NOT EXISTS pc_content_source_entry (
+  scope_id TEXT NOT NULL,
+  source_id TEXT NOT NULL,
+  position INTEGER NOT NULL CHECK (position >= 1),
+  content TEXT NOT NULL,
+  metadata_json TEXT,
+  PRIMARY KEY (scope_id, source_id, position)
 );
 `
 
@@ -151,6 +170,7 @@ export function ensureExperimentalSchema(
     return
   }
   inspectSchemaGate(database)
+  database.exec(ADDITIVE_DDL)
 }
 
 export function experimentalSchemaDdl(): string {

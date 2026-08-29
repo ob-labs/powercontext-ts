@@ -73,4 +73,28 @@ describe('experimental schema gate', () => {
       rmSync(directory, { recursive: true, force: true })
     }
   })
+
+  it('adds the content journal only to an existing experimental stamp', () => {
+    const directory = mkdtempSync(join(tmpdir(), 'powercontext-additive-'))
+    const path = join(directory, 'experimental.sqlite3')
+    const database = new DatabaseSync(path)
+    database.exec('CREATE TABLE pc_schema_stamp(stamp TEXT PRIMARY KEY)')
+    database
+      .prepare('INSERT INTO pc_schema_stamp(stamp) VALUES (?)')
+      .run(EXPERIMENTAL_DATABASE_STAMP)
+    database.close()
+    const session = openSQLiteSession(path)
+    try {
+      expect(
+        session
+          .prepare(
+            "SELECT name FROM sqlite_master WHERE type = 'table' AND name = 'pc_content_source_entry'",
+          )
+          .get(),
+      ).toEqual({ name: 'pc_content_source_entry' })
+    } finally {
+      session.close()
+      rmSync(directory, { recursive: true, force: true })
+    }
+  })
 })

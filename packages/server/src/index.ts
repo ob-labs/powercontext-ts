@@ -324,17 +324,33 @@ function createApp(options: ExperimentalServerOptions): ExperimentalHttpServer {
     const prepared = await runtime.prepare(body)
     return sendSuccess('prepare_context', 200, prepared, reply)
   })
-  registerJsonRoute(app, 'capture_content_source', async (_request, reply) =>
-    sendError(
+  registerJsonRoute(app, 'capture_content_source', async (request, reply) => {
+    if (runtime === undefined) {
+      return sendError(
+        'capture_content_source',
+        503,
+        errorBody('unavailable', 'database is not ready'),
+        reply,
+      )
+    }
+    const body = request.body as {
+      readonly scope_id: string
+      readonly source_id: string
+      readonly content: string
+      readonly metadata?: Record<string, unknown> | null
+    }
+    const captured = await runtime.captureContent(body)
+    return sendSuccess(
       'capture_content_source',
-      503,
-      errorBody(
-        'unavailable',
-        'content Source capture is unavailable in the experimental skeleton',
-      ),
+      202,
+      {
+        status: 'accepted',
+        source: { name: 'content', source_id: captured.source_id },
+        position: captured.position,
+      },
       reply,
-    ),
-  )
+    )
+  })
   registerJsonRoute(app, 'remember_memory', async (request, reply) => {
     if (runtime === undefined) {
       return sendError(

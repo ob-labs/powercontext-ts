@@ -74,18 +74,67 @@ describe('experimental subset HTTP Server', () => {
     expect(response.headers['x-powercontext-request-id']).toMatch(/^[0-9a-f-]{36}$/)
   })
 
-  it('keeps HTTP content capture unavailable instead of faking acceptance', async () => {
-    const { client } = await start()
-    await expect(
-      client.request('capture_content_source', {
-        scope_id: 'http-scope',
-        source_id: 'source-1',
-        content: 'captured content',
-      }),
-    ).rejects.toMatchObject({
-      statusCode: 503,
-      code: 'unavailable',
+  it('appends content positions across restart without extracting Memory', async () => {
+    const directory = mkdtempSync(join(tmpdir(), 'powercontext-capture-restart-'))
+    directories.push(directory)
+    const dbPath = join(directory, 'runtime.sqlite3')
+    const first = await listen({ host: '127.0.0.1', port: 0, dbPath })
+    servers.push(first)
+    const firstAddress = first.app.server.address()
+    if (firstAddress === null || typeof firstAddress === 'string') {
+      throw new Error('first capture server did not expose a TCP address')
+    }
+    const firstClient = new PowerContextClient({
+      baseUrl: `http://127.0.0.1:${String(firstAddress.port)}`,
     })
+    const firstCapture = await firstClient.capture_content_source({
+      scope_id: 'http-scope',
+      source_id: 'source-1',
+      content: 'first content',
+    })
+    expect(firstCapture).toEqual({
+      status: 'accepted',
+      source: { name: 'content', source_id: 'source-1' },
+      position: 1,
+    })
+    const secondCapture = await firstClient.capture_content_source({
+      scope_id: 'http-scope',
+      source_id: 'source-1',
+      content: 'second content',
+    })
+    expect(secondCapture.position).toBe(2)
+    expect(
+      await firstClient.list_memory_entries({ scope_id: 'http-scope' }),
+    ).toMatchObject({ entries: [] })
+    expect(
+      await firstClient.search_memory({ scope_id: 'http-scope', query: 'content' }),
+    ).toMatchObject({ hits: [] })
+    await first.close()
+    servers.splice(servers.indexOf(first), 1)
+
+    const second = await listen({ host: '127.0.0.1', port: 0, dbPath })
+    servers.push(second)
+    const secondAddress = second.app.server.address()
+    if (secondAddress === null || typeof secondAddress === 'string') {
+      throw new Error('second capture server did not expose a TCP address')
+    }
+    const secondClient = new PowerContextClient({
+      baseUrl: `http://127.0.0.1:${String(secondAddress.port)}`,
+    })
+    const thirdCapture = await secondClient.capture_content_source({
+      scope_id: 'http-scope',
+      source_id: 'source-1',
+      content: 'third content',
+    })
+    expect(thirdCapture.position).toBe(3)
+    await secondClient.remember_memory({
+      scope_id: 'http-scope',
+      kind: 'note',
+      text: 'remembered separately',
+    })
+    expect(
+      await secondClient.list_memory_entries({ scope_id: 'http-scope' }),
+    ).toMatchObject({ entries: [{ text: 'remembered separately' }] })
   })
 
   it('prepares matching CJK memory as a bounded ready context', async () => {

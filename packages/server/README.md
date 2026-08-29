@@ -14,9 +14,9 @@ registered as available. The server listens on `127.0.0.1` only.
 
 ## Pits / intentional gaps
 
-- `capture_content_source` is registered and always returns `503`: HTTP CaptureContent
-  (202 + position) is not the `ExperimentalRuntime.capture()` catalog add, so the
-  server does not fake a `202`.
+- `capture_content_source` experimentally appends content and returns a durable,
+  monotonic position. This is not Python capture parity, does not auto-extract
+  Memory, and is separate from the catalog-only `ExperimentalRuntime.capture()`.
 - Search hit `score` is the placeholder `1`, not BM25; it is not a ranking claim.
 - `entry_id === content_hash`, `entry_version_id === entry_id`, and `version` is
   `1`; this is not Python revision/CAS.

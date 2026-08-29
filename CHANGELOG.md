@@ -16,6 +16,8 @@ are published.
   this package implements that profile or C3; unsupported capabilities return
   structured errors instead of fake success. Experimental `prepare_context`
   uses greedy FTS packing and does not claim Python `PreparedContext` parity.
+  Experimental content capture appends durable positions without Memory
+  extraction and does not claim Python capture parity.
 - Experimental `@powercontext/builtin` Node `node:sqlite` persistence skeleton:
   Analyzer v1-projected FTS, guarded schema stamp, Source/Artifact persistence,
   CAS, and minimal Memory remember/list/get/search. It is not C3 and does not
