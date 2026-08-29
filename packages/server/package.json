@@ -1,7 +1,7 @@
 {
   "name": "@powercontext/server",
   "version": "0.0.0",
-  "description": "HTTP, MCP, Dashboard and observability composition.",
+  "description": "Experimental subset HTTP Server over the TypeScript runtime.",
   "license": "Apache-2.0",
   "type": "module",
   "sideEffects": false,
@@ -26,7 +26,9 @@
   },
   "dependencies": {
     "@powercontext/builtin": "workspace:*",
-    "@powercontext/protocol": "workspace:*"
+    "@powercontext/core": "workspace:*",
+    "@powercontext/protocol": "workspace:*",
+    "fastify": "^5.2.0"
   },
   "publishConfig": {
     "access": "public",

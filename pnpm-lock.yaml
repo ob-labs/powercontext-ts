@@ -131,9 +131,15 @@ importers:
       '@powercontext/builtin':
         specifier: workspace:*
         version: link:../builtin
+      '@powercontext/core':
+        specifier: workspace:*
+        version: link:../core
       '@powercontext/protocol':
         specifier: workspace:*
         version: link:../protocol
+      fastify:
+        specifier: ^5.2.0
+        version: 5.12.1
 
 packages:
 

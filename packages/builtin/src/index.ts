@@ -19,3 +19,22 @@ export const PACKAGE_VERSION = '0.0.0' as const
 export const PACKAGE_ROLE = 'builtin' as const
 export const PACKAGE_PROFILE = 'sqlite-fts' as const
 export const SHARED_DATABASE_WRITES_ALLOWED = false
+
+export { ExperimentalRuntime, openExperimentalRuntime } from './runtime.js'
+export { SQLiteArtifactStore } from './persistence/artifact-store.js'
+export {
+  SQLiteMemoryStore,
+  type MemoryEntry,
+  type MemorySearchInput,
+  type RememberInput,
+} from './persistence/memory-store.js'
+export {
+  EXPERIMENTAL_DATABASE_STAMP,
+  EXPERIMENTAL_SCHEMA_KIND,
+  SchemaGateError,
+  experimentalSchemaDdl,
+  inspectSchemaGate,
+  type SchemaGateKind,
+} from './persistence/schema-gate.js'
+export { SQLiteSession, openSQLiteSession } from './persistence/sqlite-session.js'
+export { SQLiteSourceStore } from './persistence/source-store.js'
