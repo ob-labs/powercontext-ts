@@ -17,6 +17,9 @@ conformance/reports/nightly-openapi-advisory.json
 .eslintcache
 *.tsbuildinfo
 *.tgz
+*.sqlite3
+*.sqlite3-shm
+*.sqlite3-wal
 
 # Python tool caches and local environments
 # Do not ignore tools/contract-sync/ or a future committed uv.lock.

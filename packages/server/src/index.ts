@@ -15,6 +15,15 @@
  */
 
 import { randomUUID } from 'node:crypto'
+import { localhostHostValidation } from '@modelcontextprotocol/fastify'
+import { NodeStreamableHTTPServerTransport } from '@modelcontextprotocol/node'
+import {
+  McpServer,
+  fromJsonSchema,
+  type CallToolResult,
+  type JsonSchemaType,
+  type ToolAnnotations,
+} from '@modelcontextprotocol/server'
 import Fastify, {
   type FastifyInstance,
   type FastifyReply,
@@ -48,6 +57,15 @@ export const EXPERIMENTAL_SUBSET = true
 
 const JSON_CONTENT_TYPE = 'application/json'
 const REQUEST_ID_HEADER = 'X-PowerContext-Request-ID'
+const MCP_PROTOCOL_VERSION = '2025-03-26'
+
+export const EXPERIMENTAL_MCP_TOOL_IDS = [
+  'capture_content_source',
+  'get_memory_entry',
+  'list_memory_entries',
+  'remember_memory',
+  'search_memory',
+] as const
 
 export interface ExperimentalServerOptions {
   readonly dbPath: string
@@ -111,13 +129,17 @@ function sendSuccess(
   value: unknown,
   reply: FastifyReply,
 ): FastifyReply {
+  assertSuccess(operationId, status, value)
+  return reply.code(status).type(JSON_CONTENT_TYPE).send(value)
+}
+
+function assertSuccess(operationId: string, status: number, value: unknown): void {
   const result = validateOperationSuccess(operationId, status, JSON_CONTENT_TYPE, value)
   if (!result.valid) {
     throw new Error(
       `${operationId} produced an invalid success response: ${validationMessages(result.errors)}`,
     )
   }
-  return reply.code(status).type(JSON_CONTENT_TYPE).send(value)
 }
 
 function sendError(
@@ -188,6 +210,265 @@ function wireEntry(entry: MemoryEntry): Record<string, unknown> {
   }
 }
 
+async function captureContentSource(
+  runtime: ExperimentalRuntime,
+  body: unknown,
+): Promise<Record<string, unknown>> {
+  assertRequest('capture_content_source', body)
+  const input = body as {
+    readonly scope_id: string
+    readonly source_id: string
+    readonly content: string
+    readonly metadata?: Record<string, unknown> | null
+  }
+  const captured = await runtime.captureContent(input)
+  const value = {
+    status: 'accepted',
+    source: { name: 'content', source_id: captured.source_id },
+    position: captured.position,
+  }
+  assertSuccess('capture_content_source', 202, value)
+  return value
+}
+
+async function rememberMemory(
+  runtime: ExperimentalRuntime,
+  body: unknown,
+): Promise<Record<string, unknown>> {
+  assertRequest('remember_memory', body)
+  const input = body as {
+    readonly scope_id: string
+    readonly kind: string
+    readonly text: string
+  }
+  const entry = await runtime.remember(input)
+  const value = { memory: artifactReference(entry), entry: wireEntry(entry) }
+  assertSuccess('remember_memory', 200, value)
+  return value
+}
+
+async function searchMemory(
+  runtime: ExperimentalRuntime,
+  body: unknown,
+): Promise<Record<string, unknown>> {
+  assertRequest('search_memory', body)
+  const input = body as {
+    readonly scope_id: string
+    readonly query: string
+    readonly limit?: number
+    readonly mode?: 'auto' | 'fts' | 'vector' | 'hybrid'
+  }
+  const entries = await runtime.search({
+    scope_id: input.scope_id,
+    query: input.query,
+    ...(input.limit === undefined ? {} : { limit: input.limit }),
+    mode: input.mode === 'auto' || input.mode === undefined ? 'fts' : input.mode,
+  })
+  const value = {
+    memory: entries[0] === undefined ? null : artifactReference(entries[0]),
+    mode: 'fts',
+    hits: entries.map((entry) => ({
+      citation: (wireEntry(entry) as { citation: unknown }).citation,
+      text: entry.text,
+      score: 1,
+      matched_by: ['fts'],
+    })),
+  }
+  assertSuccess('search_memory', 200, value)
+  return value
+}
+
+async function listMemoryEntries(
+  runtime: ExperimentalRuntime,
+  body: unknown,
+): Promise<Record<string, unknown>> {
+  assertRequest('list_memory_entries', body)
+  const input = body as { readonly scope_id: string }
+  const entries = await runtime.list(input.scope_id)
+  const value = {
+    ...(entries[0] === undefined ? {} : { memory: artifactReference(entries[0]) }),
+    entries: entries.map(wireEntry),
+  }
+  assertSuccess('list_memory_entries', 200, value)
+  return value
+}
+
+async function getMemoryEntry(
+  runtime: ExperimentalRuntime,
+  body: unknown,
+): Promise<Record<string, unknown>> {
+  assertRequest('get_memory_entry', body)
+  const input = body as {
+    readonly scope_id: string
+    readonly citation: { readonly entry_id: string }
+  }
+  const value = wireEntry(await runtime.get(input.scope_id, input.citation.entry_id))
+  assertSuccess('get_memory_entry', 200, value)
+  return value
+}
+
+const SCOPE_PROPERTY = {
+  type: 'string',
+  minLength: 1,
+  maxLength: 256,
+  pattern: '.*\\S.*',
+} as const
+
+const ARTIFACT_REFERENCE_SCHEMA = {
+  type: 'object',
+  additionalProperties: false,
+  required: ['family', 'artifact_id', 'revision'],
+  properties: {
+    family: { type: 'string' },
+    artifact_id: { type: 'string' },
+    revision: { type: 'integer', minimum: 1 },
+  },
+} as const
+
+const MCP_TOOL_SCHEMAS: Record<
+  (typeof EXPERIMENTAL_MCP_TOOL_IDS)[number],
+  JsonSchemaType
+> = {
+  capture_content_source: {
+    type: 'object',
+    additionalProperties: false,
+    required: ['scope_id', 'source_id', 'content'],
+    properties: {
+      scope_id: SCOPE_PROPERTY,
+      source_id: { type: 'string', minLength: 1, maxLength: 256 },
+      content: { type: 'string', minLength: 1, maxLength: 200000 },
+      metadata: { type: ['object', 'null'], additionalProperties: true },
+    },
+  },
+  remember_memory: {
+    type: 'object',
+    additionalProperties: false,
+    required: ['scope_id', 'kind', 'text'],
+    properties: {
+      scope_id: SCOPE_PROPERTY,
+      kind: { type: 'string', minLength: 1, maxLength: 128 },
+      text: { type: 'string', minLength: 1 },
+      reason: { type: ['string', 'null'], maxLength: 512 },
+      expected_revision: { type: ['integer', 'null'], minimum: 1 },
+    },
+  },
+  search_memory: {
+    type: 'object',
+    additionalProperties: false,
+    required: ['scope_id', 'query'],
+    properties: {
+      scope_id: SCOPE_PROPERTY,
+      query: { type: 'string', minLength: 1, maxLength: 8192 },
+      limit: { type: 'integer', minimum: 1, maximum: 50 },
+      mode: { type: 'string', enum: ['auto', 'fts', 'vector', 'hybrid'] },
+    },
+  },
+  list_memory_entries: {
+    type: 'object',
+    additionalProperties: false,
+    required: ['scope_id'],
+    properties: {
+      scope_id: SCOPE_PROPERTY,
+      include_inactive: { type: 'boolean' },
+    },
+  },
+  get_memory_entry: {
+    type: 'object',
+    additionalProperties: false,
+    required: ['scope_id', 'citation'],
+    properties: {
+      scope_id: SCOPE_PROPERTY,
+      citation: {
+        type: 'object',
+        additionalProperties: false,
+        required: ['memory_ref', 'entry_id', 'entry_version_id'],
+        properties: {
+          memory_ref: ARTIFACT_REFERENCE_SCHEMA,
+          entry_id: { type: 'string' },
+          entry_version_id: { type: 'string' },
+        },
+      },
+    },
+  },
+}
+
+const READ_ONLY_ANNOTATIONS: ToolAnnotations = {
+  readOnlyHint: true,
+  destructiveHint: false,
+  openWorldHint: false,
+}
+
+function mcpText(value: unknown): CallToolResult {
+  return { content: [{ type: 'text', text: JSON.stringify(value) }] }
+}
+
+function registerMcpTools(server: McpServer, runtime: ExperimentalRuntime): void {
+  server.registerTool(
+    'capture_content_source',
+    {
+      description: 'Append experimental ContentSource evidence.',
+      inputSchema: fromJsonSchema(MCP_TOOL_SCHEMAS.capture_content_source),
+      annotations: {
+        readOnlyHint: false,
+        destructiveHint: false,
+        idempotentHint: false,
+        openWorldHint: false,
+      },
+    },
+    async (args) => mcpText(await captureContentSource(runtime, args)),
+  )
+  server.registerTool(
+    'get_memory_entry',
+    {
+      description: 'Get one experimental Memory entry.',
+      inputSchema: fromJsonSchema(MCP_TOOL_SCHEMAS.get_memory_entry),
+      annotations: READ_ONLY_ANNOTATIONS,
+    },
+    async (args) => mcpText(await getMemoryEntry(runtime, args)),
+  )
+  server.registerTool(
+    'list_memory_entries',
+    {
+      description: 'List experimental Memory entries.',
+      inputSchema: fromJsonSchema(MCP_TOOL_SCHEMAS.list_memory_entries),
+      annotations: READ_ONLY_ANNOTATIONS,
+    },
+    async (args) => mcpText(await listMemoryEntries(runtime, args)),
+  )
+  server.registerTool(
+    'remember_memory',
+    {
+      description: 'Remember one experimental Memory entry.',
+      inputSchema: fromJsonSchema(MCP_TOOL_SCHEMAS.remember_memory),
+      annotations: {
+        readOnlyHint: false,
+        destructiveHint: false,
+        idempotentHint: true,
+        openWorldHint: false,
+      },
+    },
+    async (args) => mcpText(await rememberMemory(runtime, args)),
+  )
+  server.registerTool(
+    'search_memory',
+    {
+      description: 'Search experimental Memory using FTS.',
+      inputSchema: fromJsonSchema(MCP_TOOL_SCHEMAS.search_memory),
+      annotations: READ_ONLY_ANNOTATIONS,
+    },
+    async (args) => mcpText(await searchMemory(runtime, args)),
+  )
+}
+
+function createMcpServer(runtime: ExperimentalRuntime): McpServer {
+  const server = new McpServer(
+    { name: '@powercontext/server-experimental', version: PACKAGE_VERSION },
+    { supportedProtocolVersions: [MCP_PROTOCOL_VERSION] },
+  )
+  registerMcpTools(server, runtime)
+  return server
+}
+
 function registerJsonRoute(
   app: FastifyInstance,
   operationId: string,
@@ -253,6 +534,13 @@ function handleError(
 
 function createApp(options: ExperimentalServerOptions): ExperimentalHttpServer {
   const app = Fastify({ logger: false })
+  const mcpSessions = new Map<
+    string,
+    {
+      readonly server: McpServer
+      readonly transport: NodeStreamableHTTPServerTransport
+    }
+  >()
   let runtime: ExperimentalRuntime | undefined
   let runtimeError: unknown
   const runtimeReady = openExperimentalRuntime({ path: options.dbPath })
@@ -266,6 +554,80 @@ function createApp(options: ExperimentalServerOptions): ExperimentalHttpServer {
   app.addHook('onRequest', async (_request, reply) => {
     reply.header(REQUEST_ID_HEADER, randomUUID())
   })
+  app.addHook('onRequest', localhostHostValidation())
+
+  const sessionIdFromRequest = (request: FastifyRequest): string | undefined => {
+    const value = request.headers['mcp-session-id']
+    return Array.isArray(value) ? value[0] : value
+  }
+
+  const isInitializeRequest = (request: FastifyRequest): boolean => {
+    if (request.method !== 'POST') {
+      return false
+    }
+    const body = request.body
+    return (
+      typeof body === 'object' &&
+      body !== null &&
+      !Array.isArray(body) &&
+      'method' in body &&
+      body.method === 'initialize'
+    )
+  }
+
+  const createMcpSession = async (): Promise<{
+    readonly server: McpServer
+    readonly transport: NodeStreamableHTTPServerTransport
+  }> => {
+    if (runtime === undefined) {
+      throw new UnavailableError('database is not ready')
+    }
+    const server = createMcpServer(runtime)
+    const transport = new NodeStreamableHTTPServerTransport({
+      sessionIdGenerator: randomUUID,
+      onsessioninitialized: (sessionId) => {
+        mcpSessions.set(sessionId, { server, transport })
+      },
+      onsessionclosed: (sessionId) => {
+        mcpSessions.delete(sessionId)
+      },
+    })
+    await server.connect(transport)
+    return { server, transport }
+  }
+
+  const handleMcpRequest = async (
+    request: FastifyRequest,
+    reply: FastifyReply,
+  ): Promise<unknown> => {
+    await runtimeReady
+    if (runtime === undefined) {
+      return reply
+        .code(503)
+        .type(JSON_CONTENT_TYPE)
+        .send(errorBody('unavailable', 'database is not ready'))
+    }
+    const sessionId = sessionIdFromRequest(request)
+    if (isInitializeRequest(request)) {
+      const session = await createMcpSession()
+      return session.transport.handleRequest(request.raw, reply.raw, request.body)
+    }
+    const session = sessionId === undefined ? undefined : mcpSessions.get(sessionId)
+    if (session === undefined) {
+      return reply
+        .code(404)
+        .type(JSON_CONTENT_TYPE)
+        .send({
+          jsonrpc: '2.0',
+          error: { code: -32001, message: 'Session not found' },
+          id: null,
+        })
+    }
+    return session.transport.handleRequest(request.raw, reply.raw, request.body)
+  }
+
+  app.post('/mcp', handleMcpRequest)
+  app.get('/mcp', handleMcpRequest)
 
   registerJsonRoute(app, 'get_liveness', async (_request, reply) =>
     sendSuccess('get_liveness', 200, { status: 'ok' }, reply),
@@ -333,21 +695,10 @@ function createApp(options: ExperimentalServerOptions): ExperimentalHttpServer {
         reply,
       )
     }
-    const body = request.body as {
-      readonly scope_id: string
-      readonly source_id: string
-      readonly content: string
-      readonly metadata?: Record<string, unknown> | null
-    }
-    const captured = await runtime.captureContent(body)
     return sendSuccess(
       'capture_content_source',
       202,
-      {
-        status: 'accepted',
-        source: { name: 'content', source_id: captured.source_id },
-        position: captured.position,
-      },
+      await captureContentSource(runtime, request.body),
       reply,
     )
   })
@@ -360,16 +711,10 @@ function createApp(options: ExperimentalServerOptions): ExperimentalHttpServer {
         reply,
       )
     }
-    const body = request.body as {
-      readonly scope_id: string
-      readonly kind: string
-      readonly text: string
-    }
-    const entry = await runtime.remember(body)
     return sendSuccess(
       'remember_memory',
       200,
-      { memory: artifactReference(entry), entry: wireEntry(entry) },
+      await rememberMemory(runtime, request.body),
       reply,
     )
   })
@@ -382,32 +727,10 @@ function createApp(options: ExperimentalServerOptions): ExperimentalHttpServer {
         reply,
       )
     }
-    const body = request.body as {
-      readonly scope_id: string
-      readonly query: string
-      readonly limit?: number
-      readonly mode?: 'auto' | 'fts' | 'vector' | 'hybrid'
-    }
-    const entries = await runtime.search({
-      scope_id: body.scope_id,
-      query: body.query,
-      ...(body.limit === undefined ? {} : { limit: body.limit }),
-      mode: body.mode === 'auto' || body.mode === undefined ? 'fts' : body.mode,
-    })
-    const hits = entries.map((entry) => ({
-      citation: (wireEntry(entry) as { citation: unknown }).citation,
-      text: entry.text,
-      score: 1,
-      matched_by: ['fts'],
-    }))
     return sendSuccess(
       'search_memory',
       200,
-      {
-        memory: entries[0] === undefined ? null : artifactReference(entries[0]),
-        mode: 'fts',
-        hits,
-      },
+      await searchMemory(runtime, request.body),
       reply,
     )
   })
@@ -420,15 +743,10 @@ function createApp(options: ExperimentalServerOptions): ExperimentalHttpServer {
         reply,
       )
     }
-    const body = request.body as { readonly scope_id: string }
-    const entries = await runtime.list(body.scope_id)
     return sendSuccess(
       'list_memory_entries',
       200,
-      {
-        ...(entries[0] === undefined ? {} : { memory: artifactReference(entries[0]) }),
-        entries: entries.map(wireEntry),
-      },
+      await listMemoryEntries(runtime, request.body),
       reply,
     )
   })
@@ -441,12 +759,12 @@ function createApp(options: ExperimentalServerOptions): ExperimentalHttpServer {
         reply,
       )
     }
-    const body = request.body as {
-      readonly scope_id: string
-      readonly citation: { readonly entry_id: string }
-    }
-    const entry = await runtime.get(body.scope_id, body.citation.entry_id)
-    return sendSuccess('get_memory_entry', 200, wireEntry(entry), reply)
+    return sendSuccess(
+      'get_memory_entry',
+      200,
+      await getMemoryEntry(runtime, request.body),
+      reply,
+    )
   })
 
   app.setNotFoundHandler((_request, reply) => sendUnknownError(reply))
@@ -465,6 +783,10 @@ function createApp(options: ExperimentalServerOptions): ExperimentalHttpServer {
     },
     async close(): Promise<void> {
       runtime?.close()
+      await Promise.all(
+        [...mcpSessions.values()].map(async (session) => session.server.close()),
+      )
+      mcpSessions.clear()
       await app.close()
     },
   }

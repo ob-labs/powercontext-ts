@@ -13,18 +13,32 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
+    "./serve": {
+      "types": "./dist/serve.d.ts",
+      "import": "./dist/serve.js"
+    },
+    "./setup-codex": {
+      "types": "./dist/setup-codex.d.ts",
+      "import": "./dist/setup-codex.js"
+    },
     "./package.json": "./package.json"
   },
   "files": [
     "dist",
+    "codex-plugin",
     "LICENSE",
     "README.md"
   ],
   "scripts": {
     "build": "tsdown",
+    "experimental:serve": "tsx src/serve.ts",
+    "experimental:setup-codex": "tsx src/setup-codex.ts",
     "typecheck": "tsc --noEmit -p tsconfig.json"
   },
   "dependencies": {
+    "@modelcontextprotocol/fastify": "2.0.0",
+    "@modelcontextprotocol/node": "2.0.0",
+    "@modelcontextprotocol/server": "2.0.0",
     "@powercontext/builtin": "workspace:*",
     "@powercontext/core": "workspace:*",
     "@powercontext/protocol": "workspace:*",

@@ -1,0 +1,19 @@
+{
+  "name": "powercontext-experimental",
+  "version": "0.1.0",
+  "description": "Experimental PowerContext prompt preparation and five-tool MCP access.",
+  "author": {
+    "name": "PowerContext contributors"
+  },
+  "license": "Apache-2.0",
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "displayName": "PowerContext Experimental",
+    "shortDescription": "Prepare prompts and access experimental local memory.",
+    "longDescription": "Connects Codex to the loopback-only experimental TypeScript PowerContext server. It injects prepared memory before prompts and exposes exactly five MCP tools.",
+    "developerName": "PowerContext contributors",
+    "category": "Productivity",
+    "capabilities": ["Hooks", "MCP"],
+    "defaultPrompt": ["Search my experimental PowerContext memory."]
+  }
+}

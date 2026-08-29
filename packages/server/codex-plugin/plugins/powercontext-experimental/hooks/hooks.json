@@ -1,0 +1,17 @@
+{
+  "description": "Fail-open experimental prompt preparation and capture.",
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${PLUGIN_ROOT}/scripts/user-prompt-submit.mjs\"",
+            "timeout": 5,
+            "statusMessage": "Preparing experimental PowerContext"
+          }
+        ]
+      }
+    ]
+  }
+}

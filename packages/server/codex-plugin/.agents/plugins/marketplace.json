@@ -1,0 +1,20 @@
+{
+  "name": "powercontext-experimental-local",
+  "interface": {
+    "displayName": "PowerContext Experimental Local"
+  },
+  "plugins": [
+    {
+      "name": "powercontext-experimental",
+      "source": {
+        "source": "local",
+        "path": "./plugins/powercontext-experimental"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_USE"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

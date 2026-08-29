@@ -17,7 +17,15 @@ are published.
   structured errors instead of fake success. Experimental `prepare_context`
   uses greedy FTS packing and does not claim Python `PreparedContext` parity.
   Experimental content capture appends durable positions without Memory
-  extraction and does not claim Python capture parity.
+  extraction and does not claim Python capture parity. The same loopback
+  process can now expose exactly five implemented MCP tools plus the REST
+  subset through an experimental serve entry; this is not M4 or a shipped CLI.
+  The Streamable HTTP endpoint now keeps a stateful session transport with
+  `POST` + `GET` and `Mcp-Session-Id` follow-up support for direct Codex
+  Desktop/CLI enumeration. A separate experimental Node Codex plugin and setup
+  renderer provide fail-open prompt preparation/capture plus the same five MCP
+  tools; they do not port the Python plugin, handoff Skill, work surface, or
+  22-tool allowlist.
 - Experimental `@powercontext/builtin` Node `node:sqlite` persistence skeleton:
   Analyzer v1-projected FTS, guarded schema stamp, Source/Artifact persistence,
   CAS, and minimal Memory remember/list/get/search. It is not C3 and does not

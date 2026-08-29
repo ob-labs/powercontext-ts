@@ -20,6 +20,9 @@ Server, MCP, and CLI are not shipped.
 See [Current status](docs/user/README.md) and the
 [compatibility policy](docs/policies/compatibility.md).
 
+Experimental subset Server, MCP, and Codex dogfood steps (not shipped) live
+in [`packages/server/README.md`](packages/server/README.md).
+
 ## Workspace commands
 
 ```text
