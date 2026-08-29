@@ -302,11 +302,28 @@ function createApp(options: ExperimentalServerOptions): ExperimentalHttpServer {
         external_skill_registry: false,
         handoff_generation: false,
         search_modes: ['fts'],
-        context_versions: [],
+        context_versions: ['powercontext.prepared-context.v1'],
       },
       reply,
     ),
   )
+  registerJsonRoute(app, 'prepare_context', async (request, reply) => {
+    if (runtime === undefined) {
+      return sendError(
+        'prepare_context',
+        503,
+        errorBody('unavailable', 'database is not ready'),
+        reply,
+      )
+    }
+    const body = request.body as {
+      readonly scope_id: string
+      readonly query: string
+      readonly max_bytes?: number
+    }
+    const prepared = await runtime.prepare(body)
+    return sendSuccess('prepare_context', 200, prepared, reply)
+  })
   registerJsonRoute(app, 'capture_content_source', async (_request, reply) =>
     sendError(
       'capture_content_source',

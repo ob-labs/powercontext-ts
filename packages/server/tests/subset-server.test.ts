@@ -18,6 +18,7 @@ import { mkdtempSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { afterEach, describe, expect, it } from 'vitest'
+import { utf8ByteLength } from '../../core/src/index.js'
 import { PowerContextClient } from '../../client/src/index.js'
 import { listen, type ExperimentalHttpServer } from '../src/index.js'
 
@@ -68,7 +69,7 @@ describe('experimental subset HTTP Server', () => {
     expect(capabilities.search_modes).toEqual(['fts'])
     expect(capabilities.memory_extraction).toBe(false)
     expect(capabilities.handoff_generation).toBe(false)
-    expect(capabilities.context_versions).toEqual([])
+    expect(capabilities.context_versions).toContain('powercontext.prepared-context.v1')
     const response = await server.app.inject({ method: 'GET', url: '/health/live' })
     expect(response.headers['x-powercontext-request-id']).toMatch(/^[0-9a-f-]{36}$/)
   })
@@ -84,6 +85,77 @@ describe('experimental subset HTTP Server', () => {
     ).rejects.toMatchObject({
       statusCode: 503,
       code: 'unavailable',
+    })
+  })
+
+  it('prepares matching CJK memory as a bounded ready context', async () => {
+    const { client } = await start()
+    await client.remember_memory({
+      scope_id: 'http-scope',
+      kind: 'note',
+      text: '中文 context hit',
+    })
+    const prepared = await client.prepare_context({
+      scope_id: 'http-scope',
+      query: '中文',
+    })
+    expect(prepared.status).toBe('ready')
+    expect(prepared.schema).toBe('powercontext.prepared-context.v1')
+    expect(prepared.content).toContain('中文 context hit')
+    if (prepared.content === null) {
+      throw new Error('prepared context did not contain content')
+    }
+    expect(prepared.content_bytes).toBe(utf8ByteLength(prepared.content))
+  })
+
+  it('returns an honest empty context when no memory matches', async () => {
+    const { client } = await start()
+    const prepared = await client.prepare_context({
+      scope_id: 'http-scope',
+      query: 'no matching memory',
+    })
+    expect(prepared).toEqual({
+      schema: 'powercontext.prepared-context.v1',
+      status: 'empty',
+      content: null,
+      content_bytes: 0,
+    })
+  })
+
+  it('skips an oversized hit instead of truncating it', async () => {
+    const { client } = await start()
+    await client.remember_memory({
+      scope_id: 'http-scope',
+      kind: 'note',
+      text: 'a'.repeat(513),
+    })
+    const prepared = await client.prepare_context({
+      scope_id: 'http-scope',
+      query: 'a',
+      max_bytes: 512,
+    })
+    expect(prepared).toEqual({
+      schema: 'powercontext.prepared-context.v1',
+      status: 'empty',
+      content: null,
+      content_bytes: 0,
+    })
+  })
+
+  it('rejects max_bytes outside the protocol budget', async () => {
+    const { server } = await start()
+    const response = await server.app.inject({
+      method: 'POST',
+      url: '/v1/context/prepare',
+      payload: {
+        scope_id: 'http-scope',
+        query: 'memory',
+        max_bytes: 511,
+      },
+    })
+    expect(response.statusCode).toBe(422)
+    expect(response.json()).toMatchObject({
+      error: { code: 'invalid_request' },
     })
   })
 

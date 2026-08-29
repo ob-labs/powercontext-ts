@@ -17,6 +17,10 @@
 import type { Source } from '@powercontext/core'
 import { SQLiteArtifactStore } from './persistence/artifact-store.js'
 import {
+  packPreparedContext,
+  type PreparedContext,
+} from './persistence/context-packer.js'
+import {
   SQLiteMemoryStore,
   type MemorySearchInput,
   type RememberInput,
@@ -55,6 +59,19 @@ export class ExperimentalRuntime {
 
   search(input: MemorySearchInput) {
     return this.memory.search(input)
+  }
+
+  async prepare(input: {
+    readonly scope_id: string
+    readonly query: string
+    readonly max_bytes?: number
+  }): Promise<PreparedContext> {
+    const entries = await this.search({
+      scope_id: input.scope_id,
+      query: input.query,
+      mode: 'fts',
+    })
+    return packPreparedContext(entries, input.max_bytes)
   }
 
   close(): void {

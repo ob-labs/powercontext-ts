@@ -4,7 +4,7 @@ Experimental subset HTTP Server for the TypeScript-created experimental
 database. It exposes health, capabilities, Source-content availability, and
 minimal Memory remember/search/list/get over Fastify, using the frozen
 `@powercontext/protocol` validators and the existing `@powercontext/builtin`
-runtime.
+runtime. It also exposes experimental `prepare_context` greedy FTS packing.
 
 `PACKAGE_PROFILE` remains `sqlite-fts` as the intended M2 product-line name,
 but this package does not claim the `sqlite-fts` implementation or C3. This is
@@ -22,3 +22,6 @@ registered as available. The server listens on `127.0.0.1` only.
   `1`; this is not Python revision/CAS.
 - `DatabaseSync` calls are synchronous and can block the Node event loop;
   exclusive-writer protection remains process-local.
+
+`prepare_context` is experimental greedy FTS packing, not Python
+`PreparedContext` parity. Search scores are unused by the packer.
