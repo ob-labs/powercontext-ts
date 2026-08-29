@@ -1,7 +1,7 @@
 {
   "name": "@powercontext/builtin",
   "version": "0.0.0",
-  "description": "Official Node Runtime, persistence and inference adapters.",
+  "description": "Experimental Node persistence skeleton and adapters.",
   "license": "Apache-2.0",
   "type": "module",
   "sideEffects": false,

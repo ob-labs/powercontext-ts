@@ -62,6 +62,12 @@ export {
 } from './integers.js'
 export { canonicalizeJson, canonicalizeJsonBytes } from './canonical/jcs.js'
 export {
+  ANALYZER_ID,
+  admitsFtsText,
+  analyzeText,
+  ftsMatchQuery,
+} from './canonical/analyzer.js'
+export {
   canonicalizeDomain,
   canonicalizeDomainBytes,
   normalizeUnicode,

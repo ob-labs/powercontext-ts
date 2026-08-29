@@ -9,6 +9,11 @@ are published.
 
 ### Added
 
+- Experimental `@powercontext/builtin` Node `node:sqlite` persistence skeleton:
+  Analyzer v1-projected FTS, guarded schema stamp, Source/Artifact persistence,
+  CAS, and minimal Memory remember/list/get/search. It is not C3 and does not
+  write the shared Python database; `DatabaseSync` event-loop blocking remains
+  an explicit documented pit.
 - `@powercontext/core` deterministic primitives for the `sqlite-fts`
   profile: RFC 8785 JCS, recursive NFC, domain-separated SHA-256, UTF-8
   byte budgets, Source/Artifact refs, Trigger contracts, and fake-store
