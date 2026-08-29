@@ -14,12 +14,28 @@
  * limitations under the License.
  */
 
+import { readFileSync } from 'node:fs'
 import { describe, expect, it } from 'vitest'
-import { PACKAGE_NAME, PACKAGE_ROLE } from '../src/index.js'
+import {
+  EXPERIMENTAL_SUBSET,
+  PACKAGE_NAME,
+  PACKAGE_PROFILE,
+  PACKAGE_ROLE,
+} from '../src/index.js'
 
 describe('@powercontext/server skeleton', () => {
   it('exports the reserved server composition identity', () => {
     expect(PACKAGE_NAME).toBe('@powercontext/server')
     expect(PACKAGE_ROLE).toBe('server')
+    expect(PACKAGE_PROFILE).toBe('sqlite-fts')
+    expect(EXPERIMENTAL_SUBSET).toBe(true)
+  })
+
+  it('keeps the user status honest about the unshipped HTTP Server', () => {
+    const userReadme = readFileSync(
+      new URL('../../../docs/user/README.md', import.meta.url),
+      'utf8',
+    )
+    expect(userReadme).toContain('| HTTP Server, MCP, CLI, Dashboard | Not shipped |')
   })
 })
